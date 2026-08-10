@@ -2,740 +2,847 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PROJECT X</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 :root{
---bg:#050706;
---panel:#080d09;
---panel2:#0b120d;
---line:#18321f;
---green:#39ff88;
---green2:#1bd965;
---text:#e8f5eb;
---muted:#718077;
---red:#ff5570;
---yellow:#ffd75a;
+    --bg:#070909;
+    --card:#101313;
+    --card2:#141818;
+    --border:#202727;
+    --green:#55f28a;
+    --green-dark:#193d27;
+    --text:#f1f5f2;
+    --muted:#7d8982;
+    --danger:#ff5c72;
+    --warning:#ffd45c;
 }
 
 body{
-background:
-linear-gradient(rgba(57,255,136,.025) 1px,transparent 1px),
-linear-gradient(90deg,rgba(57,255,136,.025) 1px,transparent 1px),
-var(--bg);
-background-size:35px 35px;
-color:var(--text);
-font-family:Arial,Helvetica,sans-serif;
-min-height:100vh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+    min-height:100vh;
 }
 
-button,input,textarea,select{font:inherit}
-
-button{cursor:pointer}
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar{
-position:fixed;
-left:0;
-top:0;
-width:220px;
-height:100vh;
-background:rgba(5,7,6,.97);
-border-right:1px solid var(--line);
-padding:25px 18px;
-z-index:20;
+    position:fixed;
+    left:0;
+    top:0;
+    width:240px;
+    height:100vh;
+    background:#0b0e0e;
+    border-right:1px solid var(--border);
+    padding:28px 20px;
+    z-index:20;
 }
 
-.logo{
-font-size:34px;
-font-weight:900;
-letter-spacing:6px;
-color:var(--green);
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:45px;
 }
 
-.logo-sub{
-font-size:9px;
-letter-spacing:3px;
-color:var(--muted);
-margin-top:4px;
-margin-bottom:45px;
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--green);
+    color:#061008;
+    font-weight:900;
+    font-size:21px;
 }
 
-.nav-title{
-font-size:9px;
-letter-spacing:2px;
-color:#506057;
-margin:20px 10px 8px;
+.brand-text{
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.brand-text span{
+    color:var(--green);
+}
+
+.menu-title{
+    font-size:10px;
+    color:#58635d;
+    letter-spacing:2px;
+    margin:25px 12px 10px;
 }
 
 .nav button{
-width:100%;
-background:transparent;
-border:0;
-color:#89968e;
-text-align:left;
-padding:13px 10px;
-font-size:13px;
-transition:.2s;
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#89948e;
+    padding:13px 14px;
+    text-align:left;
+    border-radius:10px;
+    margin-bottom:4px;
+    cursor:pointer;
+    font-size:13px;
+    transition:.2s;
 }
 
 .nav button:hover,
 .nav button.active{
-color:var(--green);
-background:#0b170e;
-border-left:2px solid var(--green);
+    color:var(--text);
+    background:#151b18;
 }
 
-.system{
-position:absolute;
-bottom:25px;
-left:18px;
-right:18px;
-border-top:1px solid var(--line);
-padding-top:18px;
-font-size:9px;
-color:#56645b;
+.nav button.active{
+    color:var(--green);
 }
 
-.online{color:var(--green)}
+.sidebar-bottom{
+    position:absolute;
+    left:20px;
+    right:20px;
+    bottom:25px;
+    border-top:1px solid var(--border);
+    padding-top:20px;
+    color:#66716b;
+    font-size:10px;
+}
+
+.online{
+    color:var(--green);
+}
+
+/* =========================
+   MAIN
+========================= */
 
 .main{
-margin-left:220px;
-padding:28px 35px;
-max-width:1500px;
+    margin-left:240px;
+    padding:30px 40px;
+    max-width:1550px;
 }
 
 .topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid var(--line);
-padding-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
 }
 
-.topbar h1{
-font-size:18px;
-letter-spacing:3px;
-font-weight:500;
+.topbar-left h1{
+    font-size:26px;
+    letter-spacing:-1px;
 }
 
-.topbar h1 span{color:var(--green)}
+.topbar-left p{
+    color:var(--muted);
+    margin-top:6px;
+    font-size:13px;
+}
 
 .clock{
-font-family:monospace;
-color:var(--muted);
-font-size:12px;
+    color:var(--muted);
+    font-family:monospace;
+    font-size:12px;
 }
 
-.command{
-margin-top:28px;
-border:1px solid var(--line);
-background:rgba(8,14,10,.75);
-padding:25px;
-position:relative;
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    background:
+    radial-gradient(circle at 85% 20%,rgba(85,242,138,.12),transparent 30%),
+    linear-gradient(135deg,#101513,#0b0f0d);
 }
 
-.command:before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:2px;
-background:var(--green);
-box-shadow:0 0 15px var(--green);
+.hero:after{
+    content:"";
+    position:absolute;
+    width:230px;
+    height:230px;
+    border:1px solid rgba(85,242,138,.08);
+    border-radius:50%;
+    right:-70px;
+    bottom:-110px;
 }
 
-.command-label{
-color:var(--muted);
-font-size:9px;
-letter-spacing:3px;
-margin-bottom:8px;
+.hero-label{
+    color:var(--green);
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:12px;
 }
 
-.command h2{
-font-size:28px;
-letter-spacing:2px;
+.hero h2{
+    font-size:34px;
+    max-width:700px;
+    letter-spacing:-1px;
 }
 
-.command p{
-color:#77837b;
-margin-top:8px;
-font-size:13px;
+.hero p{
+    color:var(--muted);
+    margin-top:10px;
+    max-width:650px;
+    line-height:1.6;
 }
+
+/* =========================
+   STATS
+========================= */
 
 .stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:1px;
-margin:25px 0;
-border:1px solid var(--line);
-background:var(--line);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin:20px 0;
 }
 
 .stat{
-background:var(--panel);
-padding:20px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
 }
 
-.stat small{
-color:#59675f;
-font-size:9px;
-letter-spacing:2px;
+.stat-label{
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:1px;
 }
 
-.stat strong{
-display:block;
-font-family:monospace;
-font-size:28px;
-color:var(--green);
-margin-top:8px;
+.stat-value{
+    font-size:30px;
+    font-weight:700;
+    margin-top:10px;
 }
+
+.stat-value.green{
+    color:var(--green);
+}
+
+/* =========================
+   TOOLBAR
+========================= */
 
 .toolbar{
-display:flex;
-gap:10px;
-margin:25px 0 15px;
+    display:flex;
+    gap:10px;
+    margin:25px 0;
 }
 
 .search{
-flex:1;
-background:#080d0a;
-border:1px solid var(--line);
-color:white;
-padding:13px;
-outline:none;
+    flex:1;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:13px 15px;
+    color:white;
+    outline:none;
 }
 
-.search:focus{border-color:var(--green)}
-
-.action{
-background:#0b160e;
-border:1px solid #285335;
-color:var(--green);
-padding:12px 16px;
+.search:focus{
+    border-color:#355f43;
 }
 
-.action:hover{
-background:#102016;
+.btn{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    padding:12px 17px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.section-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:25px 0 14px;
+.btn:hover{
+    background:var(--card2);
 }
 
-.section-head h2{
-font-size:12px;
-letter-spacing:3px;
-font-weight:500;
+.btn-primary{
+    background:var(--green);
+    color:#061008;
+    border-color:var(--green);
+    font-weight:700;
 }
 
-.section-head span{
-color:#4d5b52;
-font-size:10px;
+.btn-danger{
+    color:var(--danger);
 }
+
+/* =========================
+   SECTION
+========================= */
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0 15px;
+}
+
+.section-title h2{
+    font-size:17px;
+}
+
+.section-title span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* =========================
+   PROJECT CARDS
+========================= */
 
 .projects{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
 }
 
 .project{
-min-height:225px;
-border:1px solid var(--line);
-background:#080d0a;
-padding:20px;
-position:relative;
-cursor:pointer;
-transition:.2s;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    cursor:pointer;
+    transition:.25s;
 }
 
 .project:hover{
-border-color:#2d7042;
-transform:translateY(-2px);
-box-shadow:0 0 25px rgba(57,255,136,.07);
+    transform:translateY(-4px);
+    border-color:#34573f;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
 }
 
-.project-number{
-color:#405047;
-font-family:monospace;
-font-size:10px;
+.project-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .project-icon{
-font-size:24px;
-margin:15px 0 9px;
-}
-
-.project h3{
-font-size:17px;
-letter-spacing:1px;
-}
-
-.project p{
-color:#69766e;
-font-size:12px;
-margin-top:7px;
-min-height:30px;
-}
-
-.badges{
-display:flex;
-gap:7px;
-flex-wrap:wrap;
-margin-top:13px;
-}
-
-.badge{
-font-size:8px;
-letter-spacing:1px;
-padding:5px 7px;
-border:1px solid #284b32;
-color:#7d9584;
-}
-
-.priority-high{
-color:var(--red);
-border-color:#66303a;
-}
-
-.priority-medium{
-color:var(--yellow);
-border-color:#63552c;
-}
-
-.priority-low{
-color:var(--green);
-}
-
-.project-status{
-margin-top:15px;
-font-size:9px;
-letter-spacing:2px;
-color:var(--green);
-}
-
-.bar{
-height:3px;
-background:#18221b;
-margin-top:8px;
-}
-
-.bar div{
-height:100%;
-background:var(--green);
-box-shadow:0 0 8px rgba(57,255,136,.5);
-}
-
-.new-project{
-border:1px dashed #285335;
-background:transparent;
-color:#65736a;
-min-height:225px;
-cursor:pointer;
-font-size:12px;
-letter-spacing:2px;
-}
-
-.new-project:hover{
-color:var(--green);
-border-color:var(--green);
-background:#081109;
-}
-
-/* PROJECT VIEW */
-
-.project-view{display:none}
-
-.project-header{
-margin-top:28px;
-border-bottom:1px solid var(--line);
-padding-bottom:25px;
-}
-
-.back{
-background:transparent;
-border:0;
-color:#65736a;
-font-size:11px;
-letter-spacing:2px;
-margin-bottom:25px;
-}
-
-.back:hover{color:var(--green)}
-
-.project-title{
-display:flex;
-justify-content:space-between;
-align-items:flex-end;
-gap:20px;
-}
-
-.project-title h2{
-font-size:36px;
-letter-spacing:3px;
-}
-
-.project-title p{
-color:var(--muted);
-margin-top:8px;
-max-width:700px;
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#17231b;
+    color:var(--green);
+    font-size:20px;
 }
 
 .project-code{
-color:#405047;
-font-family:monospace;
-font-size:12px;
+    color:#56625c;
+    font-family:monospace;
+    font-size:10px;
 }
 
-.project-actions{
-display:flex;
-gap:8px;
+.project h3{
+    font-size:18px;
+    margin-top:20px;
 }
 
-.danger{
-background:#18090c;
-border:1px solid #542530;
-color:var(--red);
-padding:10px 13px;
+.project-description{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+    margin-top:7px;
+    min-height:36px;
 }
 
-.project-stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:1px;
-background:var(--line);
-border:1px solid var(--line);
-margin:20px 0;
+.tags{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin:15px 0;
 }
 
-.project-stat{
-background:var(--panel);
-padding:18px;
+.tag{
+    background:#171c1a;
+    border:1px solid #262f2a;
+    color:#9ba59f;
+    border-radius:7px;
+    padding:5px 8px;
+    font-size:9px;
 }
 
-.project-stat small{
-display:block;
-color:#59675f;
-font-size:9px;
-letter-spacing:2px;
+.tag.high{
+    color:var(--danger);
 }
 
-.project-stat strong{
-display:block;
-color:var(--green);
-font-family:monospace;
-font-size:20px;
-margin-top:8px;
+.tag.medium{
+    color:var(--warning);
+}
+
+.project-progress{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:17px;
+}
+
+.progress{
+    height:6px;
+    border-radius:20px;
+    background:#1b211e;
+    margin-top:8px;
+    overflow:hidden;
+}
+
+.progress div{
+    height:100%;
+    background:var(--green);
+    border-radius:20px;
+}
+
+.new-project{
+    min-height:260px;
+    border:1px dashed #33433a;
+    border-radius:18px;
+    background:transparent;
+    color:#718078;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.new-project:hover{
+    color:var(--green);
+    border-color:var(--green);
+    background:#0d1510;
+}
+
+/* =========================
+   PROJECT LAB
+========================= */
+
+.project-view{
+    display:none;
+}
+
+.project-head{
+    background:
+    radial-gradient(circle at 90% 10%,rgba(85,242,138,.1),transparent 30%),
+    var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:30px;
+}
+
+.back{
+    border:0;
+    background:none;
+    color:var(--muted);
+    cursor:pointer;
+    margin-bottom:25px;
+}
+
+.back:hover{
+    color:var(--green);
+}
+
+.project-head-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:flex-end;
+}
+
+.project-head h2{
+    font-size:35px;
+}
+
+.project-head p{
+    color:var(--muted);
+    margin-top:8px;
+    max-width:700px;
+}
+
+.project-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.lab-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin:18px 0;
+}
+
+.lab-stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+}
+
+.lab-stat small{
+    color:var(--muted);
+    font-size:9px;
+}
+
+.lab-stat strong{
+    display:block;
+    margin-top:7px;
+    color:var(--green);
+    font-size:20px;
 }
 
 .workspace{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:15px;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:16px;
 }
 
 .panel{
-border:1px solid var(--line);
-background:#080d0a;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    overflow:hidden;
 }
 
 .panel-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:16px 18px;
-border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 20px;
+    border-bottom:1px solid var(--border);
 }
 
 .panel-head h3{
-font-size:11px;
-letter-spacing:2px;
-font-weight:500;
+    font-size:12px;
+    letter-spacing:1px;
 }
 
-.panel-head button{
-background:transparent;
-border:1px solid #23472d;
-color:var(--green);
-padding:7px 10px;
-font-size:10px;
+.panel-body{
+    padding:20px;
 }
-
-.panel-body{padding:18px}
 
 .objective{
-border-left:2px solid var(--green);
-padding:15px;
-background:#09120c;
+    background:#111b15;
+    border:1px solid #243b2b;
+    border-radius:12px;
+    padding:18px;
 }
 
 .objective small{
-color:#59675f;
-font-size:9px;
-letter-spacing:2px;
+    color:var(--green);
+    font-size:9px;
+    letter-spacing:1px;
 }
 
 .objective p{
-margin-top:8px;
-color:#d7e4da;
+    color:#d4ded7;
+    margin-top:8px;
+    line-height:1.5;
 }
 
 .task{
-display:flex;
-align-items:center;
-gap:12px;
-padding:13px 0;
-border-bottom:1px solid #122018;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 0;
+    border-bottom:1px solid #1a211d;
 }
 
-.task:last-child{border-bottom:0}
+.task:last-child{
+    border-bottom:0;
+}
 
 .task input{
-accent-color:var(--green);
-width:17px;
-height:17px;
+    width:18px;
+    height:18px;
+    accent-color:var(--green);
 }
 
 .task span{
-font-size:13px;
-flex:1;
+    flex:1;
+    font-size:13px;
 }
 
 .task.done span{
-color:#536159;
-text-decoration:line-through;
+    color:#657069;
+    text-decoration:line-through;
 }
 
 .delete-task{
-background:transparent;
-border:0;
-color:#536159;
+    background:none;
+    border:0;
+    color:#657069;
 }
 
-.delete-task:hover{color:var(--red)}
+.delete-task:hover{
+    color:var(--danger);
+}
 
 .note{
-border-bottom:1px solid #122018;
-padding:13px 0;
+    padding:14px 0;
+    border-bottom:1px solid #1a211d;
 }
 
-.note:last-child{border:0}
+.note:last-child{
+    border:0;
+}
 
 .note p{
-color:#a6b2aa;
-font-size:12px;
-line-height:1.5;
+    color:#bac5be;
+    line-height:1.5;
+    font-size:12px;
 }
 
 .note small{
-display:block;
-color:#4d5b52;
-margin-top:7px;
-font-size:9px;
+    color:#606c65;
+    font-size:9px;
+    display:block;
+    margin-top:7px;
 }
 
-.edit-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:13px 0;
+    border-bottom:1px solid #1a211d;
+    font-size:12px;
 }
 
-.edit-grid input,
-.edit-grid select,
-.edit-grid textarea{
-margin-bottom:10px;
+.info-row:last-child{
+    border:0;
 }
 
-.full{grid-column:1/-1}
+.info-row span{
+    color:var(--muted);
+}
 
-input,textarea,select{
-width:100%;
-background:#050806;
-color:white;
-border:1px solid #1b3221;
-padding:13px;
-outline:none;
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:100;
+}
+
+.modal-box{
+    width:100%;
+    max-width:560px;
+    background:#101414;
+    border:1px solid #2b3730;
+    border-radius:20px;
+    padding:28px;
+}
+
+.modal-box h2{
+    margin-bottom:22px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    background:#090c0c;
+    border:1px solid var(--border);
+    border-radius:10px;
+    color:white;
+    padding:13px;
+    outline:none;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-border-color:var(--green);
-}
-
-textarea{
-min-height:85px;
-resize:vertical;
-}
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.84);
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:50;
-overflow:auto;
-}
-
-.modal-box{
-width:100%;
-max-width:550px;
-background:#080d09;
-border:1px solid #285335;
-padding:28px;
-box-shadow:0 0 40px rgba(57,255,136,.08);
-}
-
-.modal-box h2{
-color:var(--green);
-letter-spacing:3px;
-margin-bottom:25px;
+    border-color:#426e4f;
 }
 
 .modal-buttons{
-display:flex;
-gap:10px;
-margin-top:5px;
+    display:flex;
+    gap:10px;
+    margin-top:15px;
 }
 
 .modal-buttons button{
-flex:1;
-padding:13px;
-border:1px solid var(--line);
+    flex:1;
 }
 
-.cancel{
-background:#101510;
-color:#77847b;
-}
-
-.create{
-background:var(--green);
-color:#041007;
-}
+/* =========================
+   EMPTY
+========================= */
 
 .empty{
-border:1px dashed var(--line);
-padding:35px;
-text-align:center;
-color:#536159;
-grid-column:1/-1;
+    grid-column:1/-1;
+    text-align:center;
+    padding:50px;
+    border:1px dashed var(--border);
+    border-radius:18px;
+    color:var(--muted);
 }
 
-@media(max-width:1000px){
+/* =========================
+   MOBILE
+========================= */
 
-.sidebar{
-width:70px;
-padding:20px 10px;
+@media(max-width:1050px){
+
+    .sidebar{
+        width:75px;
+        padding:20px 10px;
+    }
+
+    .brand-text,
+    .menu-title,
+    .nav button span,
+    .sidebar-bottom{
+        display:none;
+    }
+
+    .brand{
+        justify-content:center;
+    }
+
+    .main{
+        margin-left:75px;
+        padding:25px;
+    }
+
+    .projects{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .workspace{
+        grid-template-columns:1fr;
+    }
 }
 
-.logo{
-font-size:22px;
-text-align:center;
-}
+@media(max-width:700px){
 
-.logo-sub,
-.nav-title,
-.nav button span,
-.system{
-display:none;
-}
+    .main{
+        padding:15px;
+    }
 
-.nav button{
-text-align:center;
-font-size:18px;
-}
+    .topbar{
+        margin-bottom:20px;
+    }
 
-.main{
-margin-left:70px;
-padding:20px;
-}
+    .topbar-left h1{
+        font-size:20px;
+    }
 
-.projects{
-grid-template-columns:repeat(2,1fr);
-}
+    .clock{
+        display:none;
+    }
 
-.workspace{
-grid-template-columns:1fr;
-}
+    .hero{
+        padding:25px;
+    }
 
-}
+    .hero h2{
+        font-size:25px;
+    }
 
-@media(max-width:650px){
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
 
-.main{padding:15px}
+    .projects{
+        grid-template-columns:1fr;
+    }
 
-.stats{
-grid-template-columns:repeat(2,1fr);
-}
+    .lab-stats{
+        grid-template-columns:1fr 1fr;
+    }
 
-.projects{
-grid-template-columns:1fr;
-}
+    .project-head-row{
+        display:block;
+    }
 
-.project-stats{
-grid-template-columns:repeat(2,1fr);
-}
+    .project-buttons{
+        margin-top:20px;
+    }
 
-.project-title{
-display:block;
-}
+    .toolbar{
+        flex-direction:column;
+    }
 
-.project-title h2{
-font-size:27px;
-}
+    .form-grid{
+        grid-template-columns:1fr;
+    }
 
-.project-actions{
-margin-top:15px;
-}
-
-.toolbar{
-flex-direction:column;
-}
-
-.edit-grid{
-grid-template-columns:1fr;
-}
-
-.full{
-grid-column:auto;
-}
-
-.clock{
-font-size:9px;
-}
-
+    .full{
+        grid-column:auto;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- SIDEBAR -->
+
 <aside class="sidebar">
 
-<div class="logo">X</div>
-<div class="logo-sub">PROJECT LABORATORY</div>
+<div class="brand">
 
-<div class="nav">
+<div class="brand-icon">X</div>
 
-<div class="nav-title">NAVEGAÇÃO</div>
+<div class="brand-text">
+PROJECT <span>X</span>
+</div>
+
+</div>
+
+<div class="menu-title">
+PRINCIPAL
+</div>
+
+<nav class="nav">
 
 <button class="active" onclick="showDashboard()">
-◈ <span>Dashboard</span>
+◈ <span>Visão geral</span>
 </button>
 
 <button onclick="showDashboard()">
-◇ <span>Projetos</span>
+▦ <span>Projetos</span>
 </button>
 
 <button onclick="focusTasks()">
@@ -743,78 +850,131 @@ font-size:9px;
 </button>
 
 <button onclick="exportData()">
-▣ <span>Exportar</span>
+↓ <span>Backup</span>
 </button>
 
-<div class="nav-title">SISTEMA</div>
+</nav>
 
-<button onclick="clearAll()">
-⚙ <span>Resetar dados</span>
-</button>
-
+<div class="menu-title">
+SISTEMA
 </div>
 
-<div class="system">
-SYSTEM STATUS<br><br>
-<span class="online">● ONLINE</span>
+<nav class="nav">
+
+<button onclick="clearAll()">
+⚙ <span>Limpar dados</span>
+</button>
+
+</nav>
+
+<div class="sidebar-bottom">
+
+<span class="online">● SISTEMA ONLINE</span><br><br>
+
+PROJECT X v1.0
+
 </div>
 
 </aside>
 
 
+<!-- MAIN -->
+
 <main class="main">
 
 <div class="topbar">
 
-<h1>PROJECT <span>X</span></h1>
+<div class="topbar-left">
+
+<h1 id="welcome">
+Bom dia, Rios.
+</h1>
+
+<p>
+Seu laboratório pessoal de projetos.
+</p>
+
+</div>
 
 <div class="clock" id="clock"></div>
 
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- =========================
+DASHBOARD
+========================= -->
 
 <section id="dashboard">
 
-<section class="command">
+<div class="hero">
 
-<div class="command-label">
-CENTRAL DE CONTROLE
+<div class="hero-label">
+PROJECT X / CENTRAL
 </div>
 
-<h2>LABORATÓRIO ATIVO</h2>
+<h2>
+Transforme ideias em projetos reais.
+</h2>
 
 <p>
-Gerencie, acompanhe e evolua todos os seus projetos.
+Organize suas ideias, acompanhe seu progresso e construa seus projetos em um único lugar.
 </p>
 
-</section>
+</div>
 
 
-<section class="stats">
+<div class="stats">
 
 <div class="stat">
-<small>PROJETOS</small>
-<strong id="total">0</strong>
+
+<div class="stat-label">
+PROJETOS
+</div>
+
+<div class="stat-value" id="total">
+0
+</div>
+
 </div>
 
 <div class="stat">
-<small>ATIVOS</small>
-<strong id="active">0</strong>
+
+<div class="stat-label">
+EM DESENVOLVIMENTO
+</div>
+
+<div class="stat-value green" id="active">
+0
+</div>
+
 </div>
 
 <div class="stat">
-<small>CONCLUÍDOS</small>
-<strong id="completed">0</strong>
+
+<div class="stat-label">
+CONCLUÍDOS
+</div>
+
+<div class="stat-value" id="completed">
+0
+</div>
+
 </div>
 
 <div class="stat">
-<small>PROGRESSO MÉDIO</small>
-<strong id="average">0%</strong>
+
+<div class="stat-label">
+PROGRESSO MÉDIO
 </div>
 
-</section>
+<div class="stat-value green" id="average">
+0%
+</div>
+
+</div>
+
+</div>
 
 
 <div class="toolbar">
@@ -822,48 +982,58 @@ Gerencie, acompanhe e evolua todos os seus projetos.
 <input
 class="search"
 id="search"
-placeholder="Pesquisar projeto..."
+placeholder="Pesquisar projetos..."
 oninput="render()"
 >
 
-<button class="action" onclick="openModal()">
-+ NOVO PROJETO
+<button
+class="btn btn-primary"
+onclick="openModal()"
+>
++ Novo projeto
 </button>
 
-<button class="action" onclick="exportData()">
-↓ BACKUP
+<button
+class="btn"
+onclick="exportData()"
+>
+Backup
 </button>
 
 </div>
 
 
-<div class="section-head">
+<div class="section-title">
 
-<h2>PROJETOS REGISTRADOS</h2>
+<h2>
+Seus projetos
+</h2>
 
 <span id="projectCount">
-0 UNIDADES
+0 projetos
 </span>
 
 </div>
 
 
-<section class="projects" id="projects"></section>
+<div class="projects" id="projects"></div>
 
 </section>
 
 
-<!-- LABORATÓRIO INDIVIDUAL -->
+<!-- =========================
+LABORATÓRIO
+========================= -->
 
 <section class="project-view" id="projectView">
 
-<div class="project-header">
+<div class="project-head">
 
 <button class="back" onclick="showDashboard()">
-← VOLTAR AO DASHBOARD
+← Voltar para projetos
 </button>
 
-<div class="project-title">
+<div class="project-head-row">
 
 <div>
 
@@ -881,14 +1051,20 @@ Descrição
 
 </div>
 
-<div class="project-actions">
+<div class="project-buttons">
 
-<button class="action" onclick="editProject()">
-EDITAR
+<button
+class="btn"
+onclick="editProject()"
+>
+Editar
 </button>
 
-<button class="danger" onclick="deleteProject()">
-EXCLUIR
+<button
+class="btn btn-danger"
+onclick="deleteProject()"
+>
+Excluir
 </button>
 
 </div>
@@ -898,32 +1074,52 @@ EXCLUIR
 </div>
 
 
-<section class="project-stats">
+<div class="lab-stats">
 
-<div class="project-stat">
+<div class="lab-stat">
+
 <small>STATUS</small>
-<strong id="detailStatus">—</strong>
+
+<strong id="detailStatus">
+—
+</strong>
+
 </div>
 
-<div class="project-stat">
+<div class="lab-stat">
+
 <small>PROGRESSO</small>
-<strong id="detailProgress">0%</strong>
+
+<strong id="detailProgress">
+0%
+</strong>
+
 </div>
 
-<div class="project-stat">
+<div class="lab-stat">
+
 <small>TAREFAS</small>
-<strong id="detailTasks">0/0</strong>
+
+<strong id="detailTasks">
+0/0
+</strong>
+
 </div>
 
-<div class="project-stat">
+<div class="lab-stat">
+
 <small>PRAZO</small>
-<strong id="detailDeadline">—</strong>
+
+<strong id="detailDeadline">
+—
+</strong>
+
 </div>
 
-</section>
+</div>
 
 
-<section class="workspace">
+<div class="workspace">
 
 <div>
 
@@ -931,10 +1127,13 @@ EXCLUIR
 
 <div class="panel-head">
 
-<h3>OBJETIVO ATUAL</h3>
+<h3>OBJETIVO</h3>
 
-<button onclick="addObjective()">
-+ DEFINIR
+<button
+class="btn"
+onclick="addObjective()"
+>
++ Definir
 </button>
 
 </div>
@@ -943,7 +1142,9 @@ EXCLUIR
 
 <div class="objective">
 
-<small>PRIMARY OBJECTIVE</small>
+<small>
+OBJETIVO PRINCIPAL
+</small>
 
 <p id="objectiveText">
 Nenhum objetivo definido.
@@ -964,13 +1165,20 @@ Nenhum objetivo definido.
 
 <h3>TAREFAS</h3>
 
-<button onclick="addTask()">
-+ NOVA TAREFA
+<button
+class="btn"
+onclick="addTask()"
+>
++ Nova tarefa
 </button>
 
 </div>
 
-<div class="panel-body" id="taskList"></div>
+<div
+class="panel-body"
+id="taskList"
+>
+</div>
 
 </div>
 
@@ -985,13 +1193,20 @@ Nenhum objetivo definido.
 
 <h3>NOTAS</h3>
 
-<button onclick="addNote()">
-+ NOTA
+<button
+class="btn"
+onclick="addNote()"
+>
++ Nota
 </button>
 
 </div>
 
-<div class="panel-body" id="noteList"></div>
+<div
+class="panel-body"
+id="noteList"
+>
+</div>
 
 </div>
 
@@ -1002,34 +1217,38 @@ Nenhum objetivo definido.
 
 <div class="panel-head">
 
-<h3>INFORMAÇÕES</h3>
+<h3>DETALHES</h3>
 
 </div>
 
-<div class="panel-body" id="infoPanel"></div>
-
+<div
+class="panel-body"
+id="infoPanel"
+>
 </div>
 
 </div>
 
-</section>
+</div>
+
+</div>
 
 </section>
 
 </main>
 
 
-<!-- MODAL NOVO / EDITAR -->
+<!-- MODAL -->
 
 <div class="modal" id="projectModal">
 
 <div class="modal-box">
 
 <h2 id="modalTitle">
-NOVO PROJETO
+Novo projeto
 </h2>
 
-<div class="edit-grid">
+<div class="form-grid">
 
 <input
 id="name"
@@ -1038,37 +1257,37 @@ placeholder="Nome do projeto"
 
 <select id="category">
 
-<option value="Tecnologia">Tecnologia</option>
-<option value="IA">IA</option>
-<option value="Site">Site</option>
-<option value="Jogo">Jogo</option>
-<option value="Robótica">Robótica</option>
-<option value="Estudo">Estudo</option>
-<option value="Pessoal">Pessoal</option>
-<option value="Outro">Outro</option>
+<option>Tecnologia</option>
+<option>IA</option>
+<option>Site</option>
+<option>Jogo</option>
+<option>Robótica</option>
+<option>Estudo</option>
+<option>Pessoal</option>
+<option>Outro</option>
 
 </select>
 
 <textarea
 class="full"
 id="description"
-placeholder="Descrição do projeto"
+placeholder="Descrição do projeto..."
 ></textarea>
 
 <select id="status">
 
-<option value="Ideia">Ideia</option>
-<option value="Em desenvolvimento">Em desenvolvimento</option>
-<option value="Pausado">Pausado</option>
-<option value="Concluído">Concluído</option>
+<option>Ideia</option>
+<option>Em desenvolvimento</option>
+<option>Pausado</option>
+<option>Concluído</option>
 
 </select>
 
 <select id="priority">
 
-<option value="Baixa">Prioridade baixa</option>
-<option value="Média">Prioridade média</option>
-<option value="Alta">Prioridade alta</option>
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
 
 </select>
 
@@ -1079,21 +1298,20 @@ type="date"
 
 </div>
 
-
 <div class="modal-buttons">
 
 <button
-class="cancel"
+class="btn"
 onclick="closeModal()"
 >
-CANCELAR
+Cancelar
 </button>
 
 <button
-class="create"
+class="btn btn-primary"
 onclick="saveProject()"
 >
-SALVAR
+Salvar projeto
 </button>
 
 </div>
@@ -1106,32 +1324,41 @@ SALVAR
 <script>
 
 /* =========================
-   DADOS
+DADOS
 ========================= */
 
-let projects =
-JSON.parse(localStorage.getItem("projectX")) || [];
+let projects=
+JSON.parse(
+localStorage.getItem("projectX")
+)||[];
 
 let currentProject=null;
 let editingProject=null;
 
 
-/* =========================
-   COMPATIBILIDADE
-========================= */
+/* Compatibilidade */
 
 projects=projects.map(p=>({
 
-name:p.name || "Projeto",
-description:p.description || "",
-status:p.status || "Ideia",
+name:p.name||"Projeto",
+
+description:p.description||"",
+
+status:p.status||"Ideia",
+
 progress:Number(p.progress)||0,
-objective:p.objective || "",
+
+objective:p.objective||"",
+
 tasks:Array.isArray(p.tasks)?p.tasks:[],
+
 notes:Array.isArray(p.notes)?p.notes:[],
-category:p.category || "Outro",
-priority:p.priority || "Média",
-deadline:p.deadline || ""
+
+category:p.category||"Outro",
+
+priority:p.priority||"Média",
+
+deadline:p.deadline||""
 
 }));
 
@@ -1147,7 +1374,7 @@ JSON.stringify(projects)
 
 
 /* =========================
-   MODAL
+MODAL
 ========================= */
 
 function openModal(index=null){
@@ -1155,14 +1382,17 @@ function openModal(index=null){
 editingProject=index;
 
 const modal=
-document.getElementById("projectModal");
+document.getElementById(
+"projectModal"
+);
 
 modal.style.display="flex";
 
 if(index===null){
 
-document.getElementById("modalTitle").textContent=
-"NOVO PROJETO";
+document.getElementById(
+"modalTitle"
+).textContent="Novo projeto";
 
 document.getElementById("name").value="";
 document.getElementById("description").value="";
@@ -1175,8 +1405,9 @@ document.getElementById("deadline").value="";
 
 const p=projects[index];
 
-document.getElementById("modalTitle").textContent=
-"EDITAR PROJETO";
+document.getElementById(
+"modalTitle"
+).textContent="Editar projeto";
 
 document.getElementById("name").value=p.name;
 document.getElementById("description").value=p.description;
@@ -1202,13 +1433,14 @@ editingProject=null;
 
 
 /* =========================
-   SALVAR PROJETO
+SALVAR
 ========================= */
 
 function saveProject(){
 
 const name=
-document.getElementById("name").value.trim();
+document.getElementById("name")
+.value.trim();
 
 if(!name){
 
@@ -1223,22 +1455,29 @@ const data={
 name:name,
 
 description:
-document.getElementById("description").value.trim(),
+document.getElementById("description")
+.value.trim(),
 
 status:
-document.getElementById("status").value,
+document.getElementById("status")
+.value,
 
 priority:
-document.getElementById("priority").value,
+document.getElementById("priority")
+.value,
 
 category:
-document.getElementById("category").value,
+document.getElementById("category")
+.value,
 
 deadline:
-document.getElementById("deadline").value,
+document.getElementById("deadline")
+.value,
 
 objective:"",
+
 tasks:[],
+
 notes:[]
 
 };
@@ -1250,14 +1489,17 @@ projects.push(data);
 
 }else{
 
-const old=projects[editingProject];
+const old=
+projects[editingProject];
 
 projects[editingProject]={
 
 ...data,
 
 objective:old.objective,
+
 tasks:old.tasks,
+
 notes:old.notes
 
 };
@@ -1274,7 +1516,26 @@ render();
 
 
 /* =========================
-   DASHBOARD
+PROGRESSO
+========================= */
+
+function calculateProgress(p){
+
+if(!p.tasks.length)
+return Number(p.progress)||0;
+
+const done=
+p.tasks.filter(t=>t.done).length;
+
+return Math.round(
+(done/p.tasks.length)*100
+);
+
+}
+
+
+/* =========================
+DASHBOARD
 ========================= */
 
 function render(){
@@ -1286,25 +1547,22 @@ container.innerHTML="";
 
 const search=
 document.getElementById("search")
-.value
-.toLowerCase();
-
+.value.toLowerCase();
 
 const filtered=
 projects
 .map((p,i)=>({p,i}))
 .filter(x=>
-x.p.name.toLowerCase().includes(search) ||
+x.p.name.toLowerCase().includes(search)||
 x.p.category.toLowerCase().includes(search)
 );
 
 
-if(filtered.length===0){
+if(!filtered.length){
 
-container.innerHTML=
-`
+container.innerHTML=`
 <div class="empty">
-NENHUM PROJETO ENCONTRADO
+Nenhum projeto encontrado.
 </div>
 `;
 
@@ -1320,66 +1578,71 @@ item.className="project";
 item.onclick=
 ()=>openProject(index);
 
+const progress=
+calculateProgress(p);
 
 const priorityClass=
 p.priority==="Alta"
-?"priority-high":
+?"high":
 p.priority==="Média"
-?"priority-medium":
-"priority-low";
-
-
-const taskTotal=p.tasks.length;
-
-const taskDone=
-p.tasks.filter(t=>t.done).length;
-
-
-const progress=
-taskTotal>0
-?Math.round(taskDone/taskTotal*100)
-:p.progress;
+?"medium":"";
 
 
 item.innerHTML=`
 
-<div class="project-number">
-PROJECT_${String(index+1).padStart(3,"0")}
-</div>
+<div class="project-top">
 
 <div class="project-icon">
 ◈
+</div>
+
+<div class="project-code">
+PROJECT_${String(index+1).padStart(3,"0")}
+</div>
+
 </div>
 
 <h3>
 ${escapeHTML(p.name)}
 </h3>
 
-<p>
+<div class="project-description">
 ${escapeHTML(
-p.description ||
-"Sem descrição registrada."
+p.description||
+"Sem descrição."
 )}
-</p>
+</div>
 
-<div class="badges">
+<div class="tags">
 
-<span class="badge">
+<span class="tag">
 ${escapeHTML(p.category)}
 </span>
 
-<span class="badge ${priorityClass}">
+<span class="tag ${priorityClass}">
 ${escapeHTML(p.priority)}
+</span>
+
+<span class="tag">
+${escapeHTML(p.status)}
 </span>
 
 </div>
 
-<div class="project-status">
-● ${p.status.toUpperCase()}
+<div class="project-progress">
+
+<span>Progresso</span>
+
+<strong>
+${progress}%
+</strong>
+
 </div>
 
-<div class="bar">
+<div class="progress">
+
 <div style="width:${progress}%"></div>
+
 </div>
 
 `;
@@ -1391,18 +1654,18 @@ container.appendChild(item);
 }
 
 
-const newButton=
+const newProject=
 document.createElement("button");
 
-newButton.className="new-project";
+newProject.className="new-project";
 
-newButton.innerHTML=
-"+<br><br>INICIAR NOVO PROJETO";
+newProject.innerHTML=
+"+<br><br>Criar novo projeto";
 
-newButton.onclick=
+newProject.onclick=
 ()=>openModal();
 
-container.appendChild(newButton);
+container.appendChild(newProject);
 
 
 updateStats();
@@ -1424,7 +1687,6 @@ projects.filter(
 p=>p.status==="Concluído"
 ).length;
 
-
 let average=0;
 
 if(total){
@@ -1440,7 +1702,6 @@ projects.reduce(
 
 }
 
-
 document.getElementById("total")
 .textContent=total;
 
@@ -1454,32 +1715,15 @@ document.getElementById("average")
 .textContent=average+"%";
 
 document.getElementById("projectCount")
-.textContent=total+" UNIDADES";
+.textContent=
+total+" projeto"+
+(total===1?"":"s");
 
 }
 
 
 /* =========================
-   PROGRESSO AUTOMÁTICO
-========================= */
-
-function calculateProgress(p){
-
-if(p.tasks.length===0)
-return Number(p.progress)||0;
-
-const done=
-p.tasks.filter(t=>t.done).length;
-
-return Math.round(
-(done/p.tasks.length)*100
-);
-
-}
-
-
-/* =========================
-   ABRIR PROJETO
+ABRIR PROJETO
 ========================= */
 
 function openProject(index){
@@ -1494,31 +1738,31 @@ document.getElementById("dashboard")
 document.getElementById("projectView")
 .style.display="block";
 
-
 document.getElementById("projectCode")
 .textContent=
 "PROJECT_"+String(index+1).padStart(3,"0");
 
-
 document.getElementById("projectName")
 .textContent=
-p.name.toUpperCase();
-
+p.name;
 
 document.getElementById("projectDescription")
 .textContent=
-p.description ||
+p.description||
 "Sem descrição registrada.";
-
 
 document.getElementById("detailStatus")
 .textContent=p.status;
-
 
 document.getElementById("detailProgress")
 .textContent=
 calculateProgress(p)+"%";
 
+document.getElementById("detailTasks")
+.textContent=
+p.tasks.filter(t=>t.done).length+
+"/"+
+p.tasks.length;
 
 document.getElementById("detailDeadline")
 .textContent=
@@ -1526,18 +1770,14 @@ p.deadline
 ?formatDate(p.deadline)
 :"—";
 
-
 document.getElementById("objectiveText")
 .textContent=
-p.objective ||
+p.objective||
 "Nenhum objetivo definido.";
-
 
 renderTasks();
 
 renderNotes();
-
-updateTaskCount();
 
 renderInfo();
 
@@ -1545,7 +1785,7 @@ renderInfo();
 
 
 /* =========================
-   DASHBOARD
+VOLTAR
 ========================= */
 
 function showDashboard(){
@@ -1561,34 +1801,18 @@ render();
 }
 
 
-function focusTasks(){
-
-if(projects.length===0){
-
-alert("Você ainda não possui projetos.");
-
-return;
-
-}
-
-showDashboard();
-
-}
-
-
 /* =========================
-   OBJETIVO
+OBJETIVO
 ========================= */
 
 function addObjective(){
 
 const text=
 prompt(
-"Digite o objetivo atual deste projeto:"
+"Qual é o objetivo principal deste projeto?"
 );
 
-if(text===null)
-return;
+if(text===null)return;
 
 projects[currentProject].objective=
 text.trim();
@@ -1601,7 +1825,7 @@ openProject(currentProject);
 
 
 /* =========================
-   TAREFAS
+TAREFAS
 ========================= */
 
 function addTask(){
@@ -1609,10 +1833,10 @@ function addTask(){
 const text=
 prompt("Digite a nova tarefa:");
 
-if(!text)
-return;
+if(!text)return;
 
-projects[currentProject].tasks.push({
+projects[currentProject]
+.tasks.push({
 
 text:text.trim(),
 
@@ -1668,20 +1892,18 @@ projects[currentProject].tasks;
 
 list.innerHTML="";
 
-
-if(tasks.length===0){
+if(!tasks.length){
 
 list.innerHTML=
 `
-<p style="color:#536159;font-size:12px">
-Nenhuma tarefa registrada.
+<p style="color:#718078;font-size:12px">
+Nenhuma tarefa criada ainda.
 </p>
 `;
 
 return;
 
 }
-
 
 tasks.forEach((task,index)=>{
 
@@ -1691,7 +1913,6 @@ document.createElement("div");
 row.className=
 "task"+
 (task.done?" done":"");
-
 
 row.innerHTML=`
 
@@ -1717,15 +1938,13 @@ row.querySelector("input")
 ()=>toggleTask(index);
 
 row.querySelector(".delete-task")
-.onclick=
-(e)=>{
+.onclick=e=>{
 
 e.stopPropagation();
 
 deleteTask(index);
 
 };
-
 
 list.appendChild(row);
 
@@ -1735,7 +1954,7 @@ list.appendChild(row);
 
 
 /* =========================
-   NOTAS
+NOTAS
 ========================= */
 
 function addNote(){
@@ -1743,10 +1962,10 @@ function addNote(){
 const text=
 prompt("Digite sua anotação:");
 
-if(!text)
-return;
+if(!text)return;
 
-projects[currentProject].notes.push({
+projects[currentProject]
+.notes.push({
 
 text:text.trim(),
 
@@ -1772,20 +1991,18 @@ projects[currentProject].notes;
 
 list.innerHTML="";
 
-
-if(notes.length===0){
+if(!notes.length){
 
 list.innerHTML=
 `
-<p style="color:#536159;font-size:12px">
-Nenhuma anotação registrada.
+<p style="color:#718078;font-size:12px">
+Nenhuma anotação ainda.
 </p>
 `;
 
 return;
 
 }
-
 
 notes.forEach(note=>{
 
@@ -1814,26 +2031,7 @@ list.appendChild(item);
 
 
 /* =========================
-   TAREFAS CONTAGEM
-========================= */
-
-function updateTaskCount(){
-
-const tasks=
-projects[currentProject].tasks;
-
-const done=
-tasks.filter(t=>t.done).length;
-
-document.getElementById("detailTasks")
-.textContent=
-done+"/"+tasks.length;
-
-}
-
-
-/* =========================
-   INFORMAÇÕES
+INFO
 ========================= */
 
 function renderInfo(){
@@ -1841,32 +2039,51 @@ function renderInfo(){
 const p=
 projects[currentProject];
 
-document.getElementById("infoPanel")
-.innerHTML=`
+document.getElementById(
+"infoPanel"
+).innerHTML=`
 
-<p style="font-size:11px;color:#68766d;margin-bottom:12px">
-CATEGORIA
-</p>
+<div class="info-row">
 
-<p style="margin-bottom:18px">
+<span>Categoria</span>
+
+<strong>
 ${escapeHTML(p.category)}
-</p>
+</strong>
 
-<p style="font-size:11px;color:#68766d;margin-bottom:12px">
-PRIORIDADE
-</p>
+</div>
 
-<p style="margin-bottom:18px">
+<div class="info-row">
+
+<span>Prioridade</span>
+
+<strong>
 ${escapeHTML(p.priority)}
-</p>
+</strong>
 
-<p style="font-size:11px;color:#68766d;margin-bottom:12px">
-PRAZO
-</p>
+</div>
 
-<p>
-${p.deadline?formatDate(p.deadline):"Nenhum prazo definido."}
-</p>
+<div class="info-row">
+
+<span>Status</span>
+
+<strong>
+${escapeHTML(p.status)}
+</strong>
+
+</div>
+
+<div class="info-row">
+
+<span>Prazo</span>
+
+<strong>
+${p.deadline
+?formatDate(p.deadline)
+:"Não definido"}
+</strong>
+
+</div>
 
 `;
 
@@ -1874,7 +2091,7 @@ ${p.deadline?formatDate(p.deadline):"Nenhum prazo definido."}
 
 
 /* =========================
-   EDITAR
+EDITAR
 ========================= */
 
 function editProject(){
@@ -1885,7 +2102,7 @@ openModal(currentProject);
 
 
 /* =========================
-   EXCLUIR
+EXCLUIR
 ========================= */
 
 function deleteProject(){
@@ -1894,13 +2111,16 @@ const p=
 projects[currentProject];
 
 if(!confirm(
-'Excluir o projeto "'+
+'Excluir "'+
 p.name+
 '"?'
 ))
 return;
 
-projects.splice(currentProject,1);
+projects.splice(
+currentProject,
+1
+);
 
 save();
 
@@ -1912,22 +2132,23 @@ showDashboard();
 
 
 /* =========================
-   BACKUP
+BACKUP
 ========================= */
 
 function exportData(){
 
-const data=
+const blob=
+new Blob(
+[
 JSON.stringify(
 projects,
 null,
 2
-);
-
-const blob=
-new Blob(
-[data],
-{type:"application/json"}
+)
+],
+{
+type:"application/json"
+}
 );
 
 const url=
@@ -1949,17 +2170,19 @@ URL.revokeObjectURL(url);
 
 
 /* =========================
-   RESET
+LIMPAR
 ========================= */
 
 function clearAll(){
 
 if(!confirm(
-"Isso apagará TODOS os projetos. Continuar?"
+"Isso apagará todos os projetos. Continuar?"
 ))
 return;
 
-localStorage.removeItem("projectX");
+localStorage.removeItem(
+"projectX"
+);
 
 projects=[];
 
@@ -1969,7 +2192,34 @@ showDashboard();
 
 
 /* =========================
-   DATA
+FOCO TAREFAS
+========================= */
+
+function focusTasks(){
+
+if(!projects.length){
+
+alert(
+"Você ainda não possui projetos."
+);
+
+return;
+
+}
+
+showDashboard();
+
+document
+.getElementById("projects")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================
+DATA
 ========================= */
 
 function formatDate(date){
@@ -1988,7 +2238,7 @@ parts[0];
 
 
 /* =========================
-   RELÓGIO
+RELÓGIO
 ========================= */
 
 function updateClock(){
@@ -1998,8 +2248,14 @@ const now=new Date();
 document.getElementById("clock")
 .textContent=
 now.toLocaleDateString("pt-BR")
-+" // "+
-now.toLocaleTimeString("pt-BR");
++" • "+
+now.toLocaleTimeString(
+"pt-BR",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+);
 
 }
 
@@ -2012,7 +2268,7 @@ updateClock();
 
 
 /* =========================
-   SEGURANÇA HTML
+SEGURANÇA
 ========================= */
 
 function escapeHTML(text){
@@ -2028,7 +2284,7 @@ return div.innerHTML;
 
 
 /* =========================
-   START
+INICIALIZAÇÃO
 ========================= */
 
 render();
@@ -2036,4 +2292,4 @@ render();
 </script>
 
 </body>
-  </html>
+   </html>
