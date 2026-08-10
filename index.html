@@ -1,2491 +1,249 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PROJECT X 3.0</title>
-
-<style>
-
-/* =====================================================
-   PROJECT X 3.0
-   ===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-:root{
-
-    --bg:#070a08;
-    --bg2:#0b100d;
-    --card:#101612;
-    --card2:#151d18;
-
-    --border:#202c25;
-
-    --green:#55f28a;
-    --green2:#2fd96f;
-
-    --text:#edf5ef;
-    --muted:#7c8a82;
-
-    --red:#ff6377;
-    --yellow:#ffd45c;
-    --blue:#6da5ff;
-
-    --shadow:0 15px 45px rgba(0,0,0,.25);
-}
-
-body.light{
-
-    --bg:#eef3ef;
-    --bg2:#e5ebe7;
-    --card:#ffffff;
-    --card2:#f2f6f3;
-
-    --border:#d9e1dc;
-
-    --text:#172019;
-    --muted:#68756d;
-
-    --shadow:0 15px 45px rgba(20,40,25,.08);
-}
-
-body{
-
-    background:
-        radial-gradient(
-            circle at 80% -10%,
-            rgba(85,242,138,.08),
-            transparent 35%
-        ),
-        var(--bg);
-
-    color:var(--text);
-
-    font-family:
-        Inter,
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    min-height:100vh;
-
-    transition:
-        background .3s,
-        color .3s;
-}
-
-button,
-input,
-textarea,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-/* =====================================================
-   SIDEBAR
-   ===================================================== */
-
-.sidebar{
-
-    position:fixed;
-
-    left:0;
-    top:0;
-
-    width:245px;
-    height:100vh;
-
-    padding:26px 18px;
-
-    background:rgba(8,12,10,.92);
-
-    border-right:1px solid var(--border);
-
-    z-index:50;
-
-    backdrop-filter:blur(20px);
-}
-
-body.light .sidebar{
-    background:rgba(255,255,255,.9);
-}
-
-.logo{
-
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    padding:5px 10px;
-
-    margin-bottom:38px;
-}
-
-.logo-icon{
-
-    width:43px;
-    height:43px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:13px;
-
-    background:var(--green);
-
-    color:#061009;
-
-    font-weight:900;
-
-    box-shadow:
-        0 0 30px rgba(85,242,138,.18);
-}
-
-.logo-name{
-
-    font-weight:900;
-
-    letter-spacing:2px;
-
-    font-size:17px;
-}
-
-.logo-name span{
-    color:var(--green);
-}
-
-.menu-label{
-
-    color:#526159;
-
-    font-size:8px;
-
-    letter-spacing:2px;
-
-    margin:
-        20px 11px
-        9px;
-}
-
-.nav button{
-
-    width:100%;
-
-    border:0;
-
-    background:transparent;
-
-    color:#7d8b83;
-
-    padding:12px 13px;
-
-    border-radius:11px;
-
-    text-align:left;
-
-    margin-bottom:4px;
-
-    font-size:12px;
-
-    transition:.2s;
-}
-
-.nav button:hover{
-
-    color:var(--text);
-
-    background:var(--card2);
-}
-
-.nav button.active{
-
-    color:var(--green);
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(85,242,138,.12),
-            transparent
-        );
-
-    border-left:
-        2px solid
-        var(--green);
-}
-
-.sidebar-bottom{
-
-    position:absolute;
-
-    left:20px;
-    right:20px;
-
-    bottom:24px;
-
-    padding-top:17px;
-
-    border-top:1px solid var(--border);
-
-    color:#647168;
-
-    font-size:8px;
-
-    letter-spacing:1px;
-}
-
-.online{
-    color:var(--green);
-}
-
-/* =====================================================
-   MAIN
-   ===================================================== */
-
-.main{
-
-    margin-left:245px;
-
-    padding:
-        28px
-        38px;
-
-    max-width:1550px;
-}
-
-.topbar{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin-bottom:27px;
-}
-
-.topbar h1{
-
-    font-size:25px;
-
-    letter-spacing:-.5px;
-}
-
-.topbar p{
-
-    color:var(--muted);
-
-    font-size:11px;
-
-    margin-top:5px;
-}
-
-.clock{
-
-    color:var(--muted);
-
-    font-family:monospace;
-
-    font-size:10px;
-}
-
-/* =====================================================
-   PAGES
-   ===================================================== */
-
-.page{
-    display:none;
-
-    animation:
-        pageIn
-        .25s
-        ease;
-}
-
-.page.active{
-    display:block;
-}
-
-@keyframes pageIn{
-
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* =====================================================
-   HERO
-   ===================================================== */
-
-.hero{
-
-    position:relative;
-
-    overflow:hidden;
-
-    min-height:210px;
-
-    padding:35px;
-
-    border-radius:22px;
-
-    border:1px solid var(--border);
-
-    background:
-
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(85,242,138,.16),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 70% 100%,
-            rgba(85,242,138,.06),
-            transparent 30%
-        ),
-
-        var(--card);
-
-    box-shadow:var(--shadow);
-}
-
-.hero::after{
-
-    content:"X";
-
-    position:absolute;
-
-    right:30px;
-    bottom:-50px;
-
-    font-size:230px;
-
-    font-weight:900;
-
-    color:rgba(85,242,138,.025);
-
-    pointer-events:none;
-}
-
-.hero-label{
-
-    color:var(--green);
-
-    font-size:8px;
-
-    letter-spacing:3px;
-
-    margin-bottom:12px;
-}
-
-.hero h2{
-
-    font-size:32px;
-
-    max-width:700px;
-
-    letter-spacing:-1px;
-}
-
-.hero p{
-
-    color:var(--muted);
-
-    font-size:12px;
-
-    max-width:620px;
-
-    line-height:1.6;
-
-    margin-top:10px;
-}
-
-/* =====================================================
-   BUTTONS
-   ===================================================== */
-
-.btn{
-
-    border:
-        1px solid
-        var(--border);
-
-    background:var(--card);
-
-    color:var(--text);
-
-    border-radius:10px;
-
-    padding:
-        10px
-        13px;
-
-    font-size:10px;
-
-    transition:.2s;
-}
-
-.btn:hover{
-
-    transform:translateY(-1px);
-
-    background:var(--card2);
-}
-
-.btn-primary{
-
-    color:#061009;
-
-    background:var(--green);
-
-    border-color:var(--green);
-
-    font-weight:800;
-}
-
-.btn-danger{
-    color:var(--red);
-}
-
-/* =====================================================
-   STATS
-   ===================================================== */
-
-.stats{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:13px;
-
-    margin:
-        15px
-        0;
-}
-
-.stat{
-
-    padding:19px;
-
-    border:
-        1px solid
-        var(--border);
-
-    background:var(--card);
-
-    border-radius:16px;
-
-    box-shadow:var(--shadow);
-
-    transition:.25s;
-}
-
-.stat:hover{
-
-    transform:translateY(-3px);
-
-    border-color:
-        rgba(85,242,138,.3);
-}
-
-.stat small{
-
-    color:var(--muted);
-
-    font-size:8px;
-
-    letter-spacing:1px;
-}
-
-.stat strong{
-
-    display:block;
-
-    font-size:27px;
-
-    margin-top:9px;
-}
-
-.green{
-    color:var(--green);
-}
-
-/* =====================================================
-   GRID
-   ===================================================== */
-
-.grid2{
-
-    display:grid;
-
-    grid-template-columns:
-        2fr 1fr;
-
-    gap:15px;
-}
-
-.grid3{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:15px;
-}
-
-.panel{
-
-    background:var(--card);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:17px;
-
-    overflow:hidden;
-
-    box-shadow:var(--shadow);
-}
-
-.panel-head{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:16px 19px;
-
-    border-bottom:
-        1px solid
-        var(--border);
-}
-
-.panel-head h3{
-
-    font-size:9px;
-
-    letter-spacing:1.5px;
-}
-
-.panel-body{
-    padding:19px;
-}
-
-/* =====================================================
-   PROJECTS
-   ===================================================== */
-
-.section-title{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin:
-        18px
-        0
-        14px;
-}
-
-.section-title h2{
-
-    font-size:17px;
-}
-
-.section-title span{
-
-    color:var(--muted);
-
-    font-size:9px;
-}
-
-.projects{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:14px;
-}
-
-.project{
-
-    position:relative;
-
-    padding:19px;
-
-    background:var(--card);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:17px;
-
-    cursor:pointer;
-
-    transition:
-        transform .25s,
-        border .25s,
-        box-shadow .25s;
-
-    overflow:hidden;
-}
-
-.project::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:0;
-
-    width:100%;
-    height:2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--green),
-            transparent
-        );
-
-    opacity:0;
-
-    transition:.25s;
-}
-
-.project:hover{
-
-    transform:
-        translateY(-5px);
-
-    border-color:
-        rgba(85,242,138,.28);
-
-    box-shadow:
-        0 18px 45px
-        rgba(0,0,0,.18);
-}
-
-.project:hover::before{
-    opacity:1;
-}
-
-.project-top{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-}
-
-.project-icon{
-
-    width:42px;
-    height:42px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:12px;
-
-    background:
-        rgba(85,242,138,.08);
-
-    color:var(--green);
-
-    font-size:18px;
-}
-
-.code{
-
-    color:#56625a;
-
-    font-family:monospace;
-
-    font-size:8px;
-}
-
-.project h3{
-
-    font-size:16px;
-
-    margin-top:16px;
-}
-
-.desc{
-
-    color:var(--muted);
-
-    font-size:10px;
-
-    line-height:1.5;
-
-    margin-top:7px;
-
-    min-height:32px;
-}
-
-.tags{
-
-    display:flex;
-
-    gap:5px;
-
-    flex-wrap:wrap;
-
-    margin:
-        13px
-        0;
-}
-
-.tag{
-
-    padding:
-        5px
-        7px;
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:6px;
-
-    color:#89958e;
-
-    background:var(--card2);
-
-    font-size:7px;
-}
-
-.tag.high{
-    color:var(--red);
-}
-
-.tag.medium{
-    color:var(--yellow);
-}
-
-.progress-info{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:var(--muted);
-
-    font-size:8px;
-}
-
-.progress{
-
-    height:5px;
-
-    margin-top:7px;
-
-    overflow:hidden;
-
-    border-radius:10px;
-
-    background:
-        rgba(120,140,125,.13);
-}
-
-.progress div{
-
-    height:100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--green2),
-            var(--green)
-        );
-
-    border-radius:10px;
-
-    transition:
-        width .7s
-        cubic-bezier(.2,.8,.2,1);
-}
-
-.new-project{
-
-    min-height:230px;
-
-    border:
-        1px dashed
-        #344239;
-
-    border-radius:17px;
-
-    background:transparent;
-
-    color:#708077;
-
-    transition:.2s;
-}
-
-.new-project:hover{
-
-    color:var(--green);
-
-    border-color:var(--green);
-
-    background:
-        rgba(85,242,138,.025);
-}
-
-/* =====================================================
-   TOOLBAR
-   ===================================================== */
-
-.toolbar{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin:
-        20px
-        0;
-}
-
-.search{
-
-    flex:1;
-
-    background:var(--card);
-
-    border:
-        1px solid
-        var(--border);
-
-    color:var(--text);
-
-    border-radius:10px;
-
-    padding:11px;
-
-    outline:none;
-
-    font-size:11px;
-}
-
-.filters{
-
-    display:flex;
-
-    gap:7px;
-}
-
-.filters select{
-
-    width:auto;
-
-    background:var(--card);
-
-    color:var(--text);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:9px;
-
-    padding:10px;
-
-    font-size:9px;
-}
-
-/* =====================================================
-   IDEAS
-   ===================================================== */
-
-.idea-input{
-
-    display:flex;
-
-    gap:8px;
-
-    margin-bottom:12px;
-}
-
-input,
-textarea,
-select{
-
-    width:100%;
-
-    background:
-        var(--bg2);
-
-    border:
-        1px solid
-        var(--border);
-
-    color:var(--text);
-
-    border-radius:9px;
-
-    padding:11px;
-
-    outline:none;
-
-    font-size:11px;
-}
-
-textarea{
-
-    min-height:90px;
-
-    resize:vertical;
-}
-
-.idea-item{
-
-    padding:13px 0;
-
-    border-bottom:
-        1px solid
-        var(--border);
-
-    font-size:11px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:10px;
-}
-
-.idea-item:last-child{
-    border-bottom:0;
-}
-
-.idea-date{
-
-    color:#59655e;
-
-    font-size:8px;
-
-    white-space:nowrap;
-}
-
-/* =====================================================
-   GOALS
-   ===================================================== */
-
-.goal{
-
-    padding:15px;
-
-    border:
-        1px solid
-        var(--border);
-
-    background:
-        var(--card2);
-
-    border-radius:12px;
-
-    margin-bottom:9px;
-}
-
-.goal-title{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    font-size:10px;
-}
-
-.goal-title span{
-
-    color:var(--green);
-}
-
-.goal-bar{
-
-    height:6px;
-
-    margin-top:10px;
-
-    border-radius:10px;
-
-    background:
-        rgba(120,140,125,.13);
-
-    overflow:hidden;
-}
-
-.goal-bar div{
-
-    height:100%;
-
-    background:var(--green);
-
-    transition:.6s;
-}
-
-/* =====================================================
-   TIMELINE
-   ===================================================== */
-
-.timeline-item{
-
-    display:flex;
-
-    gap:11px;
-
-    padding:12px 0;
-
-    border-bottom:
-        1px solid
-        var(--border);
-}
-
-.timeline-item:last-child{
-    border-bottom:0;
-}
-
-.timeline-dot{
-
-    flex:none;
-
-    width:8px;
-    height:8px;
-
-    margin-top:4px;
-
-    border-radius:50%;
-
-    background:var(--green);
-
-    box-shadow:
-        0 0 12px
-        rgba(85,242,138,.35);
-}
-
-.timeline-item p{
-
-    font-size:10px;
-
-    line-height:1.4;
-}
-
-.timeline-item small{
-
-    color:#59655e;
-
-    font-size:8px;
-}
-
-/* =====================================================
-   ACHIEVEMENTS
-   ===================================================== */
-
-.achievement-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:10px;
-}
-
-.achievement{
-
-    padding:18px 10px;
-
-    text-align:center;
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:13px;
-
-    background:var(--card2);
-
-    transition:.2s;
-}
-
-.achievement:hover{
-    transform:translateY(-3px);
-}
-
-.achievement.locked{
-    opacity:.32;
-}
-
-.achievement-icon{
-
-    font-size:25px;
-
-    margin-bottom:8px;
-}
-
-.achievement strong{
-
-    display:block;
-
-    font-size:10px;
-}
-
-.achievement small{
-
-    display:block;
-
-    color:var(--muted);
-
-    font-size:8px;
-
-    margin-top:4px;
-}
-
-/* =====================================================
-   LAB
-   ===================================================== */
-
-.lab-head{
-
-    padding:28px;
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:20px;
-
-    background:
-
-        radial-gradient(
-            circle at 90% 15%,
-            rgba(85,242,138,.13),
-            transparent 30%
-        ),
-
-        var(--card);
-
-    box-shadow:var(--shadow);
-}
-
-.back{
-
-    border:0;
-
-    background:transparent;
-
-    color:var(--muted);
-
-    font-size:10px;
-
-    margin-bottom:23px;
-}
-
-.lab-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:end;
-
-    gap:20px;
-}
-
-.lab-head h2{
-
-    font-size:30px;
-
-    margin-top:6px;
-}
-
-.lab-head p{
-
-    color:var(--muted);
-
-    font-size:11px;
-
-    max-width:650px;
-
-    margin-top:7px;
-
-    line-height:1.5;
-}
-
-.lab-actions{
-
-    display:flex;
-
-    gap:7px;
-}
-
-.lab-stats{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:12px;
-
-    margin:
-        15px
-        0;
-}
-
-.lab-stat{
-
-    padding:16px;
-
-    background:var(--card);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:14px;
-}
-
-.lab-stat small{
-
-    color:var(--muted);
-
-    font-size:7px;
-
-    letter-spacing:1px;
-}
-
-.lab-stat strong{
-
-    display:block;
-
-    color:var(--green);
-
-    font-size:17px;
-
-    margin-top:7px;
-}
-
-.objective{
-
-    padding:16px;
-
-    background:
-        rgba(85,242,138,.025);
-
-    border:
-        1px solid
-        rgba(85,242,138,.13);
-
-    border-radius:11px;
-}
-
-.objective small{
-
-    color:var(--green);
-
-    font-size:7px;
-
-    letter-spacing:2px;
-}
-
-.objective p{
-
-    font-size:11px;
-
-    line-height:1.5;
-
-    margin-top:8px;
-}
-
-.task{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    padding:12px 0;
-
-    border-bottom:
-        1px solid
-        var(--border);
-}
-
-.task:last-child{
-    border-bottom:0;
-}
-
-.task input{
-
-    width:16px;
-    height:16px;
-
-    accent-color:var(--green);
-}
-
-.task span{
-
-    flex:1;
-
-    font-size:10px;
-}
-
-.task.done span{
-
-    text-decoration:line-through;
-
-    color:#59655e;
-}
-
-.delete-task{
-
-    border:0;
-
-    background:transparent;
-
-    color:#5c6861;
-}
-
-.note{
-
-    padding:12px 0;
-
-    border-bottom:
-        1px solid
-        var(--border);
-}
-
-.note:last-child{
-    border-bottom:0;
-}
-
-.note p{
-
-    font-size:10px;
-
-    line-height:1.5;
-}
-
-.note small{
-
-    color:#59655e;
-
-    font-size:8px;
-}
-
-.info-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:15px;
-
-    padding:11px 0;
-
-    border-bottom:
-        1px solid
-        var(--border);
-
-    font-size:9px;
-}
-
-.info-row:last-child{
-    border-bottom:0;
-}
-
-.info-row span{
-    color:var(--muted);
-}
-
-/* =====================================================
-   PROFILE
-   ===================================================== */
-
-.profile-card{
-
-    max-width:700px;
-
-    margin:auto;
-
-    padding:30px;
-
-    background:var(--card);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius:20px;
-
-    box-shadow:var(--shadow);
-}
-
-.avatar{
-
-    width:75px;
-    height:75px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    margin-bottom:17px;
-
-    border-radius:22px;
-
-    background:var(--green);
-
-    color:#061009;
-
-    font-size:27px;
-
-    font-weight:900;
-}
-
-.profile-card h2{
-    font-size:22px;
-}
-
-.profile-card p{
-
-    color:var(--muted);
-
-    font-size:10px;
-
-    margin-top:5px;
-}
-
-.setting{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    padding:16px 0;
-
-    border-bottom:
-        1px solid
-        var(--border);
-}
-
-.setting:last-child{
-    border-bottom:0;
-}
-
-.setting-info strong{
-
-    display:block;
-
-    font-size:11px;
-}
-
-.setting-info small{
-
-    display:block;
-
-    color:var(--muted);
-
-    font-size:8px;
-
-    margin-top:4px;
-}
-
-.switch{
-
-    width:42px;
-    height:22px;
-
-    position:relative;
-
-    border-radius:30px;
-
-    background:#27312b;
-
-    border:0;
-}
-
-.switch::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:3px;
-    left:3px;
-
-    width:16px;
-    height:16px;
-
-    border-radius:50%;
-
-    background:#aaa;
-
-    transition:.2s;
-}
-
-.switch.on{
-    background:var(--green);
-}
-
-.switch.on::after{
-
-    left:23px;
-
-    background:#061009;
-}
-
-/* =====================================================
-   EMPTY
-   ===================================================== */
-
-.empty{
-
-    grid-column:1/-1;
-
-    padding:42px;
-
-    text-align:center;
-
-    color:var(--muted);
-
-    border:
-        1px dashed
-        var(--border);
-
-    border-radius:15px;
-
-    font-size:10px;
-}
-
-/* =====================================================
-   MODAL
-   ===================================================== */
-
-.modal{
-
-    position:fixed;
-
-    inset:0;
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-
-    background:
-        rgba(0,0,0,.72);
-
-    backdrop-filter:blur(10px);
-
-    z-index:200;
-}
-
-.modal-box{
-
-    width:100%;
-
-    max-width:560px;
-
-    padding:26px;
-
-    border:
-        1px solid
-        #2a382f;
-
-    border-radius:18px;
-
-    background:#101512;
-
-    box-shadow:
-        0 30px 100px
-        rgba(0,0,0,.55);
-
-    animation:
-        modalIn
-        .2s
-        ease;
-}
-
-@keyframes modalIn{
-
-    from{
-        opacity:0;
-        transform:scale(.96);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
-
-.modal-box h2{
-
-    font-size:19px;
-
-    margin-bottom:18px;
-}
-
-.form-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:8px;
-}
-
-.full{
-    grid-column:1/-1;
-}
-
-.modal-buttons{
-
-    display:flex;
-
-    gap:8px;
-
-    margin-top:13px;
-}
-
-.modal-buttons button{
-    flex:1;
-}
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media(max-width:1050px){
-
-    .sidebar{
-
-        width:70px;
-
-        padding:
-            20px 9px;
-    }
-
-    .logo{
-        justify-content:center;
-    }
-
-    .logo-name,
-    .menu-label,
-    .nav button span,
-    .sidebar-bottom{
-        display:none;
-    }
-
-    .main{
-        margin-left:70px;
-        padding:23px;
-    }
-
-    .projects{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .grid2{
-        grid-template-columns:1fr;
-    }
-
-}
-
-@media(max-width:700px){
-
-    .main{
-        padding:14px;
-    }
-
-    .topbar{
-        margin-bottom:18px;
-    }
-
-    .topbar h1{
-        font-size:20px;
-    }
-
-    .clock{
-        display:none;
-    }
-
-    .hero{
-        padding:24px;
-    }
-
-    .hero h2{
-        font-size:25px;
-    }
-
-    .stats{
-        grid-template-columns:
-            1fr 1fr;
-    }
-
-    .projects{
-        grid-template-columns:1fr;
-    }
-
-    .toolbar{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .filters{
-        width:100%;
-    }
-
-    .filters select{
-        flex:1;
-    }
-
-    .lab-row{
-        display:block;
-    }
-
-    .lab-actions{
-        margin-top:17px;
-    }
-
-    .lab-stats{
-        grid-template-columns:
-            1fr 1fr;
-    }
-
-    .achievement-grid{
-        grid-template-columns:
-            1fr 1fr;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .full{
-        grid-column:auto;
-    }
-
-}
-
-</style>
-</head>
-
-
-<body>
+<!-- =====================================================
+     PROJECT X 3.1 — FASE 1: INTELIGÊNCIA
+     
+     INTEGRAÇÃO:
+     • Central de comandos
+     • Interpretador de comandos
+     • Respostas automáticas
+     • Comandos personalizados
+     • Histórico persistente
+     • Comandos para projetos
+     • Comandos para metas
+     • Comandos para ideias
+     • Comandos para tarefas
+     • Comandos de sistema
+     • Base preparada para JARVIS
+     
+     IMPORTANTE:
+     Este bloco deve ser integrado ao seu PROJECT X 3.0.
+     ===================================================== -->
 
 
 <!-- =====================================================
-     SIDEBAR
+     1. ADICIONE ESTE ITEM NA SIDEBAR
      ===================================================== -->
 
-<aside class="sidebar">
-
-<div class="logo">
-
-<div class="logo-icon">X</div>
-
-<div class="logo-name">
-PROJECT <span>X</span>
-</div>
-
-</div>
-
-
 <div class="menu-label">
-CENTRAL
+INTELIGÊNCIA
 </div>
 
 <nav class="nav">
 
 <button
-class="active"
-onclick="showPage('dashboard',this)"
+onclick="showPage('commandPage',this)"
 >
-◈ <span>Dashboard</span>
-</button>
-
-<button
-onclick="showPage('projectsPage',this)"
->
-▦ <span>Projetos</span>
-</button>
-
-<button
-onclick="showPage('ideasPage',this)"
->
-💡 <span>Ideias</span>
-</button>
-
-<button
-onclick="showPage('goalsPage',this)"
->
-🎯 <span>Metas</span>
-</button>
-
-<button
-onclick="showPage('statsPage',this)"
->
-📈 <span>Estatísticas</span>
-</button>
-
-<button
-onclick="showPage('achievementsPage',this)"
->
-🏆 <span>Conquistas</span>
+🧠 <span>Central de Comandos</span>
 </button>
 
 </nav>
-
-
-<div class="menu-label">
-SISTEMA
-</div>
-
-<nav class="nav">
-
-<button
-onclick="showPage('profilePage',this)"
->
-👤 <span>Perfil</span>
-</button>
-
-<button
-onclick="showPage('settingsPage',this)"
->
-⚙ <span>Configurações</span>
-</button>
-
-<button onclick="exportData()">
-↓ <span>Backup</span>
-</button>
-
-</nav>
-
-
-<div class="sidebar-bottom">
-
-<span class="online">
-● SYSTEM ONLINE
-</span>
-
-<br><br>
-
-PROJECT X 3.0
-
-</div>
-
-</aside>
 
 
 <!-- =====================================================
-     MAIN
+     2. ADICIONE ESTA PÁGINA ANTES DE </main>
      ===================================================== -->
 
-<main class="main">
+<section
+class="page"
+id="commandPage"
+>
 
-
-<div class="topbar">
+<div class="section-title">
 
 <div>
 
-<h1 id="welcome">
-Bom dia, Rios.
-</h1>
-
-<p>
-Seu centro de comando pessoal.
-</p>
-
-</div>
-
-<div
-class="clock"
-id="clock"
-></div>
-
-</div>
-
-
-<!-- =====================================================
-     DASHBOARD
-     ===================================================== -->
-
-<section
-class="page active"
-id="dashboard"
->
-
-<div class="hero">
-
-<div class="hero-label">
-PROJECT X / CENTRAL
-</div>
-
 <h2>
-Transforme ideias em projetos reais.
+Central de Comandos
 </h2>
 
-<p>
-Planeje, construa, acompanhe e evolua seus projetos
-em um único centro de comando.
-</p>
+<span>
+PROJECT X INTELLIGENCE CORE
+</span>
 
 </div>
-
-
-<div class="stats">
-
-<div class="stat">
-
-<small>
-PROJETOS
-</small>
-
-<strong id="total">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<small>
-ATIVOS
-</small>
-
-<strong
-class="green"
-id="active"
->
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<small>
-CONCLUÍDOS
-</small>
-
-<strong id="completed">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<small>
-PROGRESSO MÉDIO
-</small>
-
-<strong
-class="green"
-id="average"
->
-0%
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="grid2">
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-PROJETOS RECENTES
-</h3>
 
 <button
 class="btn"
-onclick="showPage('projectsPage')"
+onclick="clearCommandHistory()"
 >
-Ver todos
+Limpar histórico
 </button>
 
 </div>
 
-<div
-class="panel-body"
->
 
-<div
-class="projects"
-id="recentProjects"
-></div>
-
-</div>
-
-</div>
+<div class="command-layout">
 
 
-<div class="panel">
+<!-- =================================================
+     COMMAND CENTER
+     ================================================= -->
+
+<div class="panel command-panel">
 
 <div class="panel-head">
 
 <h3>
-ATIVIDADE RECENTE
+🧠 COMMAND CENTER
 </h3>
 
-</div>
+<div class="command-status">
 
-<div
-class="panel-body"
-id="dashboardTimeline"
-></div>
-
-</div>
-
-
-</div>
-
-
-<br>
-
-
-<div class="grid3">
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-METAS
-</h3>
-
-</div>
-
-<div
-class="panel-body"
-id="dashboardGoals"
-></div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-PRÓXIMOS PRAZOS
-</h3>
-
-</div>
-
-<div
-class="panel-body"
-id="alerts"
-></div>
-
-</div>
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-NÍVEL DO SISTEMA
-</h3>
-
-</div>
-
-<div
-class="panel-body"
-id="systemLevel"
-></div>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PROJECTS
-     ===================================================== -->
-
-<section
-class="page"
-id="projectsPage"
->
-
-<div class="section-title">
-
-<h2>
-Todos os projetos
-</h2>
-
-<span id="projectCount">
-0 projetos
+<span class="online">
+● ONLINE
 </span>
 
 </div>
 
+</div>
 
-<div class="toolbar">
 
-<input
-class="search"
-id="search"
-placeholder="Pesquisar projeto..."
-oninput="renderProjects()"
+<div
+class="command-output"
+id="commandOutput"
 >
 
+<div class="system-message">
 
-<div class="filters">
+<div class="message-icon">
+X
+</div>
 
-<select
-id="filterCategory"
-onchange="renderProjects()"
->
+<div>
 
-<option value="">
-Categoria
-</option>
+<strong>
+PROJECT X
+</strong>
 
-<option>
-Tecnologia
-</option>
-
-<option>
-IA
-</option>
-
-<option>
-Site
-</option>
-
-<option>
-Jogo
-</option>
-
-<option>
-Robótica
-</option>
-
-<option>
-Estudo
-</option>
-
-<option>
-Pessoal
-</option>
-
-<option>
-Outro
-</option>
-
-</select>
-
-
-<select
-id="filterStatus"
-onchange="renderProjects()"
->
-
-<option value="">
-Status
-</option>
-
-<option>
-Ideia
-</option>
-
-<option>
-Em desenvolvimento
-</option>
-
-<option>
-Pausado
-</option>
-
-<option>
-Concluído
-</option>
-
-</select>
+<p>
+Sistema de inteligência online.
+Digite <b>ajuda</b> para ver os comandos disponíveis.
+</p>
 
 </div>
 
+</div>
+
+</div>
+
+
+<div class="command-input-area">
+
+<div class="command-prefix">
+&gt;_
+</div>
+
+<input
+id="commandInput"
+autocomplete="off"
+placeholder="Digite um comando..."
+onkeydown="handleCommandKey(event)"
+>
 
 <button
 class="btn btn-primary"
-onclick="openModal()"
+onclick="executeCommand()"
 >
-+ Novo projeto
+Executar
 </button>
 
 </div>
 
-
-<div
-class="projects"
-id="projects"
-></div>
-
-</section>
-
-
-<!-- =====================================================
-     IDEAS
-     ===================================================== -->
-
-<section
-class="page"
-id="ideasPage"
->
-
-<div class="section-title">
-
-<h2>
-Banco de ideias
-</h2>
-
-<span id="ideaCount">
-0 ideias
-</span>
-
 </div>
 
 
+<!-- =================================================
+     QUICK COMMANDS
+     ================================================= -->
+
 <div class="panel">
+
+<div class="panel-head">
+
+<h3>
+COMANDOS RÁPIDOS
+</h3>
+
+</div>
+
 
 <div class="panel-body">
 
+<div class="quick-commands">
 
-<div class="idea-input">
-
-<input
-id="ideaInput"
-placeholder="Digite uma nova ideia..."
->
 
 <button
-class="btn btn-primary"
-onclick="addIdea()"
+class="quick-command"
+onclick="quickCommand('status')"
 >
-Guardar
+📊 Status
+</button>
+
+
+<button
+class="quick-command"
+onclick="quickCommand('projetos')"
+>
+📁 Projetos
+</button>
+
+
+<button
+class="quick-command"
+onclick="quickCommand('tarefas')"
+>
+✓ Tarefas
+</button>
+
+
+<button
+class="quick-command"
+onclick="quickCommand('metas')"
+>
+🎯 Metas
+</button>
+
+
+<button
+class="quick-command"
+onclick="quickCommand('ideias')"
+>
+💡 Ideias
+</button>
+
+
+<button
+class="quick-command"
+onclick="quickCommand('nivel')"
+>
+⚡ Nível
+</button>
+
+
+<button
+class="quick-command"
+onclick="quickCommand('atividade')"
+>
+📜 Atividade
+</button>
+
+
+<button
+class="quick-command"
+onclick="quickCommand('ajuda')"
+>
+❔ Ajuda
 </button>
 
 </div>
 
-
-<div id="ideasList"></div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     GOALS
-     ===================================================== -->
-
-<section
-class="page"
-id="goalsPage"
->
-
-<div class="section-title">
-
-<h2>
-Metas
-</h2>
-
-<button
-class="btn btn-primary"
-onclick="addGoal()"
->
-+ Nova meta
-</button>
-
-</div>
-
-
-<div class="panel">
-
-<div
-class="panel-body"
-id="goalsList"
-></div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     STATS
-     ===================================================== -->
-
-<section
-class="page"
-id="statsPage"
->
-
-<div class="section-title">
-
-<h2>
-Estatísticas
-</h2>
-
-</div>
-
-
-<div class="stats">
-
-<div class="stat">
-
-<small>
-TAREFAS
-</small>
-
-<strong id="statTasks">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<small>
-CONCLUÍDAS
-</small>
-
-<strong
-class="green"
-id="statDone"
->
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<small>
-IDEIAS
-</small>
-
-<strong id="statIdeas">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-<small>
-METAS
-</small>
-
-<strong
-class="green"
-id="statGoals"
->
-0
-</strong>
-
 </div>
 
 </div>
 
 
-<div class="grid2">
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-EVOLUÇÃO
-</h3>
-
-</div>
-
-<div
-class="panel-body"
-id="statsDetails"
-></div>
-
-</div>
-
+<!-- =================================================
+     COMMAND HISTORY
+     ================================================= -->
 
 <div class="panel">
 
@@ -2495,12 +253,21 @@ id="statsDetails"
 HISTÓRICO
 </h3>
 
+<span
+id="commandHistoryCount"
+>
+0 comandos
+</span>
+
 </div>
+
 
 <div
 class="panel-body"
-id="timeline"
-></div>
+id="commandHistory"
+>
+
+</div>
 
 </div>
 
@@ -2511,3380 +278,1894 @@ id="timeline"
 
 
 <!-- =====================================================
-     ACHIEVEMENTS
+     3. ADICIONE ESTE CSS ANTES DE </style>
      ===================================================== -->
 
-<section
-class="page"
-id="achievementsPage"
->
+<style>
 
-<div class="section-title">
+/* =====================================================
+   COMMAND CENTER — PHASE 1
+   ===================================================== */
 
-<h2>
-Conquistas
-</h2>
+.command-layout{
 
-</div>
+    display:grid;
+
+    grid-template-columns:
+        2fr 1fr;
+
+    gap:15px;
+
+}
 
 
-<div class="panel">
+.command-panel{
 
-<div class="panel-body">
+    min-height:520px;
 
-<div
-class="achievement-grid"
-id="achievementList"
-></div>
+    display:flex;
 
-</div>
+    flex-direction:column;
 
-</div>
+}
 
-</section>
+
+.command-status{
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+}
+
+
+.command-output{
+
+    flex:1;
+
+    min-height:390px;
+
+    max-height:500px;
+
+    overflow-y:auto;
+
+    padding:20px;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(85,242,138,.035),
+            transparent 45%
+        ),
+
+        #080d0a;
+
+    font-family:
+        monospace;
+
+}
+
+
+body.light .command-output{
+
+    background:#f4f7f5;
+
+}
+
+
+.system-message,
+.user-message,
+.jarvis-message{
+
+    display:flex;
+
+    gap:11px;
+
+    margin-bottom:15px;
+
+    animation:
+        pageIn
+        .2s
+        ease;
+
+}
+
+
+.message-icon{
+
+    flex:none;
+
+    width:29px;
+    height:29px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:8px;
+
+    background:
+        rgba(85,242,138,.1);
+
+    color:var(--green);
+
+    font-size:10px;
+
+    font-weight:900;
+
+}
+
+
+.user-message .message-icon{
+
+    background:
+        rgba(109,165,255,.1);
+
+    color:var(--blue);
+
+}
+
+
+.system-message strong,
+.jarvis-message strong,
+.user-message strong{
+
+    display:block;
+
+    font-size:9px;
+
+    letter-spacing:1px;
+
+}
+
+
+.system-message p,
+.jarvis-message p,
+.user-message p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.6;
+
+    margin-top:4px;
+
+    white-space:pre-line;
+
+}
+
+
+.user-message{
+
+    flex-direction:row-reverse;
+
+    text-align:right;
+
+}
+
+
+.user-message .message-icon{
+
+    background:
+        rgba(109,165,255,.12);
+
+}
+
+
+.command-input-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:13px;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    background:var(--card);
+
+}
+
+
+.command-prefix{
+
+    color:var(--green);
+
+    font-family:monospace;
+
+    font-weight:900;
+
+    font-size:13px;
+
+}
+
+
+.command-input-area input{
+
+    flex:1;
+
+    background:
+        var(--bg2);
+
+    border:0;
+
+    padding:12px;
+
+    font-family:monospace;
+
+}
+
+
+.quick-commands{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:7px;
+
+}
+
+
+.quick-command{
+
+    padding:11px 8px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:var(--card2);
+
+    color:var(--muted);
+
+    border-radius:9px;
+
+    font-size:9px;
+
+    text-align:left;
+
+    transition:.2s;
+
+}
+
+
+.quick-command:hover{
+
+    color:var(--green);
+
+    border-color:
+        rgba(85,242,138,.3);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.command-history-item{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:10px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    cursor:pointer;
+
+}
+
+
+.command-history-item:last-child{
+
+    border-bottom:0;
+
+}
+
+
+.command-history-item:hover
+.command-history-text{
+
+    color:var(--green);
+
+}
+
+
+.command-history-text{
+
+    color:var(--text);
+
+    font-family:monospace;
+
+    font-size:9px;
+
+    transition:.2s;
+
+}
+
+
+.command-history-date{
+
+    color:#59655e;
+
+    font-size:7px;
+
+    white-space:nowrap;
+
+}
+
+
+.command-result{
+
+    padding:11px 13px;
+
+    margin-top:7px;
+
+    border:
+        1px solid
+        rgba(85,242,138,.12);
+
+    border-radius:9px;
+
+    background:
+        rgba(85,242,138,.025);
+
+}
+
+
+.command-result-title{
+
+    color:var(--green);
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+    margin-bottom:6px;
+
+}
+
+
+.command-result-line{
+
+    color:var(--muted);
+
+    font-size:9px;
+
+    line-height:1.7;
+
+}
+
+
+.command-highlight{
+
+    color:var(--green);
+
+}
+
+
+.command-warning{
+
+    color:var(--yellow);
+
+}
+
+
+.command-error{
+
+    color:var(--red);
+
+}
+
+
+@media(max-width:850px){
+
+    .command-layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .command-input-area{
+
+        flex-wrap:wrap;
+
+    }
+
+    .command-input-area input{
+
+        min-width:0;
+
+    }
+
+    .command-input-area .btn{
+
+        width:100%;
+
+    }
+
+    .command-output{
+
+        min-height:330px;
+
+    }
+
+}
+
+</style>
 
 
 <!-- =====================================================
-     PROFILE
+     4. ADICIONE ESTE JAVASCRIPT ANTES DE </script>
      ===================================================== -->
-
-<section
-class="page"
-id="profilePage"
->
-
-<div class="section-title">
-
-<h2>
-Perfil
-</h2>
-
-</div>
-
-
-<div class="profile-card">
-
-<div class="avatar">
-R
-</div>
-
-<h2 id="profileName">
-Rios
-</h2>
-
-<p>
-Criador do Project X
-</p>
-
-
-<br>
-
-
-<div class="info-row">
-
-<span>
-Projetos
-</span>
-
-<strong id="profileProjects">
-0
-</strong>
-
-</div>
-
-
-<div class="info-row">
-
-<span>
-Ideias
-</span>
-
-<strong id="profileIdeas">
-0
-</strong>
-
-</div>
-
-
-<div class="info-row">
-
-<span>
-Conquistas
-</span>
-
-<strong id="profileAchievements">
-0
-</strong>
-
-</div>
-
-
-<div class="info-row">
-
-<span>
-Nível
-</span>
-
-<strong id="profileLevel">
-1
-</strong>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     SETTINGS
-     ===================================================== -->
-
-<section
-class="page"
-id="settingsPage"
->
-
-<div class="section-title">
-
-<h2>
-Configurações
-</h2>
-
-</div>
-
-
-<div class="profile-card">
-
-
-<div class="setting">
-
-<div class="setting-info">
-
-<strong>
-Modo escuro
-</strong>
-
-<small>
-Alternar aparência do Project X
-</small>
-
-</div>
-
-<button
-class="switch on"
-id="themeSwitch"
-onclick="toggleTheme()"
-></button>
-
-</div>
-
-
-<div class="setting">
-
-<div class="setting-info">
-
-<strong>
-Animações
-</strong>
-
-<small>
-Efeitos visuais da interface
-</small>
-
-</div>
-
-<button
-class="switch on"
-id="animationSwitch"
-onclick="toggleAnimations()"
-></button>
-
-</div>
-
-
-<div class="setting">
-
-<div class="setting-info">
-
-<strong>
-Exportar dados
-</strong>
-
-<small>
-Salvar uma cópia dos seus projetos
-</small>
-
-</div>
-
-<button
-class="btn"
-onclick="exportData()"
->
-Exportar
-</button>
-
-</div>
-
-
-<div class="setting">
-
-<div class="setting-info">
-
-<strong>
-Apagar dados
-</strong>
-
-<small>
-Remove todos os dados salvos localmente
-</small>
-
-</div>
-
-<button
-class="btn btn-danger"
-onclick="clearAll()"
->
-Resetar
-</button>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     PROJECT LAB
-     ===================================================== -->
-
-<section
-class="page"
-id="labPage"
->
-
-<div class="lab-head">
-
-<button
-class="back"
-onclick="showPage('projectsPage')"
->
-← Voltar para projetos
-</button>
-
-
-<div class="lab-row">
-
-
-<div>
-
-<div
-class="code"
-id="projectCode"
->
-PROJECT_001
-</div>
-
-<h2
-id="projectName"
->
-Projeto
-</h2>
-
-<p
-id="projectDescription"
->
-Descrição
-</p>
-
-</div>
-
-
-<div class="lab-actions">
-
-<button
-class="btn"
-onclick="editProject()"
->
-Editar
-</button>
-
-<button
-class="btn btn-danger"
-onclick="deleteProject()"
->
-Excluir
-</button>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<div class="lab-stats">
-
-
-<div class="lab-stat">
-
-<small>
-STATUS
-</small>
-
-<strong
-id="detailStatus"
->
-—
-</strong>
-
-</div>
-
-
-<div class="lab-stat">
-
-<small>
-PROGRESSO
-</small>
-
-<strong
-id="detailProgress"
->
-0%
-</strong>
-
-</div>
-
-
-<div class="lab-stat">
-
-<small>
-TAREFAS
-</small>
-
-<strong
-id="detailTasks"
->
-0/0
-</strong>
-
-</div>
-
-
-<div class="lab-stat">
-
-<small>
-PRAZO
-</small>
-
-<strong
-id="detailDeadline"
->
-—
-</strong>
-
-</div>
-
-
-</div>
-
-
-<div class="grid2">
-
-
-<div>
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-OBJETIVO PRINCIPAL
-</h3>
-
-<button
-class="btn"
-onclick="addObjective()"
->
-Definir
-</button>
-
-</div>
-
-<div class="panel-body">
-
-<div class="objective">
-
-<small>
-OBJECTIVE
-</small>
-
-<p
-id="objectiveText"
->
-Nenhum objetivo definido.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<br>
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-TAREFAS
-</h3>
-
-<button
-class="btn"
-onclick="addTask()"
->
-+ Tarefa
-</button>
-
-</div>
-
-<div
-class="panel-body"
-id="taskList"
-></div>
-
-</div>
-
-
-</div>
-
-
-<div>
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-NOTAS
-</h3>
-
-<button
-class="btn"
-onclick="addNote()"
->
-+ Nota
-</button>
-
-</div>
-
-<div
-class="panel-body"
-id="noteList"
-></div>
-
-</div>
-
-
-<br>
-
-
-<div class="panel">
-
-<div class="panel-head">
-
-<h3>
-INFORMAÇÕES
-</h3>
-
-</div>
-
-<div
-class="panel-body"
-id="infoPanel"
-></div>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-</section>
-
-
-</main>
-
-
-<!-- =====================================================
-     MODAL
-     ===================================================== -->
-
-<div
-class="modal"
-id="projectModal"
->
-
-<div class="modal-box">
-
-<h2
-id="modalTitle"
->
-Novo projeto
-</h2>
-
-
-<div class="form-grid">
-
-
-<input
-id="name"
-placeholder="Nome do projeto"
->
-
-
-<select
-id="category"
->
-
-<option>
-Tecnologia
-</option>
-
-<option>
-IA
-</option>
-
-<option>
-Site
-</option>
-
-<option>
-Jogo
-</option>
-
-<option>
-Robótica
-</option>
-
-<option>
-Estudo
-</option>
-
-<option>
-Pessoal
-</option>
-
-<option>
-Outro
-</option>
-
-</select>
-
-
-<textarea
-class="full"
-id="description"
-placeholder="Descrição..."
-></textarea>
-
-
-<select
-id="status"
->
-
-<option>
-Ideia
-</option>
-
-<option>
-Em desenvolvimento
-</option>
-
-<option>
-Pausado
-</option>
-
-<option>
-Concluído
-</option>
-
-</select>
-
-
-<select
-id="priority"
->
-
-<option>
-Baixa
-</option>
-
-<option>
-Média
-</option>
-
-<option>
-Alta
-</option>
-
-</select>
-
-
-<input
-id="deadline"
-type="date"
->
-
-</div>
-
-
-<div class="modal-buttons">
-
-<button
-class="btn"
-onclick="closeModal()"
->
-Cancelar
-</button>
-
-<button
-class="btn btn-primary"
-onclick="saveProject()"
->
-Salvar projeto
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 
 <script>
 
 /* =====================================================
-   DATA
+   PROJECT X INTELLIGENCE CORE
+   PHASE 1
    ===================================================== */
 
-let projects =
+
+/* =====================================================
+   COMMAND MEMORY
+   ===================================================== */
+
+let commandHistory =
 JSON.parse(
-localStorage.getItem("projectX")
-) || [];
-
-let ideas =
-JSON.parse(
-localStorage.getItem("projectXIdeas")
-) || [];
-
-let goals =
-JSON.parse(
-localStorage.getItem("projectXGoals")
-) || [];
-
-let timeline =
-JSON.parse(
-localStorage.getItem("projectXTimeline")
-) || [];
-
-
-let currentProject = null;
-
-let editingProject = null;
-
-
-/* =====================================================
-   NORMALIZAÇÃO
-   ===================================================== */
-
-projects =
-projects.map(p => ({
-
-    name:
-        p.name ||
-        "Projeto",
-
-    description:
-        p.description ||
-        "",
-
-    status:
-        p.status ||
-        "Ideia",
-
-    progress:
-        Number(p.progress) ||
-        0,
-
-    objective:
-        p.objective ||
-        "",
-
-    tasks:
-        Array.isArray(p.tasks)
-        ? p.tasks
-        : [],
-
-    notes:
-        Array.isArray(p.notes)
-        ? p.notes
-        : [],
-
-    category:
-        p.category ||
-        "Outro",
-
-    priority:
-        p.priority ||
-        "Média",
-
-    deadline:
-        p.deadline ||
-        ""
-
-}));
-
-
-/* =====================================================
-   SAVE
-   ===================================================== */
-
-function saveAll(){
-
-    localStorage.setItem(
-        "projectX",
-        JSON.stringify(projects)
-    );
-
-    localStorage.setItem(
-        "projectXIdeas",
-        JSON.stringify(ideas)
-    );
-
-    localStorage.setItem(
-        "projectXGoals",
-        JSON.stringify(goals)
-    );
-
-    localStorage.setItem(
-        "projectXTimeline",
-        JSON.stringify(timeline)
-    );
-
-}
-
-
-/* =====================================================
-   NAVIGATION
-   ===================================================== */
-
-function showPage(id,button=null){
-
-    document
-        .querySelectorAll(".page")
-        .forEach(page =>
-            page.classList.remove("active")
-        );
-
-    const page =
-        document.getElementById(id);
-
-    if(page){
-        page.classList.add("active");
-    }
-
-
-    document
-        .querySelectorAll(".nav button")
-        .forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-    if(button){
-        button.classList.add("active");
-    }
-
-
-    if(id==="dashboard"){
-        renderDashboard();
-    }
-
-    if(id==="projectsPage"){
-        renderProjects();
-    }
-
-    if(id==="ideasPage"){
-        renderIdeas();
-    }
-
-    if(id==="goalsPage"){
-        renderGoals();
-    }
-
-    if(id==="statsPage"){
-        renderStatistics();
-    }
-
-    if(id==="achievementsPage"){
-        renderAchievements();
-    }
-
-    if(id==="profilePage"){
-        renderProfile();
-    }
-
-}
-
-
-/* =====================================================
-   MODAL
-   ===================================================== */
-
-function openModal(index=null){
-
-    editingProject=index;
-
-    document
-        .getElementById("projectModal")
-        .style.display="flex";
-
-
-    if(index===null){
-
-        document
-            .getElementById("modalTitle")
-            .textContent=
-            "Novo projeto";
-
-        name.value="";
-        description.value="";
-        status.value=
-            "Ideia";
-
-        priority.value=
-            "Média";
-
-        category.value=
-            "Tecnologia";
-
-        deadline.value="";
-
-    }else{
-
-        const p =
-            projects[index];
-
-        document
-            .getElementById("modalTitle")
-            .textContent=
-            "Editar projeto";
-
-        name.value=p.name;
-
-        description.value=
-            p.description;
-
-        status.value=
-            p.status;
-
-        priority.value=
-            p.priority;
-
-        category.value=
-            p.category;
-
-        deadline.value=
-            p.deadline;
-
-    }
-
-}
-
-
-function closeModal(){
-
-    document
-        .getElementById("projectModal")
-        .style.display="none";
-
-    editingProject=null;
-
-}
-
-
-/* =====================================================
-   PROJECTS
-   ===================================================== */
-
-function saveProject(){
-
-    const projectName =
-        document
-            .getElementById("name")
-            .value
-            .trim();
-
-
-    if(!projectName){
-
-        alert(
-            "Digite o nome do projeto."
-        );
-
-        return;
-    }
-
-
-    const data={
-
-        name:
-            projectName,
-
-        description:
-            document
-            .getElementById("description")
-            .value
-            .trim(),
-
-        status:
-            document
-            .getElementById("status")
-            .value,
-
-        priority:
-            document
-            .getElementById("priority")
-            .value,
-
-        category:
-            document
-            .getElementById("category")
-            .value,
-
-        deadline:
-            document
-            .getElementById("deadline")
-            .value,
-
-        objective:
-            "",
-
-        tasks:
-            [],
-
-        notes:
-            []
-
-    };
-
-
-    if(editingProject===null){
-
-        projects.push(data);
-
-        addTimeline(
-            "Projeto criado: "+
-            projectName
-        );
-
-    }else{
-
-        const old =
-            projects[editingProject];
-
-        projects[editingProject]={
-
-            ...data,
-
-            objective:
-                old.objective,
-
-            tasks:
-                old.tasks,
-
-            notes:
-                old.notes
-
-        };
-
-        addTimeline(
-            "Projeto atualizado: "+
-            projectName
-        );
-
-    }
-
-
-    saveAll();
-
-    closeModal();
-
-    renderDashboard();
-
-    showPage(
-        "projectsPage"
-    );
-
-}
-
-
-/* =====================================================
-   PROGRESS
-   ===================================================== */
-
-function calculateProgress(p){
-
-    if(!p.tasks.length){
-
-        return Number(
-            p.progress
-        ) || 0;
-
-    }
-
-
-    return Math.round(
-
-        p.tasks.filter(
-            task=>task.done
-        ).length
-        /
-        p.tasks.length
-        *
-        100
-
-    );
-
-}
-
-
-/* =====================================================
-   PROJECT CARDS
-   ===================================================== */
-
-function createProjectCard(
-    p,
-    index
-){
-
-    const div =
-        document.createElement("div");
-
-    div.className=
-        "project";
-
-
-    div.onclick=() =>
-        openProject(index);
-
-
-    const progress =
-        calculateProgress(p);
-
-
-    const priorityClass =
-        p.priority==="Alta"
-        ? "high"
-        :
-        p.priority==="Média"
-        ? "medium"
-        : "";
-
-
-    div.innerHTML=`
-
-        <div class="project-top">
-
-            <div class="project-icon">
-                ◈
-            </div>
-
-            <div class="code">
-                PROJECT_${String(index+1).padStart(3,"0")}
-            </div>
-
-        </div>
-
-
-        <h3>
-            ${escapeHTML(p.name)}
-        </h3>
-
-
-        <div class="desc">
-            ${escapeHTML(
-                p.description ||
-                "Sem descrição."
-            )}
-        </div>
-
-
-        <div class="tags">
-
-            <span class="tag">
-                ${escapeHTML(
-                    p.category
-                )}
-            </span>
-
-            <span
-                class="tag ${priorityClass}"
-            >
-                ${escapeHTML(
-                    p.priority
-                )}
-            </span>
-
-            <span class="tag">
-                ${escapeHTML(
-                    p.status
-                )}
-            </span>
-
-        </div>
-
-
-        <div class="progress-info">
-
-            <span>
-                Progresso
-            </span>
-
-            <strong>
-                ${progress}%
-            </strong>
-
-        </div>
-
-
-        <div class="progress">
-
-            <div
-                style="width:${progress}%"
-            ></div>
-
-        </div>
-
-    `;
-
-
-    return div;
-
-}
-
-
-/* =====================================================
-   RENDER PROJECTS
-   ===================================================== */
-
-function renderProjects(){
-
-    const container =
-        document.getElementById(
-            "projects"
-        );
-
-    container.innerHTML="";
-
-
-    const search =
-        (
-            document.getElementById(
-                "search"
-            )?.value || ""
-        ).toLowerCase();
-
-
-    const category =
-        document.getElementById(
-            "filterCategory"
-        )?.value || "";
-
-
-    const status =
-        document.getElementById(
-            "filterStatus"
-        )?.value || "";
-
-
-    const filtered =
-
-        projects
-        .map(
-            (p,index)=>({
-                p,
-                index
-            })
-        )
-
-        .filter(item =>
-
-            item.p.name
-            .toLowerCase()
-            .includes(search)
-
-            &&
-
-            (
-                !category ||
-                item.p.category===category
-            )
-
-            &&
-
-            (
-                !status ||
-                item.p.status===status
-            )
-
-        );
-
-
-    if(!filtered.length){
-
-        container.innerHTML=
-        `
-            <div class="empty">
-                Nenhum projeto encontrado.
-            </div>
-        `;
-
-    }else{
-
-        filtered.forEach(item=>{
-
-            container.appendChild(
-
-                createProjectCard(
-                    item.p,
-                    item.index
-                )
-
-            );
-
-        });
-
-    }
-
-
-    const newButton =
-        document.createElement("button");
-
-    newButton.className=
-        "new-project";
-
-    newButton.innerHTML=
-        "+<br><br>Criar novo projeto";
-
-    newButton.onclick=
-        () => openModal();
-
-    container.appendChild(
-        newButton
-    );
-
-
-    document
-        .getElementById(
-            "projectCount"
-        )
-        .textContent =
-        projects.length+
-        (
-            projects.length===1
-            ? " projeto"
-            : " projetos"
-        );
-
-}
-
-
-/* =====================================================
-   DASHBOARD
-   ===================================================== */
-
-function renderDashboard(){
-
-    const total =
-        projects.length;
-
-
-    const active =
-        projects.filter(
-            p =>
-            p.status===
-            "Em desenvolvimento"
-        ).length;
-
-
-    const completed =
-        projects.filter(
-            p =>
-            p.status===
-            "Concluído"
-        ).length;
-
-
-    const average =
-        total
-        ?
-        Math.round(
-
-            projects.reduce(
-                (sum,p)=>
-                sum+
-                calculateProgress(p),
-                0
-            )
-            /
-            total
-
-        )
-        :
-        0;
-
-
-    document.getElementById(
-        "total"
-    ).textContent=total;
-
-
-    document.getElementById(
-        "active"
-    ).textContent=active;
-
-
-    document.getElementById(
-        "completed"
-    ).textContent=completed;
-
-
-    document.getElementById(
-        "average"
-    ).textContent=
-        average+"%";
-
-
-    const recent =
-        document.getElementById(
-            "recentProjects"
-        );
-
-    recent.innerHTML="";
-
-
-    if(!projects.length){
-
-        recent.innerHTML=
-        `
-            <div class="empty">
-                Nenhum projeto ainda.
-            </div>
-        `;
-
-    }else{
-
-        projects
-        .slice(-3)
-        .reverse()
-        .forEach(p=>{
-
-            const index =
-                projects.indexOf(p);
-
-            recent.appendChild(
-
-                createProjectCard(
-                    p,
-                    index
-                )
-
-            );
-
-        });
-
-    }
-
-
-    renderDashboardTimeline();
-
-    renderDashboardGoals();
-
-    renderAlerts();
-
-    renderSystemLevel();
-
-}
-
-
-/* =====================================================
-   DASHBOARD TIMELINE
-   ===================================================== */
-
-function renderDashboardTimeline(){
-
-    const box =
-        document.getElementById(
-            "dashboardTimeline"
-        );
-
-    box.innerHTML="";
-
-
-    if(!timeline.length){
-
-        box.innerHTML=
-        `
-            <p style="
-                color:var(--muted);
-                font-size:10px;
-            ">
-                Nenhuma atividade registrada.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    timeline
-    .slice(0,5)
-    .forEach(item=>{
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className=
-            "timeline-item";
-
-
-        div.innerHTML=`
-
-            <div class="timeline-dot"></div>
-
-            <div>
-
-                <p>
-                    ${escapeHTML(
-                        item.text
-                    )}
-                </p>
-
-                <small>
-                    ${item.date}
-                </small>
-
-            </div>
-
-        `;
-
-
-        box.appendChild(div);
-
-    });
-
-}
-
-
-/* =====================================================
-   DASHBOARD GOALS
-   ===================================================== */
-
-function renderDashboardGoals(){
-
-    const box =
-        document.getElementById(
-            "dashboardGoals"
-        );
-
-    box.innerHTML="";
-
-
-    if(!goals.length){
-
-        box.innerHTML=
-        `
-            <p style="
-                color:var(--muted);
-                font-size:10px;
-            ">
-                Nenhuma meta criada.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    goals
-    .slice(0,3)
-    .forEach(goal=>{
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className="goal";
-
-
-        div.innerHTML=`
-
-            <div class="goal-title">
-
-                <strong>
-                    ${escapeHTML(
-                        goal.title
-                    )}
-                </strong>
-
-                <span>
-                    ${goal.progress}%
-                </span>
-
-            </div>
-
-            <div class="goal-bar">
-
-                <div
-                    style="
-                        width:${goal.progress}%
-                    "
-                ></div>
-
-            </div>
-
-        `;
-
-
-        box.appendChild(div);
-
-    });
-
-}
-
-
-/* =====================================================
-   ALERTS
-   ===================================================== */
-
-function renderAlerts(){
-
-    const box =
-        document.getElementById(
-            "alerts"
-        );
-
-    box.innerHTML="";
-
-
-    const upcoming =
-        projects.filter(
-            p =>
-            p.deadline &&
-            p.status!=="Concluído"
-        );
-
-
-    if(!upcoming.length){
-
-        box.innerHTML=
-        `
-            <p style="
-                color:var(--muted);
-                font-size:10px;
-            ">
-                Nenhum prazo próximo.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    upcoming
-    .slice(0,4)
-    .forEach(p=>{
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className=
-            "timeline-item";
-
-
-        div.innerHTML=`
-
-            <div class="timeline-dot"></div>
-
-            <div>
-
-                <p>
-                    ${escapeHTML(
-                        p.name
-                    )}
-                </p>
-
-                <small>
-                    ${formatDate(
-                        p.deadline
-                    )}
-                </small>
-
-            </div>
-
-        `;
-
-
-        box.appendChild(div);
-
-    });
-
-}
-
-
-/* =====================================================
-   SYSTEM LEVEL
-   ===================================================== */
-
-function getSystemLevel(){
-
-    let points=0;
-
-
-    points +=
-        projects.length*10;
-
-    points +=
-        ideas.length*3;
-
-    points +=
-        goals.length*5;
-
-
-    projects.forEach(p=>{
-
-        points +=
-            p.tasks.filter(
-                t=>t.done
-            ).length*4;
-
-    });
-
-
-    const level =
-        Math.floor(
-            points/50
-        )+1;
-
-
-    return {
-        level,
-        points
-    };
-
-}
-
-
-function renderSystemLevel(){
-
-    const data =
-        getSystemLevel();
-
-
-    const next =
-        data.level*50;
-
-
-    const progress =
-        Math.min(
-            100,
-            Math.round(
-                (
-                    data.points -
-                    (data.level-1)*50
-                )
-                /
-                50*100
-            )
-        );
-
-
-    document.getElementById(
-        "systemLevel"
-    ).innerHTML=`
-
-        <div
-            style="
-                text-align:center;
-                padding:8px;
-            "
-        >
-
-            <div
-                style="
-                    font-size:35px;
-                    font-weight:900;
-                    color:var(--green);
-                "
-            >
-                LV.${data.level}
-            </div>
-
-            <p
-                style="
-                    color:var(--muted);
-                    font-size:9px;
-                    margin:5px;
-                "
-            >
-                ${data.points} XP
-            </p>
-
-            <div class="progress">
-
-                <div
-                    style="
-                        width:${progress}%
-                    "
-                ></div>
-
-            </div>
-
-            <small
-                style="
-                    display:block;
-                    color:var(--muted);
-                    font-size:7px;
-                    margin-top:7px;
-                "
-            >
-                Próximo nível: ${next} XP
-            </small>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =====================================================
-   LAB
-   ===================================================== */
-
-function openProject(index){
-
-    currentProject=index;
-
-
-    showPage(
-        "labPage"
-    );
-
-
-    const p =
-        projects[index];
-
-
-    document.getElementById(
-        "projectCode"
-    ).textContent=
-        "PROJECT_"+
-        String(index+1)
-        .padStart(3,"0");
-
-
-    document.getElementById(
-        "projectName"
-    ).textContent=
-        p.name;
-
-
-    document.getElementById(
-        "projectDescription"
-    ).textContent=
-        p.description ||
-        "Sem descrição.";
-
-
-    document.getElementById(
-        "detailStatus"
-    ).textContent=
-        p.status;
-
-
-    document.getElementById(
-        "detailProgress"
-    ).textContent=
-        calculateProgress(p)+"%";
-
-
-    document.getElementById(
-        "detailTasks"
-    ).textContent=
-
-        p.tasks.filter(
-            t=>t.done
-        ).length
-        +
-        "/"+
-        p.tasks.length;
-
-
-    document.getElementById(
-        "detailDeadline"
-    ).textContent=
-
-        p.deadline
-        ?
-        formatDate(
-            p.deadline
-        )
-        :
-        "—";
-
-
-    document.getElementById(
-        "objectiveText"
-    ).textContent=
-
-        p.objective ||
-        "Nenhum objetivo definido.";
-
-
-    renderTasks();
-
-    renderNotes();
-
-    renderInfo();
-
-}
-
-
-/* =====================================================
-   OBJECTIVE
-   ===================================================== */
-
-function addObjective(){
-
-    const text =
-        prompt(
-            "Qual é o objetivo principal?"
-        );
-
-
-    if(text===null)
-        return;
-
-
-    projects[
-        currentProject
-    ].objective =
-        text.trim();
-
-
-    addTimeline(
-        "Objetivo atualizado em "+
-        projects[
-            currentProject
-        ].name
-    );
-
-
-    saveAll();
-
-    openProject(
-        currentProject
-    );
-
-}
-
-
-/* =====================================================
-   TASKS
-   ===================================================== */
-
-function addTask(){
-
-    const text =
-        prompt(
-            "Nova tarefa:"
-        );
-
-
-    if(!text)
-        return;
-
-
-    projects[
-        currentProject
-    ].tasks.push({
-
-        text:
-            text.trim(),
-
-        done:
-            false
-
-    });
-
-
-    addTimeline(
-        "Tarefa criada em "+
-        projects[
-            currentProject
-        ].name
-    );
-
-
-    saveAll();
-
-    openProject(
-        currentProject
-    );
-
-}
-
-
-function toggleTask(index){
-
-    const task =
-        projects[
-            currentProject
-        ].tasks[index];
-
-
-    task.done =
-        !task.done;
-
-
-    if(task.done){
-
-        addTimeline(
-            "Tarefa concluída em "+
-            projects[
-                currentProject
-            ].name
-        );
-
-    }
-
-
-    saveAll();
-
-    openProject(
-        currentProject
-    );
-
-    renderDashboard();
-
-}
-
-
-function deleteTask(index){
-
-    if(
-        !confirm(
-            "Excluir esta tarefa?"
-        )
+    localStorage.getItem(
+        "projectXCommandHistory"
     )
-        return;
+) || [];
 
 
-    projects[
-        currentProject
-    ].tasks.splice(
-        index,
-        1
-    );
-
-
-    saveAll();
-
-    openProject(
-        currentProject
-    );
-
-}
-
-
-function renderTasks(){
-
-    const list =
-        document.getElementById(
-            "taskList"
-        );
-
-
-    list.innerHTML="";
-
-
-    const tasks =
-        projects[
-            currentProject
-        ].tasks;
-
-
-    if(!tasks.length){
-
-        list.innerHTML=
-        `
-            <p style="
-                color:var(--muted);
-                font-size:10px;
-            ">
-                Nenhuma tarefa ainda.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    tasks.forEach(
-        (task,index)=>{
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-            row.className=
-                "task"+
-                (
-                    task.done
-                    ?
-                    " done"
-                    :
-                    ""
-                );
-
-
-            row.innerHTML=`
-
-                <input
-                    type="checkbox"
-                    ${task.done
-                        ? "checked"
-                        : ""
-                    }
-                >
-
-                <span>
-                    ${escapeHTML(
-                        task.text
-                    )}
-                </span>
-
-                <button
-                    class="delete-task"
-                >
-                    ×
-                </button>
-
-            `;
-
-
-            row
-            .querySelector(
-                "input"
-            )
-            .onchange =
-                () =>
-                toggleTask(index);
-
-
-            row
-            .querySelector(
-                ".delete-task"
-            )
-            .onclick =
-                () =>
-                deleteTask(index);
-
-
-            list.appendChild(row);
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   NOTES
-   ===================================================== */
-
-function addNote(){
-
-    const text =
-        prompt(
-            "Nova nota:"
-        );
-
-
-    if(!text)
-        return;
-
-
-    projects[
-        currentProject
-    ].notes.push({
-
-        text:
-            text.trim(),
-
-        date:
-            new Date()
-            .toLocaleString(
-                "pt-BR"
-            )
-
-    });
-
-
-    saveAll();
-
-    openProject(
-        currentProject
-    );
-
-}
-
-
-function renderNotes(){
-
-    const list =
-        document.getElementById(
-            "noteList"
-        );
-
-
-    list.innerHTML="";
-
-
-    const notes =
-        projects[
-            currentProject
-        ].notes;
-
-
-    if(!notes.length){
-
-        list.innerHTML=
-        `
-            <p style="
-                color:var(--muted);
-                font-size:10px;
-            ">
-                Nenhuma nota ainda.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    notes.forEach(note=>{
-
-        const item =
-            document.createElement(
-                "div"
-            );
-
-        item.className="note";
-
-
-        item.innerHTML=`
-
-            <p>
-                ${escapeHTML(
-                    note.text
-                )}
-            </p>
-
-            <small>
-                ${note.date}
-            </small>
-
-        `;
-
-
-        list.appendChild(item);
-
-    });
-
-}
-
-
-/* =====================================================
-   INFO
-   ===================================================== */
-
-function renderInfo(){
-
-    const p =
-        projects[
-            currentProject
-        ];
-
-
-    document.getElementById(
-        "infoPanel"
-    ).innerHTML=`
-
-        <div class="info-row">
-
-            <span>
-                Categoria
-            </span>
-
-            <strong>
-                ${escapeHTML(
-                    p.category
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Prioridade
-            </span>
-
-            <strong>
-                ${escapeHTML(
-                    p.priority
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Status
-            </span>
-
-            <strong>
-                ${escapeHTML(
-                    p.status
-                )}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Prazo
-            </span>
-
-            <strong>
-                ${
-                    p.deadline
-                    ?
-                    formatDate(
-                        p.deadline
-                    )
-                    :
-                    "Não definido"
-                }
-            </strong>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =====================================================
-   EDIT / DELETE
-   ===================================================== */
-
-function editProject(){
-
-    openModal(
-        currentProject
-    );
-
-}
-
-
-function deleteProject(){
-
-    const p =
-        projects[
-            currentProject
-        ];
-
-
-    if(
-        !confirm(
-            'Excluir "'+
-            p.name+
-            '"?'
-        )
+let customCommands =
+JSON.parse(
+    localStorage.getItem(
+        "projectXCustomCommands"
     )
-        return;
+) || [];
 
 
-    addTimeline(
-        "Projeto excluído: "+
-        p.name
+/* =====================================================
+   SAVE INTELLIGENCE DATA
+   ===================================================== */
+
+function saveCommandData(){
+
+    localStorage.setItem(
+        "projectXCommandHistory",
+        JSON.stringify(
+            commandHistory
+        )
     );
 
 
-    projects.splice(
-        currentProject,
-        1
+    localStorage.setItem(
+        "projectXCustomCommands",
+        JSON.stringify(
+            customCommands
+        )
     );
-
-
-    currentProject=null;
-
-
-    saveAll();
-
-    showPage(
-        "projectsPage"
-    );
-
-    renderProjects();
 
 }
 
 
 /* =====================================================
-   IDEAS
+   KEYBOARD
    ===================================================== */
 
-function addIdea(){
+function handleCommandKey(event){
+
+    if(event.key==="Enter"){
+
+        executeCommand();
+
+    }
+
+}
+
+
+/* =====================================================
+   QUICK COMMAND
+   ===================================================== */
+
+function quickCommand(command){
 
     const input =
         document.getElementById(
-            "ideaInput"
+            "commandInput"
         );
 
 
-    const text =
+    input.value=command;
+
+    executeCommand();
+
+}
+
+
+/* =====================================================
+   COMMAND EXECUTOR
+   ===================================================== */
+
+function executeCommand(){
+
+    const input =
+        document.getElementById(
+            "commandInput"
+        );
+
+
+    const raw =
         input.value.trim();
 
 
-    if(!text)
+    if(!raw)
         return;
 
 
-    ideas.unshift({
+    addCommandMessage(
+        raw,
+        "user"
+    );
 
-        text,
 
-        date:
-            new Date()
-            .toLocaleString(
-                "pt-BR"
-            )
-
-    });
+    saveCommandHistory(raw);
 
 
     input.value="";
 
 
-    addTimeline(
-        "Nova ideia registrada"
-    );
+    setTimeout(
+        () => {
+
+            const response =
+                interpretCommand(raw);
 
 
-    saveAll();
-
-    renderIdeas();
-
-    renderDashboard();
-
-}
-
-
-function renderIdeas(){
-
-    const list =
-        document.getElementById(
-            "ideasList"
-        );
-
-
-    list.innerHTML="";
-
-
-    document.getElementById(
-        "ideaCount"
-    ).textContent =
-
-        ideas.length+
-        (
-            ideas.length===1
-            ?
-            " ideia"
-            :
-            " ideias"
-        );
-
-
-    if(!ideas.length){
-
-        list.innerHTML=
-        `
-            <div class="empty">
-                Seu banco de ideias está vazio.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    ideas.forEach(idea=>{
-
-        const item =
-            document.createElement(
-                "div"
+            addCommandMessage(
+                response,
+                "system"
             );
 
-        item.className=
-            "idea-item";
-
-
-        item.innerHTML=`
-
-            <span>
-                ${escapeHTML(
-                    idea.text
-                )}
-            </span>
-
-            <span
-                class="idea-date"
-            >
-                ${idea.date}
-            </span>
-
-        `;
-
-
-        list.appendChild(item);
-
-    });
+        },
+        120
+    );
 
 }
 
 
 /* =====================================================
-   GOALS
+   INTERPRETER
    ===================================================== */
 
-function addGoal(){
+function interpretCommand(raw){
 
-    const title =
-        prompt(
-            "Nome da meta:"
-        );
+    const command =
+        normalizeCommand(raw);
 
 
-    if(!title)
-        return;
-
-
-    const value =
-        Number(
-            prompt(
-                "Progresso inicial (0-100):",
-                "0"
-            )
-        );
-
-
-    const progress =
-        isNaN(value)
-        ?
-        0
-        :
-        Math.min(
-            100,
-            Math.max(
-                0,
-                value
-            )
-        );
-
-
-    goals.push({
-
-        title:
-            title.trim(),
-
-        progress
-
-    });
-
-
-    addTimeline(
-        "Nova meta criada: "+
-        title
-    );
-
-
-    saveAll();
-
-    renderGoals();
-
-    renderDashboard();
-
-}
-
-
-function renderGoals(){
-
-    const list =
-        document.getElementById(
-            "goalsList"
-        );
-
-
-    list.innerHTML="";
-
-
-    if(!goals.length){
-
-        list.innerHTML=
-        `
-            <div class="empty">
-                Nenhuma meta criada.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    goals.forEach(
-        (goal,index)=>{
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className="goal";
-
-
-            div.innerHTML=`
-
-                <div class="goal-title">
-
-                    <strong>
-                        ${escapeHTML(
-                            goal.title
-                        )}
-                    </strong>
-
-                    <span>
-                        ${goal.progress}%
-                    </span>
-
-                </div>
-
-
-                <div class="goal-bar">
-
-                    <div
-                        style="
-                            width:${goal.progress}%
-                        "
-                    ></div>
-
-                </div>
-
-
-                <br>
-
-
-                <button
-                    class="btn"
-                    onclick="
-                        updateGoal(${index})
-                    "
-                >
-                    Atualizar
-                </button>
-
-            `;
-
-
-            list.appendChild(div);
-
-        }
-    );
-
-}
-
-
-function updateGoal(index){
-
-    const value =
-        Number(
-            prompt(
-                "Novo progresso (0-100):",
-                goals[index].progress
-            )
-        );
-
-
-    if(isNaN(value))
-        return;
-
-
-    goals[index].progress =
-        Math.min(
-            100,
-            Math.max(
-                0,
-                value
-            )
-        );
-
+    /* -----------------------------------------------
+       HELP
+       ----------------------------------------------- */
 
     if(
-        goals[index].progress===
-        100
+        command==="ajuda" ||
+        command==="help" ||
+        command==="comandos"
     ){
 
-        addTimeline(
-            "Meta concluída: "+
-            goals[index].title
-        );
+        return `
+<strong>COMANDOS DISPONÍVEIS</strong>
+
+<div class="command-result">
+
+<div class="command-result-title">
+SISTEMA
+</div>
+
+<div class="command-result-line">
+<strong>ajuda</strong> — mostra esta central de ajuda
+</div>
+
+<div class="command-result-line">
+<strong>status</strong> — mostra o estado do Project X
+</div>
+
+<div class="command-result-line">
+<strong>nivel</strong> — mostra seu nível e XP
+</div>
+
+<div class="command-result-line">
+<strong>atividade</strong> — mostra atividades recentes
+</div>
+
+<div class="command-result-line">
+<strong>historico</strong> — mostra comandos anteriores
+</div>
+
+</div>
+
+
+<div class="command-result">
+
+<div class="command-result-title">
+PROJETOS
+</div>
+
+<div class="command-result-line">
+<strong>projetos</strong> — lista projetos
+</div>
+
+<div class="command-result-line">
+<strong>projetos ativos</strong> — mostra projetos em desenvolvimento
+</div>
+
+<div class="command-result-line">
+<strong>projetos concluídos</strong> — mostra projetos concluídos
+</div>
+
+<div class="command-result-line">
+<strong>criar projeto [nome]</strong> — cria um projeto
+</div>
+
+</div>
+
+
+<div class="command-result">
+
+<div class="command-result-title">
+DADOS
+</div>
+
+<div class="command-result-line">
+<strong>ideias</strong> — mostra quantidade de ideias
+</div>
+
+<div class="command-result-line">
+<strong>metas</strong> — mostra suas metas
+</div>
+
+<div class="command-result-line">
+<strong>tarefas</strong> — mostra suas tarefas
+</div>
+
+<div class="command-result-line">
+<strong>estatisticas</strong> — mostra estatísticas gerais
+</div>
+
+</div>
+
+
+<div class="command-result">
+
+<div class="command-result-title">
+AÇÕES
+</div>
+
+<div class="command-result-line">
+<strong>criar ideia [texto]</strong>
+</div>
+
+<div class="command-result-line">
+<strong>criar meta [nome]</strong>
+</div>
+
+<div class="command-result-line">
+<strong>tema claro</strong>
+</div>
+
+<div class="command-result-line">
+<strong>tema escuro</strong>
+</div>
+
+<div class="command-result-line">
+<strong>limpar histórico</strong>
+</div>
+
+</div>
+`;
 
     }
 
 
-    saveAll();
-
-    renderGoals();
-
-    renderDashboard();
-
-}
-
-
-/* =====================================================
-   STATISTICS
-   ===================================================== */
-
-function renderStatistics(){
-
-    let tasks=0;
-
-    let done=0;
-
-
-    projects.forEach(p=>{
-
-        tasks +=
-            p.tasks.length;
-
-        done +=
-            p.tasks.filter(
-                t=>t.done
-            ).length;
-
-    });
-
-
-    document.getElementById(
-        "statTasks"
-    ).textContent=tasks;
-
-
-    document.getElementById(
-        "statDone"
-    ).textContent=done;
-
-
-    document.getElementById(
-        "statIdeas"
-    ).textContent=
-        ideas.length;
-
-
-    document.getElementById(
-        "statGoals"
-    ).textContent=
-        goals.length;
-
-
-    const average =
-        projects.length
-        ?
-        Math.round(
-
-            projects.reduce(
-                (a,p)=>
-                a+
-                calculateProgress(p),
-                0
-            )
-            /
-            projects.length
-
-        )
-        :
-        0;
-
-
-    document.getElementById(
-        "statsDetails"
-    ).innerHTML=`
-
-        <div class="info-row">
-
-            <span>
-                Projetos
-            </span>
-
-            <strong>
-                ${projects.length}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Progresso médio
-            </span>
-
-            <strong>
-                ${average}%
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Tarefas concluídas
-            </span>
-
-            <strong>
-                ${done}/${tasks}
-            </strong>
-
-        </div>
-
-
-        <div class="info-row">
-
-            <span>
-                Metas concluídas
-            </span>
-
-            <strong>
-                ${
-                    goals.filter(
-                        g=>g.progress===100
-                    ).length
-                }
-            </strong>
-
-        </div>
-
-
-        <br>
-
-
-        <div class="progress">
-
-            <div
-                style="
-                    width:${average}%
-                "
-            ></div>
-
-        </div>
-
-    `;
-
-
-    renderTimeline();
-
-}
-
-
-/* =====================================================
-   TIMELINE
-   ===================================================== */
-
-function addTimeline(text){
-
-    timeline.unshift({
-
-        text,
-
-        date:
-            new Date()
-            .toLocaleString(
-                "pt-BR"
-            )
-
-    });
-
-
-    timeline =
-        timeline.slice(
-            0,
-            50
-        );
-
-
-    saveAll();
-
-}
-
-
-function renderTimeline(){
-
-    const box =
-        document.getElementById(
-            "timeline"
-        );
-
-
-    box.innerHTML="";
-
-
-    if(!timeline.length){
-
-        box.innerHTML=
-        `
-            <p style="
-                color:var(--muted);
-                font-size:10px;
-            ">
-                Nenhuma atividade.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    timeline
-    .slice(0,10)
-    .forEach(item=>{
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className=
-            "timeline-item";
-
-
-        div.innerHTML=`
-
-            <div class="timeline-dot"></div>
-
-            <div>
-
-                <p>
-                    ${escapeHTML(
-                        item.text
-                    )}
-                </p>
-
-                <small>
-                    ${item.date}
-                </small>
-
-            </div>
-
-        `;
-
-
-        box.appendChild(div);
-
-    });
-
-}
-
-
-/* =====================================================
-   ACHIEVEMENTS
-   ===================================================== */
-
-function renderAchievements(){
-
-    const total =
-        projects.length;
-
-
-    const completed =
-        projects.filter(
-            p =>
-            p.status===
-            "Concluído"
-        ).length;
-
-
-    let tasks=0;
-
-
-    projects.forEach(p=>{
-
-        tasks +=
-            p.tasks.filter(
-                t=>t.done
-            ).length;
-
-    });
-
-
-    const achievements=[
-
-        {
-            icon:"🚀",
-            name:"Primeiro projeto",
-            desc:"Criou seu primeiro projeto",
-            ok:total>=1
-        },
-
-        {
-            icon:"🧪",
-            name:"Laboratório",
-            desc:"Criou 3 projetos",
-            ok:total>=3
-        },
-
-        {
-            icon:"✓",
-            name:"Executor",
-            desc:"Concluiu 5 tarefas",
-            ok:tasks>=5
-        },
-
-        {
-            icon:"🏁",
-            name:"Finalizador",
-            desc:"Concluiu um projeto",
-            ok:completed>=1
-        },
-
-        {
-            icon:"💡",
-            name:"Inventor",
-            desc:"Registrou 5 ideias",
-            ok:ideas.length>=5
-        },
-
-        {
-            icon:"🎯",
-            name:"Meta alcançada",
-            desc:"Concluiu uma meta",
-            ok:
-                goals.some(
-                    g =>
-                    g.progress===100
-                )
-        },
-
-        {
-            icon:"⚡",
-            name:"Alta velocidade",
-            desc:"10 tarefas concluídas",
-            ok:tasks>=10
-        },
-
-        {
-            icon:"👑",
-            name:"Arquiteto",
-            desc:"5 projetos criados",
-            ok:total>=5
-        },
-
-        {
-            icon:"🔥",
-            name:"Imparável",
-            desc:"3 projetos concluídos",
-            ok:completed>=3
-        }
-
-    ];
-
-
-    const list =
-        document.getElementById(
-            "achievementList"
-        );
-
-
-    list.innerHTML="";
-
-
-    achievements.forEach(a=>{
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className=
-            "achievement"+
-            (
-                a.ok
-                ?
-                ""
-                :
-                " locked"
-            );
-
-
-        div.innerHTML=`
-
-            <div
-                class="achievement-icon"
-            >
-                ${a.icon}
-            </div>
-
-            <strong>
-                ${a.name}
-            </strong>
-
-            <small>
-                ${a.desc}
-            </small>
-
-        `;
-
-
-        list.appendChild(div);
-
-    });
-
-}
-
-
-/* =====================================================
-   PROFILE
-   ===================================================== */
-
-function renderProfile(){
-
-    const completed =
-        projects.filter(
-            p =>
-            p.status===
-            "Concluído"
-        ).length;
-
-
-    const achievements =
-        [
-            projects.length>=1,
-            projects.length>=3,
-            completed>=1,
-            ideas.length>=5,
-            goals.some(
-                g=>g.progress===100
-            )
-        ]
-        .filter(Boolean)
-        .length;
-
-
-    const level =
-        getSystemLevel()
-        .level;
-
-
-    document.getElementById(
-        "profileProjects"
-    ).textContent=
-        projects.length;
-
-
-    document.getElementById(
-        "profileIdeas"
-    ).textContent=
-        ideas.length;
-
-
-    document.getElementById(
-        "profileAchievements"
-    ).textContent=
-        achievements;
-
-
-    document.getElementById(
-        "profileLevel"
-    ).textContent=
-        level;
-
-}
-
-
-/* =====================================================
-   THEME
-   ===================================================== */
-
-function toggleTheme(){
-
-    document.body
-        .classList
-        .toggle("light");
-
-
-    const light =
-        document.body
-        .classList
-        .contains("light");
-
-
-    const button =
-        document.getElementById(
-            "themeSwitch"
-        );
-
-
-    button.classList.toggle(
-        "on",
-        !light
-    );
-
-
-    localStorage.setItem(
-        "projectXTheme",
-        light
-        ?
-        "light"
-        :
-        "dark"
-    );
-
-}
-
-
-/* =====================================================
-   ANIMATIONS
-   ===================================================== */
-
-function toggleAnimations(){
-
-    const button =
-        document.getElementById(
-            "animationSwitch"
-        );
-
-
-    const enabled =
-        button.classList.toggle(
-            "on"
-        );
-
-
-    document.body.style.setProperty(
-        "--transition",
-        enabled
-        ?
-        ".25s"
-        :
-        "0s"
-    );
-
-
-    localStorage.setItem(
-        "projectXAnimations",
-        enabled
-        ?
-        "on"
-        :
-        "off"
-    );
-
-}
-
-
-/* =====================================================
-   BACKUP
-   ===================================================== */
-
-function exportData(){
-
-    const backup={
-
-        version:"3.0",
-
-        exportedAt:
-            new Date()
-            .toISOString(),
-
-        projects,
-
-        ideas,
-
-        goals,
-
-        timeline
-
-    };
-
-
-    const blob =
-        new Blob(
-
-            [
-                JSON.stringify(
-                    backup,
-                    null,
-                    2
-                )
-            ],
-
-            {
-                type:
-                    "application/json"
-            }
-
-        );
-
-
-    const url =
-        URL.createObjectURL(
-            blob
-        );
-
-
-    const a =
-        document.createElement(
-            "a"
-        );
-
-
-    a.href=url;
-
-    a.download=
-        "project-x-backup.json";
-
-
-    a.click();
-
-
-    URL.revokeObjectURL(
-        url
-    );
-
-}
-
-
-/* =====================================================
-   RESET
-   ===================================================== */
-
-function clearAll(){
+    /* -----------------------------------------------
+       STATUS
+       ----------------------------------------------- */
 
     if(
-        !confirm(
-            "Isso apagará todos os projetos, ideias, metas e histórico. Continuar?"
-        )
-    )
-        return;
+        command==="status" ||
+        command==="estado" ||
+        command==="sistema"
+    ){
+
+        const level =
+            getSystemLevel();
 
 
-    localStorage.removeItem(
-        "projectX"
-    );
-
-    localStorage.removeItem(
-        "projectXIdeas"
-    );
-
-    localStorage.removeItem(
-        "projectXGoals"
-    );
-
-    localStorage.removeItem(
-        "projectXTimeline"
-    );
+        const active =
+            projects.filter(
+                p =>
+                p.status===
+                "Em desenvolvimento"
+            ).length;
 
 
-    projects=[];
-    ideas=[];
-    goals=[];
-    timeline=[];
+        const completed =
+            projects.filter(
+                p =>
+                p.status===
+                "Concluído"
+            ).length;
 
 
-    renderAll();
+        let tasks=0;
 
-    showPage(
-        "dashboard"
-    );
-
-}
+        let done=0;
 
 
-/* =====================================================
-   UTILITIES
-   ===================================================== */
+        projects.forEach(p=>{
 
-function formatDate(date){
+            tasks +=
+                p.tasks.length;
 
-    const p =
-        date.split("-");
+            done +=
+                p.tasks.filter(
+                    t=>t.done
+                ).length;
+
+        });
 
 
-    if(p.length===3){
+        return `
+<strong>SISTEMA ONLINE</strong>
 
-        return (
-            p[2]+
-            "/"+
-            p[1]+
-            "/"+
-            p[0]
+<div class="command-result">
+
+<div class="command-result-title">
+PROJECT X STATUS
+</div>
+
+<div class="command-result-line">
+Sistema: <span class="command-highlight">ONLINE</span>
+</div>
+
+<div class="command-result-line">
+Projetos: <span class="command-highlight">${projects.length}</span>
+</div>
+
+<div class="command-result-line">
+Projetos ativos: <span class="command-highlight">${active}</span>
+</div>
+
+<div class="command-result-line">
+Projetos concluídos: <span class="command-highlight">${completed}</span>
+</div>
+
+<div class="command-result-line">
+Tarefas: <span class="command-highlight">${done}/${tasks}</span>
+</div>
+
+<div class="command-result-line">
+Ideias: <span class="command-highlight">${ideas.length}</span>
+</div>
+
+<div class="command-result-line">
+Metas: <span class="command-highlight">${goals.length}</span>
+</div>
+
+<div class="command-result-line">
+Nível: <span class="command-highlight">LV.${level.level}</span>
+</div>
+
+<div class="command-result-line">
+XP: <span class="command-highlight">${level.points}</span>
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       PROJECTS
+       ----------------------------------------------- */
+
+    if(
+        command==="projetos" ||
+        command==="listar projetos"
+    ){
+
+        return listProjects(
+            projects
         );
 
     }
 
 
-    return date;
+    if(
+        command==="projetos ativos" ||
+        command==="ativos"
+    ){
+
+        return listProjects(
+            projects.filter(
+                p =>
+                p.status===
+                "Em desenvolvimento"
+            )
+        );
+
+    }
+
+
+    if(
+        command==="projetos concluídos" ||
+        command==="projetos concluidos" ||
+        command==="concluídos" ||
+        command==="concluidos"
+    ){
+
+        return listProjects(
+            projects.filter(
+                p =>
+                p.status===
+                "Concluído"
+            )
+        );
+
+    }
+
+
+    /* -----------------------------------------------
+       IDEAS
+       ----------------------------------------------- */
+
+    if(
+        command==="ideias" ||
+        command==="listar ideias"
+    ){
+
+        if(!ideas.length){
+
+            return `
+<div class="command-result">
+<div class="command-result-title">
+IDEIAS
+</div>
+
+<div class="command-result-line">
+Nenhuma ideia registrada.
+</div>
+</div>
+`;
+
+        }
+
+
+        const recentIdeas =
+            ideas.slice(0,8);
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+BANCO DE IDEIAS — ${ideas.length}
+</div>
+
+${recentIdeas.map(
+    (idea,index)=>
+`
+<div class="command-result-line">
+${index+1}. ${escapeHTML(
+    idea.text
+)}
+</div>
+`
+).join("")}
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       GOALS
+       ----------------------------------------------- */
+
+    if(
+        command==="metas" ||
+        command==="listar metas"
+    ){
+
+        if(!goals.length){
+
+            return `
+<div class="command-result">
+
+<div class="command-result-title">
+METAS
+</div>
+
+<div class="command-result-line">
+Nenhuma meta criada.
+</div>
+
+</div>
+`;
+
+        }
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+METAS — ${goals.length}
+</div>
+
+${goals.map(
+    goal =>
+`
+<div class="command-result-line">
+
+${escapeHTML(
+    goal.title
+)}
+
+—
+
+<span class="command-highlight">
+${goal.progress}%
+</span>
+
+</div>
+`
+).join("")}
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       TASKS
+       ----------------------------------------------- */
+
+    if(
+        command==="tarefas" ||
+        command==="listar tarefas"
+    ){
+
+        let allTasks=[];
+
+
+        projects.forEach(
+            p => {
+
+                p.tasks.forEach(
+                    task => {
+
+                        allTasks.push({
+
+                            project:p.name,
+
+                            ...task
+
+                        });
+
+                    }
+                );
+
+            }
+        );
+
+
+        if(!allTasks.length){
+
+            return `
+<div class="command-result">
+
+<div class="command-result-title">
+TAREFAS
+</div>
+
+<div class="command-result-line">
+Nenhuma tarefa cadastrada.
+</div>
+
+</div>
+`;
+
+        }
+
+
+        const pending =
+            allTasks.filter(
+                task =>
+                !task.done
+            );
+
+
+        const completed =
+            allTasks.filter(
+                task =>
+                task.done
+            );
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+TAREFAS
+</div>
+
+<div class="command-result-line">
+Total:
+<span class="command-highlight">
+${allTasks.length}
+</span>
+</div>
+
+<div class="command-result-line">
+Pendentes:
+<span class="command-warning">
+${pending.length}
+</span>
+</div>
+
+<div class="command-result-line">
+Concluídas:
+<span class="command-highlight">
+${completed.length}
+</span>
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       STATISTICS
+       ----------------------------------------------- */
+
+    if(
+        command==="estatisticas" ||
+        command==="estatística" ||
+        command==="estatistica" ||
+        command==="stats"
+    ){
+
+        let tasks=0;
+
+        let done=0;
+
+
+        projects.forEach(p=>{
+
+            tasks +=
+                p.tasks.length;
+
+            done +=
+                p.tasks.filter(
+                    t=>t.done
+                ).length;
+
+        });
+
+
+        const average =
+            projects.length
+            ?
+            Math.round(
+                projects.reduce(
+                    (sum,p)=>
+                    sum+
+                    calculateProgress(p),
+                    0
+                )
+                /
+                projects.length
+            )
+            :
+            0;
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+ESTATÍSTICAS GERAIS
+</div>
+
+<div class="command-result-line">
+Projetos: ${projects.length}
+</div>
+
+<div class="command-result-line">
+Progresso médio: <span class="command-highlight">${average}%</span>
+</div>
+
+<div class="command-result-line">
+Tarefas: ${tasks}
+</div>
+
+<div class="command-result-line">
+Tarefas concluídas: <span class="command-highlight">${done}</span>
+</div>
+
+<div class="command-result-line">
+Ideias: ${ideas.length}
+</div>
+
+<div class="command-result-line">
+Metas: ${goals.length}
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       LEVEL
+       ----------------------------------------------- */
+
+    if(
+        command==="nivel" ||
+        command==="nível" ||
+        command==="xp"
+    ){
+
+        const data =
+            getSystemLevel();
+
+
+        const progress =
+            Math.min(
+                100,
+                Math.round(
+                    (
+                        data.points -
+                        (data.level-1)*50
+                    )
+                    /
+                    50*100
+                )
+            );
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+SYSTEM LEVEL
+</div>
+
+<div class="command-result-line">
+
+Nível:
+<span class="command-highlight">
+LV.${data.level}
+</span>
+
+</div>
+
+<div class="command-result-line">
+
+XP:
+<span class="command-highlight">
+${data.points}
+</span>
+
+</div>
+
+<div class="command-result-line">
+
+Progresso:
+<span class="command-highlight">
+${progress}%
+</span>
+
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       ACTIVITY
+       ----------------------------------------------- */
+
+    if(
+        command==="atividade" ||
+        command==="atividades" ||
+        command==="histórico de atividade"
+    ){
+
+        if(!timeline.length){
+
+            return `
+<div class="command-result">
+
+<div class="command-result-title">
+ATIVIDADE
+</div>
+
+<div class="command-result-line">
+Nenhuma atividade registrada.
+</div>
+
+</div>
+`;
+
+        }
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+ATIVIDADE RECENTE
+</div>
+
+${timeline.slice(0,8).map(
+    item =>
+`
+<div class="command-result-line">
+
+${escapeHTML(item.text)}
+
+<br>
+
+<small>
+${escapeHTML(item.date)}
+</small>
+
+</div>
+`
+).join("")}
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       COMMAND HISTORY
+       ----------------------------------------------- */
+
+    if(
+        command==="historico" ||
+        command==="histórico"
+    ){
+
+        if(!commandHistory.length){
+
+            return `
+<div class="command-result">
+
+<div class="command-result-title">
+HISTÓRICO
+</div>
+
+<div class="command-result-line">
+Nenhum comando executado.
+</div>
+
+</div>
+`;
+
+        }
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+ÚLTIMOS COMANDOS
+</div>
+
+${commandHistory.slice(0,10).map(
+    item =>
+`
+<div class="command-result-line">
+
+&gt; ${escapeHTML(
+    item.command
+)}
+
+</div>
+`
+).join("")}
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       CREATE PROJECT
+       ----------------------------------------------- */
+
+    if(
+        command.startsWith(
+            "criar projeto "
+        )
+    ){
+
+        const projectName =
+            raw.substring(
+                raw.toLowerCase()
+                .indexOf(
+                    "criar projeto "
+                )
+                +
+                "criar projeto ".length
+            )
+            .trim();
+
+
+        if(!projectName){
+
+            return `
+<span class="command-error">
+Informe o nome do projeto.
+</span>
+`;
+
+        }
+
+
+        const project={
+
+            name:
+                projectName,
+
+            description:
+                "Projeto criado pela Central de Comandos.",
+
+            status:
+                "Ideia",
+
+            priority:
+                "Média",
+
+            category:
+                "Tecnologia",
+
+            deadline:
+                "",
+
+            objective:
+                "",
+
+            tasks:
+                [],
+
+            notes:
+                []
+
+        };
+
+
+        projects.push(
+            project
+        );
+
+
+        addTimeline(
+            "Projeto criado por comando: "+
+            projectName
+        );
+
+
+        saveAll();
+
+        renderAll();
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+PROJETO CRIADO
+</div>
+
+<div class="command-result-line">
+
+<span class="command-highlight">
+${escapeHTML(projectName)}
+</span>
+
+foi adicionado ao Project X.
+
+</div>
+
+<div class="command-result-line">
+Status: Ideia
+</div>
+
+<div class="command-result-line">
+Categoria: Tecnologia
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       CREATE IDEA
+       ----------------------------------------------- */
+
+    if(
+        command.startsWith(
+            "criar ideia "
+        )
+    ){
+
+        const ideaText =
+            raw.substring(
+                raw.toLowerCase()
+                .indexOf(
+                    "criar ideia "
+                )
+                +
+                "criar ideia ".length
+            )
+            .trim();
+
+
+        if(!ideaText){
+
+            return `
+<span class="command-error">
+Informe o texto da ideia.
+</span>
+`;
+
+        }
+
+
+        ideas.unshift({
+
+            text:
+                ideaText,
+
+            date:
+                new Date()
+                .toLocaleString(
+                    "pt-BR"
+                )
+
+        });
+
+
+        addTimeline(
+            "Ideia criada por comando"
+        );
+
+
+        saveAll();
+
+        renderAll();
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+IDEIA REGISTRADA
+</div>
+
+<div class="command-result-line">
+
+<span class="command-highlight">
+${escapeHTML(ideaText)}
+</span>
+
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       CREATE GOAL
+       ----------------------------------------------- */
+
+    if(
+        command.startsWith(
+            "criar meta "
+        )
+    ){
+
+        const goalName =
+            raw.substring(
+                raw.toLowerCase()
+                .indexOf(
+                    "criar meta "
+                )
+                +
+                "criar meta ".length
+            )
+            .trim();
+
+
+        if(!goalName){
+
+            return `
+<span class="command-error">
+Informe o nome da meta.
+</span>
+`;
+
+        }
+
+
+        goals.push({
+
+            title:
+                goalName,
+
+            progress:
+                0
+
+        });
+
+
+        addTimeline(
+            "Meta criada por comando: "+
+            goalName
+        );
+
+
+        saveAll();
+
+        renderAll();
+
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+META CRIADA
+</div>
+
+<div class="command-result-line">
+
+<span class="command-highlight">
+${escapeHTML(goalName)}
+</span>
+
+</div>
+
+<div class="command-result-line">
+Progresso inicial: 0%
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       DARK THEME
+       ----------------------------------------------- */
+
+    if(
+        command==="tema escuro" ||
+        command==="modo escuro"
+    ){
+
+        if(
+            document.body
+            .classList
+            .contains("light")
+        ){
+
+            toggleTheme();
+
+        }
+
+
+        return `
+<span class="command-highlight">
+Modo escuro ativado.
+</span>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       LIGHT THEME
+       ----------------------------------------------- */
+
+    if(
+        command==="tema claro" ||
+        command==="modo claro"
+    ){
+
+        if(
+            !document.body
+            .classList
+            .contains("light")
+        ){
+
+            toggleTheme();
+
+        }
+
+
+        return `
+<span class="command-highlight">
+Modo claro ativado.
+</span>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       CLEAR HISTORY
+       ----------------------------------------------- */
+
+    if(
+        command==="limpar histórico" ||
+        command==="limpar historico"
+    ){
+
+        commandHistory=[];
+
+        saveCommandData();
+
+        renderCommandHistory();
+
+
+        return `
+<span class="command-highlight">
+Histórico de comandos apagado.
+</span>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       JARVIS
+       ----------------------------------------------- */
+
+    if(
+        command==="jarvis" ||
+        command==="iniciar jarvis" ||
+        command==="modo jarvis"
+    ){
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+JARVIS CORE
+</div>
+
+<div class="command-result-line">
+
+<span class="command-highlight">
+Módulo preparado.
+</span>
+
+</div>
+
+<div class="command-result-line">
+
+A integração completa do JARVIS será
+conectada nas próximas fases.
+
+</div>
+
+<div class="command-result-line">
+
+PROJECT X Intelligence Core:
+ONLINE
+
+</div>
+
+</div>
+`;
+
+    }
+
+
+    /* -----------------------------------------------
+       CUSTOM COMMANDS
+       ----------------------------------------------- */
+
+    const custom =
+        customCommands.find(
+            item =>
+            item.command===
+            command
+        );
+
+
+    if(custom){
+
+        return escapeHTML(
+            custom.response
+        );
+
+    }
+
+
+    /* -----------------------------------------------
+       UNKNOWN COMMAND
+       ----------------------------------------------- */
+
+    return `
+<div class="command-result">
+
+<div class="command-result-title">
+COMANDO NÃO RECONHECIDO
+</div>
+
+<div class="command-result-line">
+
+Não encontrei um comando chamado:
+
+<span class="command-error">
+${escapeHTML(raw)}
+</span>
+
+</div>
+
+<div class="command-result-line">
+
+Digite
+<span class="command-highlight">
+ajuda
+</span>
+para ver os comandos disponíveis.
+
+</div>
+
+</div>
+`;
 
 }
 
 
-function escapeHTML(text){
+/* =====================================================
+   NORMALIZE
+   ===================================================== */
+
+function normalizeCommand(text){
+
+    return text
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        );
+
+}
+
+
+/* =====================================================
+   PROJECT LIST
+   ===================================================== */
+
+function listProjects(list){
+
+    if(!list.length){
+
+        return `
+<div class="command-result">
+
+<div class="command-result-title">
+PROJETOS
+</div>
+
+<div class="command-result-line">
+Nenhum projeto encontrado.
+</div>
+
+</div>
+`;
+
+    }
+
+
+    return `
+<div class="command-result">
+
+<div class="command-result-title">
+PROJETOS — ${list.length}
+</div>
+
+${list.map(
+    (p,index) =>
+`
+<div class="command-result-line">
+
+<span class="command-highlight">
+${index+1}.
+${escapeHTML(p.name)}
+</span>
+
+— ${escapeHTML(p.status)}
+
+— ${calculateProgress(p)}%
+
+</div>
+`
+).join("")}
+
+</div>
+`;
+
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function addCommandMessage(
+    text,
+    type
+){
+
+    const output =
+        document.getElementById(
+            "commandOutput"
+        );
+
+
+    if(!output)
+        return;
+
 
     const div =
         document.createElement(
@@ -5892,128 +2173,366 @@ function escapeHTML(text){
         );
 
 
-    div.textContent =
-        text;
+    if(type==="user"){
+
+        div.className=
+            "user-message";
 
 
-    return div.innerHTML;
+        div.innerHTML=`
+
+            <div class="message-icon">
+                R
+            </div>
+
+            <div>
+
+                <strong>
+                    RIOS
+                </strong>
+
+                <p>
+                    ${escapeHTML(text)}
+                </p>
+
+            </div>
+
+        `;
+
+    }else{
+
+        div.className=
+            "jarvis-message";
+
+
+        div.innerHTML=`
+
+            <div class="message-icon">
+                X
+            </div>
+
+            <div>
+
+                <strong>
+                    PROJECT X
+                </strong>
+
+                <p>
+                    ${text}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    output.appendChild(
+        div
+    );
+
+
+    output.scrollTop =
+        output.scrollHeight;
 
 }
 
 
 /* =====================================================
-   CLOCK
+   COMMAND HISTORY
    ===================================================== */
 
-function updateClock(){
+function saveCommandHistory(
+    command
+){
 
-    const now =
-        new Date();
+    commandHistory.unshift({
+
+        command,
+
+        date:
+            new Date()
+            .toLocaleString(
+                "pt-BR"
+            )
+
+    });
 
 
-    document.getElementById(
-        "clock"
-    ).textContent=
+    commandHistory =
+        commandHistory.slice(
+            0,
+            50
+        );
 
-        now.toLocaleDateString(
-            "pt-BR"
-        )
-        +
-        " • "
-        +
-        now.toLocaleTimeString(
-            "pt-BR",
-            {
-                hour:"2-digit",
-                minute:"2-digit"
+
+    saveCommandData();
+
+    renderCommandHistory();
+
+}
+
+
+/* =====================================================
+   RENDER HISTORY
+   ===================================================== */
+
+function renderCommandHistory(){
+
+    const box =
+        document.getElementById(
+            "commandHistory"
+        );
+
+
+    if(!box)
+        return;
+
+
+    box.innerHTML="";
+
+
+    const counter =
+        document.getElementById(
+            "commandHistoryCount"
+        );
+
+
+    if(counter){
+
+        counter.textContent =
+            commandHistory.length+
+            (
+                commandHistory.length===1
+                ?
+                " comando"
+                :
+                " comandos"
+            );
+
+    }
+
+
+    if(!commandHistory.length){
+
+        box.innerHTML=`
+
+            <p style="
+                color:var(--muted);
+                font-size:10px;
+            ">
+                Nenhum comando executado.
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    commandHistory
+    .slice(0,12)
+    .forEach(item=>{
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className=
+            "command-history-item";
+
+
+        div.innerHTML=`
+
+            <span
+                class="command-history-text"
+            >
+                &gt; ${escapeHTML(
+                    item.command
+                )}
+            </span>
+
+            <span
+                class="command-history-date"
+            >
+                ${escapeHTML(
+                    item.date
+                )}
+            </span>
+
+        `;
+
+
+        div.onclick=()=>{
+
+            const input =
+                document.getElementById(
+                    "commandInput"
+                );
+
+
+            if(input){
+
+                input.value =
+                    item.command;
+
+                input.focus();
+
             }
+
+        };
+
+
+        box.appendChild(
+            div
         );
 
-}
-
-
-setInterval(
-    updateClock,
-    1000
-);
-
-updateClock();
-
-
-/* =====================================================
-   LOAD SETTINGS
-   ===================================================== */
-
-function loadSettings(){
-
-    const theme =
-        localStorage.getItem(
-            "projectXTheme"
-        );
-
-
-    if(theme==="light"){
-
-        document.body
-            .classList
-            .add("light");
-
-        document.getElementById(
-            "themeSwitch"
-        )
-        .classList
-        .remove("on");
-
-    }
-
-
-    const animations =
-        localStorage.getItem(
-            "projectXAnimations"
-        );
-
-
-    if(animations==="off"){
-
-        document.getElementById(
-            "animationSwitch"
-        )
-        .classList
-        .remove("on");
-
-    }
+    });
 
 }
 
 
 /* =====================================================
-   RENDER ALL
+   CLEAR HISTORY
    ===================================================== */
 
-function renderAll(){
+function clearCommandHistory(){
 
-    renderDashboard();
+    if(!commandHistory.length)
+        return;
 
-    renderProjects();
 
-    renderIdeas();
+    if(
+        !confirm(
+            "Limpar todo o histórico de comandos?"
+        )
+    )
+        return;
 
-    renderGoals();
 
-    renderStatistics();
+    commandHistory=[];
 
-    renderAchievements();
+    saveCommandData();
 
-    renderProfile();
+    renderCommandHistory();
 
 }
 
 
-loadSettings();
+/* =====================================================
+   CUSTOM COMMAND CREATOR
+   ===================================================== */
 
-renderAll();
+function createCustomCommand(){
+
+    const command =
+        prompt(
+            "Nome do novo comando:"
+        );
+
+
+    if(!command)
+        return;
+
+
+    const response =
+        prompt(
+            "Resposta do comando:"
+        );
+
+
+    if(response===null)
+        return;
+
+
+    const normalized =
+        normalizeCommand(
+            command
+        );
+
+
+    customCommands =
+        customCommands.filter(
+            item =>
+            item.command!==
+            normalized
+        );
+
+
+    customCommands.push({
+
+        command:
+            normalized,
+
+        response:
+            response
+
+    });
+
+
+    saveCommandData();
+
+
+    addCommandMessage(
+        `
+<div class="command-result">
+
+<div class="command-result-title">
+COMANDO PERSONALIZADO
+</div>
+
+<div class="command-result-line">
+
+Comando
+<span class="command-highlight">
+${escapeHTML(command)}
+</span>
+criado.
+
+</div>
+
+</div>
+`,
+        "system"
+    );
+
+}
+
+
+/* =====================================================
+   INTELLIGENCE INITIALIZATION
+   ===================================================== */
+
+function initializeIntelligence(){
+
+    renderCommandHistory();
+
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+initializeIntelligence();
 
 </script>
 
-</body>
-                 </html>
+
+<!-- =====================================================
+     5. ADICIONE ESTE BOTÃO NA ÁREA DE COMANDOS
+     
+     Se quiser criar comandos personalizados pela interface,
+     coloque este botão junto dos comandos rápidos:
+     ===================================================== -->
+
+<button
+class="quick-command"
+onclick="createCustomCommand()"
+>
+⚙ Novo comando
+   </button>
