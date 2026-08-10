@@ -3,566 +3,1354 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PROJECT X</title>
+
+<title>PROJECT X 3.0</title>
 
 <style>
+
+/* =====================================================
+   PROJECT X 3.0
+   ===================================================== */
+
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
 }
 
 :root{
-    --bg:#070909;
-    --card:#101313;
-    --card2:#141818;
-    --border:#202727;
+
+    --bg:#070a08;
+    --bg2:#0b100d;
+    --card:#101612;
+    --card2:#151d18;
+
+    --border:#202c25;
+
     --green:#55f28a;
-    --green-dark:#193d27;
-    --text:#f1f5f2;
-    --muted:#7d8982;
-    --danger:#ff5c72;
-    --warning:#ffd45c;
+    --green2:#2fd96f;
+
+    --text:#edf5ef;
+    --muted:#7c8a82;
+
+    --red:#ff6377;
+    --yellow:#ffd45c;
+    --blue:#6da5ff;
+
+    --shadow:0 15px 45px rgba(0,0,0,.25);
+}
+
+body.light{
+
+    --bg:#eef3ef;
+    --bg2:#e5ebe7;
+    --card:#ffffff;
+    --card2:#f2f6f3;
+
+    --border:#d9e1dc;
+
+    --text:#172019;
+    --muted:#68756d;
+
+    --shadow:0 15px 45px rgba(20,40,25,.08);
 }
 
 body{
-    background:var(--bg);
+
+    background:
+        radial-gradient(
+            circle at 80% -10%,
+            rgba(85,242,138,.08),
+            transparent 35%
+        ),
+        var(--bg);
+
     color:var(--text);
-    font-family:Inter,Arial,sans-serif;
+
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
     min-height:100vh;
+
+    transition:
+        background .3s,
+        color .3s;
 }
 
-/* =========================
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* =====================================================
    SIDEBAR
-========================= */
+   ===================================================== */
 
 .sidebar{
+
     position:fixed;
+
     left:0;
     top:0;
-    width:240px;
+
+    width:245px;
     height:100vh;
-    background:#0b0e0e;
+
+    padding:26px 18px;
+
+    background:rgba(8,12,10,.92);
+
     border-right:1px solid var(--border);
-    padding:28px 20px;
-    z-index:20;
+
+    z-index:50;
+
+    backdrop-filter:blur(20px);
 }
 
-.brand{
+body.light .sidebar{
+    background:rgba(255,255,255,.9);
+}
+
+.logo{
+
     display:flex;
     align-items:center;
+
     gap:12px;
-    margin-bottom:45px;
+
+    padding:5px 10px;
+
+    margin-bottom:38px;
 }
 
-.brand-icon{
-    width:42px;
-    height:42px;
-    border-radius:12px;
+.logo-icon{
+
+    width:43px;
+    height:43px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
+    border-radius:13px;
+
     background:var(--green);
-    color:#061008;
+
+    color:#061009;
+
     font-weight:900;
-    font-size:21px;
+
+    box-shadow:
+        0 0 30px rgba(85,242,138,.18);
 }
 
-.brand-text{
-    font-size:18px;
-    font-weight:800;
+.logo-name{
+
+    font-weight:900;
+
     letter-spacing:2px;
+
+    font-size:17px;
 }
 
-.brand-text span{
+.logo-name span{
     color:var(--green);
 }
 
-.menu-title{
-    font-size:10px;
-    color:#58635d;
+.menu-label{
+
+    color:#526159;
+
+    font-size:8px;
+
     letter-spacing:2px;
-    margin:25px 12px 10px;
+
+    margin:
+        20px 11px
+        9px;
 }
 
 .nav button{
+
     width:100%;
+
     border:0;
+
     background:transparent;
-    color:#89948e;
-    padding:13px 14px;
+
+    color:#7d8b83;
+
+    padding:12px 13px;
+
+    border-radius:11px;
+
     text-align:left;
-    border-radius:10px;
+
     margin-bottom:4px;
-    cursor:pointer;
-    font-size:13px;
+
+    font-size:12px;
+
     transition:.2s;
 }
 
-.nav button:hover,
-.nav button.active{
+.nav button:hover{
+
     color:var(--text);
-    background:#151b18;
+
+    background:var(--card2);
 }
 
 .nav button.active{
+
     color:var(--green);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(85,242,138,.12),
+            transparent
+        );
+
+    border-left:
+        2px solid
+        var(--green);
 }
 
 .sidebar-bottom{
+
     position:absolute;
+
     left:20px;
     right:20px;
-    bottom:25px;
+
+    bottom:24px;
+
+    padding-top:17px;
+
     border-top:1px solid var(--border);
-    padding-top:20px;
-    color:#66716b;
-    font-size:10px;
+
+    color:#647168;
+
+    font-size:8px;
+
+    letter-spacing:1px;
 }
 
 .online{
     color:var(--green);
 }
 
-/* =========================
+/* =====================================================
    MAIN
-========================= */
+   ===================================================== */
 
 .main{
-    margin-left:240px;
-    padding:30px 40px;
+
+    margin-left:245px;
+
+    padding:
+        28px
+        38px;
+
     max-width:1550px;
 }
 
 .topbar{
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
-    margin-bottom:35px;
+
+    justify-content:space-between;
+
+    margin-bottom:27px;
 }
 
-.topbar-left h1{
-    font-size:26px;
-    letter-spacing:-1px;
+.topbar h1{
+
+    font-size:25px;
+
+    letter-spacing:-.5px;
 }
 
-.topbar-left p{
+.topbar p{
+
     color:var(--muted);
-    margin-top:6px;
-    font-size:13px;
+
+    font-size:11px;
+
+    margin-top:5px;
 }
 
 .clock{
+
     color:var(--muted);
+
     font-family:monospace;
-    font-size:12px;
+
+    font-size:10px;
 }
 
-/* =========================
+/* =====================================================
+   PAGES
+   ===================================================== */
+
+.page{
+    display:none;
+
+    animation:
+        pageIn
+        .25s
+        ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =====================================================
    HERO
-========================= */
+   ===================================================== */
 
 .hero{
+
     position:relative;
+
     overflow:hidden;
-    border:1px solid var(--border);
-    border-radius:20px;
+
+    min-height:210px;
+
     padding:35px;
+
+    border-radius:22px;
+
+    border:1px solid var(--border);
+
     background:
-    radial-gradient(circle at 85% 20%,rgba(85,242,138,.12),transparent 30%),
-    linear-gradient(135deg,#101513,#0b0f0d);
+
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(85,242,138,.16),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 70% 100%,
+            rgba(85,242,138,.06),
+            transparent 30%
+        ),
+
+        var(--card);
+
+    box-shadow:var(--shadow);
 }
 
-.hero:after{
-    content:"";
+.hero::after{
+
+    content:"X";
+
     position:absolute;
-    width:230px;
-    height:230px;
-    border:1px solid rgba(85,242,138,.08);
-    border-radius:50%;
-    right:-70px;
-    bottom:-110px;
+
+    right:30px;
+    bottom:-50px;
+
+    font-size:230px;
+
+    font-weight:900;
+
+    color:rgba(85,242,138,.025);
+
+    pointer-events:none;
 }
 
 .hero-label{
+
     color:var(--green);
-    font-size:10px;
-    letter-spacing:2px;
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
     margin-bottom:12px;
 }
 
 .hero h2{
-    font-size:34px;
+
+    font-size:32px;
+
     max-width:700px;
+
     letter-spacing:-1px;
 }
 
 .hero p{
+
     color:var(--muted);
-    margin-top:10px;
-    max-width:650px;
+
+    font-size:12px;
+
+    max-width:620px;
+
     line-height:1.6;
-}
 
-/* =========================
-   STATS
-========================= */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin:20px 0;
-}
-
-.stat{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:22px;
-}
-
-.stat-label{
-    color:var(--muted);
-    font-size:10px;
-    letter-spacing:1px;
-}
-
-.stat-value{
-    font-size:30px;
-    font-weight:700;
     margin-top:10px;
 }
 
-.stat-value.green{
-    color:var(--green);
-}
-
-/* =========================
-   TOOLBAR
-========================= */
-
-.toolbar{
-    display:flex;
-    gap:10px;
-    margin:25px 0;
-}
-
-.search{
-    flex:1;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:13px 15px;
-    color:white;
-    outline:none;
-}
-
-.search:focus{
-    border-color:#355f43;
-}
+/* =====================================================
+   BUTTONS
+   ===================================================== */
 
 .btn{
-    border:1px solid var(--border);
+
+    border:
+        1px solid
+        var(--border);
+
     background:var(--card);
+
     color:var(--text);
-    padding:12px 17px;
-    border-radius:12px;
-    cursor:pointer;
+
+    border-radius:10px;
+
+    padding:
+        10px
+        13px;
+
+    font-size:10px;
+
     transition:.2s;
 }
 
 .btn:hover{
+
+    transform:translateY(-1px);
+
     background:var(--card2);
 }
 
 .btn-primary{
+
+    color:#061009;
+
     background:var(--green);
-    color:#061008;
+
     border-color:var(--green);
-    font-weight:700;
+
+    font-weight:800;
 }
 
 .btn-danger{
-    color:var(--danger);
+    color:var(--red);
 }
 
-/* =========================
-   SECTION
-========================= */
+/* =====================================================
+   STATS
+   ===================================================== */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:13px;
+
+    margin:
+        15px
+        0;
+}
+
+.stat{
+
+    padding:19px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:var(--card);
+
+    border-radius:16px;
+
+    box-shadow:var(--shadow);
+
+    transition:.25s;
+}
+
+.stat:hover{
+
+    transform:translateY(-3px);
+
+    border-color:
+        rgba(85,242,138,.3);
+}
+
+.stat small{
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    letter-spacing:1px;
+}
+
+.stat strong{
+
+    display:block;
+
+    font-size:27px;
+
+    margin-top:9px;
+}
+
+.green{
+    color:var(--green);
+}
+
+/* =====================================================
+   GRID
+   ===================================================== */
+
+.grid2{
+
+    display:grid;
+
+    grid-template-columns:
+        2fr 1fr;
+
+    gap:15px;
+}
+
+.grid3{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+}
+
+.panel{
+
+    background:var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:17px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+}
+
+.panel-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 19px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+}
+
+.panel-head h3{
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+}
+
+.panel-body{
+    padding:19px;
+}
+
+/* =====================================================
+   PROJECTS
+   ===================================================== */
 
 .section-title{
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
-    margin:25px 0 15px;
+
+    justify-content:space-between;
+
+    margin:
+        18px
+        0
+        14px;
 }
 
 .section-title h2{
+
     font-size:17px;
 }
 
 .section-title span{
+
     color:var(--muted);
-    font-size:11px;
+
+    font-size:9px;
 }
 
-/* =========================
-   PROJECT CARDS
-========================= */
-
 .projects{
+
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:14px;
 }
 
 .project{
+
+    position:relative;
+
+    padding:19px;
+
     background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:22px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:17px;
+
     cursor:pointer;
+
+    transition:
+        transform .25s,
+        border .25s,
+        box-shadow .25s;
+
+    overflow:hidden;
+}
+
+.project::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--green),
+            transparent
+        );
+
+    opacity:0;
+
     transition:.25s;
 }
 
 .project:hover{
-    transform:translateY(-4px);
-    border-color:#34573f;
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(85,242,138,.28);
+
+    box-shadow:
+        0 18px 45px
+        rgba(0,0,0,.18);
+}
+
+.project:hover::before{
+    opacity:1;
 }
 
 .project-top{
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
+
+    justify-content:space-between;
 }
 
 .project-icon{
-    width:44px;
-    height:44px;
-    border-radius:12px;
+
+    width:42px;
+    height:42px;
+
     display:flex;
-    justify-content:center;
+
     align-items:center;
-    background:#17231b;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        rgba(85,242,138,.08);
+
     color:var(--green);
-    font-size:20px;
+
+    font-size:18px;
 }
 
-.project-code{
-    color:#56625c;
+.code{
+
+    color:#56625a;
+
     font-family:monospace;
-    font-size:10px;
+
+    font-size:8px;
 }
 
 .project h3{
-    font-size:18px;
-    margin-top:20px;
+
+    font-size:16px;
+
+    margin-top:16px;
 }
 
-.project-description{
+.desc{
+
     color:var(--muted);
-    font-size:12px;
+
+    font-size:10px;
+
     line-height:1.5;
+
     margin-top:7px;
-    min-height:36px;
+
+    min-height:32px;
 }
 
 .tags{
+
     display:flex;
-    gap:7px;
+
+    gap:5px;
+
     flex-wrap:wrap;
-    margin:15px 0;
+
+    margin:
+        13px
+        0;
 }
 
 .tag{
-    background:#171c1a;
-    border:1px solid #262f2a;
-    color:#9ba59f;
-    border-radius:7px;
-    padding:5px 8px;
-    font-size:9px;
+
+    padding:
+        5px
+        7px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:6px;
+
+    color:#89958e;
+
+    background:var(--card2);
+
+    font-size:7px;
 }
 
 .tag.high{
-    color:var(--danger);
+    color:var(--red);
 }
 
 .tag.medium{
-    color:var(--warning);
+    color:var(--yellow);
 }
 
-.project-progress{
+.progress-info{
+
     display:flex;
+
     justify-content:space-between;
+
     color:var(--muted);
-    font-size:10px;
-    margin-top:17px;
+
+    font-size:8px;
 }
 
 .progress{
-    height:6px;
-    border-radius:20px;
-    background:#1b211e;
-    margin-top:8px;
+
+    height:5px;
+
+    margin-top:7px;
+
     overflow:hidden;
+
+    border-radius:10px;
+
+    background:
+        rgba(120,140,125,.13);
 }
 
 .progress div{
+
     height:100%;
-    background:var(--green);
-    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green2),
+            var(--green)
+        );
+
+    border-radius:10px;
+
+    transition:
+        width .7s
+        cubic-bezier(.2,.8,.2,1);
 }
 
 .new-project{
-    min-height:260px;
-    border:1px dashed #33433a;
-    border-radius:18px;
+
+    min-height:230px;
+
+    border:
+        1px dashed
+        #344239;
+
+    border-radius:17px;
+
     background:transparent;
-    color:#718078;
-    cursor:pointer;
+
+    color:#708077;
+
     transition:.2s;
 }
 
 .new-project:hover{
+
     color:var(--green);
+
     border-color:var(--green);
-    background:#0d1510;
-}
 
-/* =========================
-   PROJECT LAB
-========================= */
-
-.project-view{
-    display:none;
-}
-
-.project-head{
     background:
-    radial-gradient(circle at 90% 10%,rgba(85,242,138,.1),transparent 30%),
-    var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:30px;
+        rgba(85,242,138,.025);
 }
 
-.back{
-    border:0;
-    background:none;
-    color:var(--muted);
-    cursor:pointer;
-    margin-bottom:25px;
-}
+/* =====================================================
+   TOOLBAR
+   ===================================================== */
 
-.back:hover{
-    color:var(--green);
-}
+.toolbar{
 
-.project-head-row{
     display:flex;
-    justify-content:space-between;
-    gap:20px;
-    align-items:flex-end;
-}
 
-.project-head h2{
-    font-size:35px;
-}
+    align-items:center;
 
-.project-head p{
-    color:var(--muted);
-    margin-top:8px;
-    max-width:700px;
-}
-
-.project-buttons{
-    display:flex;
     gap:8px;
+
+    margin:
+        20px
+        0;
 }
 
-.lab-stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin:18px 0;
-}
+.search{
 
-.lab-stat{
+    flex:1;
+
     background:var(--card);
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:18px;
+
+    border:
+        1px solid
+        var(--border);
+
+    color:var(--text);
+
+    border-radius:10px;
+
+    padding:11px;
+
+    outline:none;
+
+    font-size:11px;
 }
 
-.lab-stat small{
-    color:var(--muted);
+.filters{
+
+    display:flex;
+
+    gap:7px;
+}
+
+.filters select{
+
+    width:auto;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:9px;
+
+    padding:10px;
+
     font-size:9px;
 }
 
-.lab-stat strong{
-    display:block;
-    margin-top:7px;
+/* =====================================================
+   IDEAS
+   ===================================================== */
+
+.idea-input{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-bottom:12px;
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    background:
+        var(--bg2);
+
+    border:
+        1px solid
+        var(--border);
+
+    color:var(--text);
+
+    border-radius:9px;
+
+    padding:11px;
+
+    outline:none;
+
+    font-size:11px;
+}
+
+textarea{
+
+    min-height:90px;
+
+    resize:vertical;
+}
+
+.idea-item{
+
+    padding:13px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    font-size:11px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+}
+
+.idea-item:last-child{
+    border-bottom:0;
+}
+
+.idea-date{
+
+    color:#59655e;
+
+    font-size:8px;
+
+    white-space:nowrap;
+}
+
+/* =====================================================
+   GOALS
+   ===================================================== */
+
+.goal{
+
+    padding:15px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        var(--card2);
+
+    border-radius:12px;
+
+    margin-bottom:9px;
+}
+
+.goal-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:10px;
+}
+
+.goal-title span{
+
     color:var(--green);
-    font-size:20px;
 }
 
-.workspace{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:16px;
-}
+.goal-bar{
 
-.panel{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:17px;
+    height:6px;
+
+    margin-top:10px;
+
+    border-radius:10px;
+
+    background:
+        rgba(120,140,125,.13);
+
     overflow:hidden;
 }
 
-.panel-head{
+.goal-bar div{
+
+    height:100%;
+
+    background:var(--green);
+
+    transition:.6s;
+}
+
+/* =====================================================
+   TIMELINE
+   ===================================================== */
+
+.timeline-item{
+
     display:flex;
+
+    gap:11px;
+
+    padding:12px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+}
+
+.timeline-item:last-child{
+    border-bottom:0;
+}
+
+.timeline-dot{
+
+    flex:none;
+
+    width:8px;
+    height:8px;
+
+    margin-top:4px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 12px
+        rgba(85,242,138,.35);
+}
+
+.timeline-item p{
+
+    font-size:10px;
+
+    line-height:1.4;
+}
+
+.timeline-item small{
+
+    color:#59655e;
+
+    font-size:8px;
+}
+
+/* =====================================================
+   ACHIEVEMENTS
+   ===================================================== */
+
+.achievement-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+}
+
+.achievement{
+
+    padding:18px 10px;
+
+    text-align:center;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:13px;
+
+    background:var(--card2);
+
+    transition:.2s;
+}
+
+.achievement:hover{
+    transform:translateY(-3px);
+}
+
+.achievement.locked{
+    opacity:.32;
+}
+
+.achievement-icon{
+
+    font-size:25px;
+
+    margin-bottom:8px;
+}
+
+.achievement strong{
+
+    display:block;
+
+    font-size:10px;
+}
+
+.achievement small{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:4px;
+}
+
+/* =====================================================
+   LAB
+   ===================================================== */
+
+.lab-head{
+
+    padding:28px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:20px;
+
+    background:
+
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(85,242,138,.13),
+            transparent 30%
+        ),
+
+        var(--card);
+
+    box-shadow:var(--shadow);
+}
+
+.back{
+
+    border:0;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-bottom:23px;
+}
+
+.lab-row{
+
+    display:flex;
+
     justify-content:space-between;
-    align-items:center;
-    padding:18px 20px;
-    border-bottom:1px solid var(--border);
+
+    align-items:end;
+
+    gap:20px;
 }
 
-.panel-head h3{
-    font-size:12px;
-    letter-spacing:1px;
+.lab-head h2{
+
+    font-size:30px;
+
+    margin-top:6px;
 }
 
-.panel-body{
-    padding:20px;
-}
+.lab-head p{
 
-.objective{
-    background:#111b15;
-    border:1px solid #243b2b;
-    border-radius:12px;
-    padding:18px;
-}
+    color:var(--muted);
 
-.objective small{
-    color:var(--green);
-    font-size:9px;
-    letter-spacing:1px;
-}
+    font-size:11px;
 
-.objective p{
-    color:#d4ded7;
-    margin-top:8px;
+    max-width:650px;
+
+    margin-top:7px;
+
     line-height:1.5;
 }
 
-.task{
+.lab-actions{
+
     display:flex;
-    align-items:center;
+
+    gap:7px;
+}
+
+.lab-stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:12px;
-    padding:13px 0;
-    border-bottom:1px solid #1a211d;
+
+    margin:
+        15px
+        0;
+}
+
+.lab-stat{
+
+    padding:16px;
+
+    background:var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:14px;
+}
+
+.lab-stat small{
+
+    color:var(--muted);
+
+    font-size:7px;
+
+    letter-spacing:1px;
+}
+
+.lab-stat strong{
+
+    display:block;
+
+    color:var(--green);
+
+    font-size:17px;
+
+    margin-top:7px;
+}
+
+.objective{
+
+    padding:16px;
+
+    background:
+        rgba(85,242,138,.025);
+
+    border:
+        1px solid
+        rgba(85,242,138,.13);
+
+    border-radius:11px;
+}
+
+.objective small{
+
+    color:var(--green);
+
+    font-size:7px;
+
+    letter-spacing:2px;
+}
+
+.objective p{
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    margin-top:8px;
+}
+
+.task{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .task:last-child{
@@ -570,201 +1358,404 @@ body{
 }
 
 .task input{
-    width:18px;
-    height:18px;
+
+    width:16px;
+    height:16px;
+
     accent-color:var(--green);
 }
 
 .task span{
+
     flex:1;
-    font-size:13px;
+
+    font-size:10px;
 }
 
 .task.done span{
-    color:#657069;
+
     text-decoration:line-through;
+
+    color:#59655e;
 }
 
 .delete-task{
-    background:none;
-    border:0;
-    color:#657069;
-}
 
-.delete-task:hover{
-    color:var(--danger);
+    border:0;
+
+    background:transparent;
+
+    color:#5c6861;
 }
 
 .note{
-    padding:14px 0;
-    border-bottom:1px solid #1a211d;
+
+    padding:12px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .note:last-child{
-    border:0;
+    border-bottom:0;
 }
 
 .note p{
-    color:#bac5be;
+
+    font-size:10px;
+
     line-height:1.5;
-    font-size:12px;
 }
 
 .note small{
-    color:#606c65;
-    font-size:9px;
-    display:block;
-    margin-top:7px;
+
+    color:#59655e;
+
+    font-size:8px;
 }
 
 .info-row{
+
     display:flex;
+
     justify-content:space-between;
-    padding:13px 0;
-    border-bottom:1px solid #1a211d;
-    font-size:12px;
+
+    gap:15px;
+
+    padding:11px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    font-size:9px;
 }
 
 .info-row:last-child{
-    border:0;
+    border-bottom:0;
 }
 
 .info-row span{
     color:var(--muted);
 }
 
-/* =========================
-   MODAL
-========================= */
+/* =====================================================
+   PROFILE
+   ===================================================== */
 
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(8px);
-    display:none;
+.profile-card{
+
+    max-width:700px;
+
+    margin:auto;
+
+    padding:30px;
+
+    background:var(--card);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
+}
+
+.avatar{
+
+    width:75px;
+    height:75px;
+
+    display:flex;
+
     align-items:center;
     justify-content:center;
+
+    margin-bottom:17px;
+
+    border-radius:22px;
+
+    background:var(--green);
+
+    color:#061009;
+
+    font-size:27px;
+
+    font-weight:900;
+}
+
+.profile-card h2{
+    font-size:22px;
+}
+
+.profile-card p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:5px;
+}
+
+.setting{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:16px 0;
+
+    border-bottom:
+        1px solid
+        var(--border);
+}
+
+.setting:last-child{
+    border-bottom:0;
+}
+
+.setting-info strong{
+
+    display:block;
+
+    font-size:11px;
+}
+
+.setting-info small{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:4px;
+}
+
+.switch{
+
+    width:42px;
+    height:22px;
+
+    position:relative;
+
+    border-radius:30px;
+
+    background:#27312b;
+
+    border:0;
+}
+
+.switch::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:3px;
+    left:3px;
+
+    width:16px;
+    height:16px;
+
+    border-radius:50%;
+
+    background:#aaa;
+
+    transition:.2s;
+}
+
+.switch.on{
+    background:var(--green);
+}
+
+.switch.on::after{
+
+    left:23px;
+
+    background:#061009;
+}
+
+/* =====================================================
+   EMPTY
+   ===================================================== */
+
+.empty{
+
+    grid-column:1/-1;
+
+    padding:42px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    border:
+        1px dashed
+        var(--border);
+
+    border-radius:15px;
+
+    font-size:10px;
+}
+
+/* =====================================================
+   MODAL
+   ===================================================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
     padding:20px;
-    z-index:100;
+
+    background:
+        rgba(0,0,0,.72);
+
+    backdrop-filter:blur(10px);
+
+    z-index:200;
 }
 
 .modal-box{
+
     width:100%;
+
     max-width:560px;
-    background:#101414;
-    border:1px solid #2b3730;
-    border-radius:20px;
-    padding:28px;
+
+    padding:26px;
+
+    border:
+        1px solid
+        #2a382f;
+
+    border-radius:18px;
+
+    background:#101512;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.55);
+
+    animation:
+        modalIn
+        .2s
+        ease;
+}
+
+@keyframes modalIn{
+
+    from{
+        opacity:0;
+        transform:scale(.96);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
 }
 
 .modal-box h2{
-    margin-bottom:22px;
+
+    font-size:19px;
+
+    margin-bottom:18px;
 }
 
 .form-grid{
+
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:8px;
 }
 
 .full{
     grid-column:1/-1;
 }
 
-input,
-textarea,
-select{
-    width:100%;
-    background:#090c0c;
-    border:1px solid var(--border);
-    border-radius:10px;
-    color:white;
-    padding:13px;
-    outline:none;
-}
-
-textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-    border-color:#426e4f;
-}
-
 .modal-buttons{
+
     display:flex;
-    gap:10px;
-    margin-top:15px;
+
+    gap:8px;
+
+    margin-top:13px;
 }
 
 .modal-buttons button{
     flex:1;
 }
 
-/* =========================
-   EMPTY
-========================= */
-
-.empty{
-    grid-column:1/-1;
-    text-align:center;
-    padding:50px;
-    border:1px dashed var(--border);
-    border-radius:18px;
-    color:var(--muted);
-}
-
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+   ===================================================== */
 
 @media(max-width:1050px){
 
     .sidebar{
-        width:75px;
-        padding:20px 10px;
+
+        width:70px;
+
+        padding:
+            20px 9px;
     }
 
-    .brand-text,
-    .menu-title,
+    .logo{
+        justify-content:center;
+    }
+
+    .logo-name,
+    .menu-label,
     .nav button span,
     .sidebar-bottom{
         display:none;
     }
 
-    .brand{
-        justify-content:center;
-    }
-
     .main{
-        margin-left:75px;
-        padding:25px;
+        margin-left:70px;
+        padding:23px;
     }
 
     .projects{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
-    .workspace{
+    .grid2{
         grid-template-columns:1fr;
     }
+
 }
 
 @media(max-width:700px){
 
     .main{
-        padding:15px;
+        padding:14px;
     }
 
     .topbar{
-        margin-bottom:20px;
+        margin-bottom:18px;
     }
 
-    .topbar-left h1{
+    .topbar h1{
         font-size:20px;
     }
 
@@ -773,7 +1764,7 @@ select:focus{
     }
 
     .hero{
-        padding:25px;
+        padding:24px;
     }
 
     .hero h2{
@@ -781,27 +1772,43 @@ select:focus{
     }
 
     .stats{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .projects{
         grid-template-columns:1fr;
     }
 
-    .lab-stats{
-        grid-template-columns:1fr 1fr;
+    .toolbar{
+        flex-direction:column;
+        align-items:stretch;
     }
 
-    .project-head-row{
+    .filters{
+        width:100%;
+    }
+
+    .filters select{
+        flex:1;
+    }
+
+    .lab-row{
         display:block;
     }
 
-    .project-buttons{
-        margin-top:20px;
+    .lab-actions{
+        margin-top:17px;
     }
 
-    .toolbar{
-        flex-direction:column;
+    .lab-stats{
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .achievement-grid{
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .form-grid{
@@ -811,42 +1818,95 @@ select:focus{
     .full{
         grid-column:auto;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- SIDEBAR -->
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
 
 <aside class="sidebar">
 
-<div class="brand">
+<div class="logo">
 
-<div class="brand-icon">X</div>
+<div class="logo-icon">X</div>
 
-<div class="brand-text">
+<div class="logo-name">
 PROJECT <span>X</span>
 </div>
 
 </div>
 
-<div class="menu-title">
-PRINCIPAL
+
+<div class="menu-label">
+CENTRAL
 </div>
 
 <nav class="nav">
 
-<button class="active" onclick="showDashboard()">
-◈ <span>Visão geral</span>
+<button
+class="active"
+onclick="showPage('dashboard',this)"
+>
+◈ <span>Dashboard</span>
 </button>
 
-<button onclick="showDashboard()">
+<button
+onclick="showPage('projectsPage',this)"
+>
 ▦ <span>Projetos</span>
 </button>
 
-<button onclick="focusTasks()">
-✓ <span>Tarefas</span>
+<button
+onclick="showPage('ideasPage',this)"
+>
+💡 <span>Ideias</span>
+</button>
+
+<button
+onclick="showPage('goalsPage',this)"
+>
+🎯 <span>Metas</span>
+</button>
+
+<button
+onclick="showPage('statsPage',this)"
+>
+📈 <span>Estatísticas</span>
+</button>
+
+<button
+onclick="showPage('achievementsPage',this)"
+>
+🏆 <span>Conquistas</span>
+</button>
+
+</nav>
+
+
+<div class="menu-label">
+SISTEMA
+</div>
+
+<nav class="nav">
+
+<button
+onclick="showPage('profilePage',this)"
+>
+👤 <span>Perfil</span>
+</button>
+
+<button
+onclick="showPage('settingsPage',this)"
+>
+⚙ <span>Configurações</span>
 </button>
 
 <button onclick="exportData()">
@@ -855,57 +1915,59 @@ PRINCIPAL
 
 </nav>
 
-<div class="menu-title">
-SISTEMA
-</div>
-
-<nav class="nav">
-
-<button onclick="clearAll()">
-⚙ <span>Limpar dados</span>
-</button>
-
-</nav>
 
 <div class="sidebar-bottom">
 
-<span class="online">● SISTEMA ONLINE</span><br><br>
+<span class="online">
+● SYSTEM ONLINE
+</span>
 
-PROJECT X v1.0
+<br><br>
+
+PROJECT X 3.0
 
 </div>
 
 </aside>
 
 
-<!-- MAIN -->
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
 
 <main class="main">
 
+
 <div class="topbar">
 
-<div class="topbar-left">
+<div>
 
 <h1 id="welcome">
 Bom dia, Rios.
 </h1>
 
 <p>
-Seu laboratório pessoal de projetos.
+Seu centro de comando pessoal.
 </p>
 
 </div>
 
-<div class="clock" id="clock"></div>
+<div
+class="clock"
+id="clock"
+></div>
 
 </div>
 
 
-<!-- =========================
-DASHBOARD
-========================= -->
+<!-- =====================================================
+     DASHBOARD
+     ===================================================== -->
 
-<section id="dashboard">
+<section
+class="page active"
+id="dashboard"
+>
 
 <div class="hero">
 
@@ -918,7 +1980,8 @@ Transforme ideias em projetos reais.
 </h2>
 
 <p>
-Organize suas ideias, acompanhe seu progresso e construa seus projetos em um único lugar.
+Planeje, construa, acompanhe e evolua seus projetos
+em um único centro de comando.
 </p>
 
 </div>
@@ -928,85 +1991,197 @@ Organize suas ideias, acompanhe seu progresso e construa seus projetos em um ún
 
 <div class="stat">
 
-<div class="stat-label">
+<small>
 PROJETOS
-</div>
+</small>
 
-<div class="stat-value" id="total">
+<strong id="total">
 0
-</div>
+</strong>
 
 </div>
+
 
 <div class="stat">
 
-<div class="stat-label">
-EM DESENVOLVIMENTO
-</div>
+<small>
+ATIVOS
+</small>
 
-<div class="stat-value green" id="active">
+<strong
+class="green"
+id="active"
+>
 0
-</div>
+</strong>
 
 </div>
+
 
 <div class="stat">
 
-<div class="stat-label">
+<small>
 CONCLUÍDOS
-</div>
+</small>
 
-<div class="stat-value" id="completed">
+<strong id="completed">
 0
-</div>
+</strong>
 
 </div>
+
 
 <div class="stat">
 
-<div class="stat-label">
+<small>
 PROGRESSO MÉDIO
-</div>
+</small>
 
-<div class="stat-value green" id="average">
+<strong
+class="green"
+id="average"
+>
 0%
-</div>
+</strong>
 
 </div>
 
 </div>
 
 
-<div class="toolbar">
+<div class="grid2">
 
-<input
-class="search"
-id="search"
-placeholder="Pesquisar projetos..."
-oninput="render()"
->
 
-<button
-class="btn btn-primary"
-onclick="openModal()"
->
-+ Novo projeto
-</button>
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>
+PROJETOS RECENTES
+</h3>
 
 <button
 class="btn"
-onclick="exportData()"
+onclick="showPage('projectsPage')"
 >
-Backup
+Ver todos
 </button>
 
 </div>
 
+<div
+class="panel-body"
+>
+
+<div
+class="projects"
+id="recentProjects"
+></div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>
+ATIVIDADE RECENTE
+</h3>
+
+</div>
+
+<div
+class="panel-body"
+id="dashboardTimeline"
+></div>
+
+</div>
+
+
+</div>
+
+
+<br>
+
+
+<div class="grid3">
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>
+METAS
+</h3>
+
+</div>
+
+<div
+class="panel-body"
+id="dashboardGoals"
+></div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>
+PRÓXIMOS PRAZOS
+</h3>
+
+</div>
+
+<div
+class="panel-body"
+id="alerts"
+></div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>
+NÍVEL DO SISTEMA
+</h3>
+
+</div>
+
+<div
+class="panel-body"
+id="systemLevel"
+></div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECTS
+     ===================================================== -->
+
+<section
+class="page"
+id="projectsPage"
+>
 
 <div class="section-title">
 
 <h2>
-Seus projetos
+Todos os projetos
 </h2>
 
 <span id="projectCount">
@@ -1016,42 +2191,618 @@ Seus projetos
 </div>
 
 
-<div class="projects" id="projects"></div>
+<div class="toolbar">
+
+<input
+class="search"
+id="search"
+placeholder="Pesquisar projeto..."
+oninput="renderProjects()"
+>
+
+
+<div class="filters">
+
+<select
+id="filterCategory"
+onchange="renderProjects()"
+>
+
+<option value="">
+Categoria
+</option>
+
+<option>
+Tecnologia
+</option>
+
+<option>
+IA
+</option>
+
+<option>
+Site
+</option>
+
+<option>
+Jogo
+</option>
+
+<option>
+Robótica
+</option>
+
+<option>
+Estudo
+</option>
+
+<option>
+Pessoal
+</option>
+
+<option>
+Outro
+</option>
+
+</select>
+
+
+<select
+id="filterStatus"
+onchange="renderProjects()"
+>
+
+<option value="">
+Status
+</option>
+
+<option>
+Ideia
+</option>
+
+<option>
+Em desenvolvimento
+</option>
+
+<option>
+Pausado
+</option>
+
+<option>
+Concluído
+</option>
+
+</select>
+
+</div>
+
+
+<button
+class="btn btn-primary"
+onclick="openModal()"
+>
++ Novo projeto
+</button>
+
+</div>
+
+
+<div
+class="projects"
+id="projects"
+></div>
 
 </section>
 
 
-<!-- =========================
-LABORATÓRIO
-========================= -->
+<!-- =====================================================
+     IDEAS
+     ===================================================== -->
 
-<section class="project-view" id="projectView">
+<section
+class="page"
+id="ideasPage"
+>
 
-<div class="project-head">
+<div class="section-title">
 
-<button class="back" onclick="showDashboard()">
+<h2>
+Banco de ideias
+</h2>
+
+<span id="ideaCount">
+0 ideias
+</span>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-body">
+
+
+<div class="idea-input">
+
+<input
+id="ideaInput"
+placeholder="Digite uma nova ideia..."
+>
+
+<button
+class="btn btn-primary"
+onclick="addIdea()"
+>
+Guardar
+</button>
+
+</div>
+
+
+<div id="ideasList"></div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     GOALS
+     ===================================================== -->
+
+<section
+class="page"
+id="goalsPage"
+>
+
+<div class="section-title">
+
+<h2>
+Metas
+</h2>
+
+<button
+class="btn btn-primary"
+onclick="addGoal()"
+>
++ Nova meta
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<div
+class="panel-body"
+id="goalsList"
+></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+     ===================================================== -->
+
+<section
+class="page"
+id="statsPage"
+>
+
+<div class="section-title">
+
+<h2>
+Estatísticas
+</h2>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<small>
+TAREFAS
+</small>
+
+<strong id="statTasks">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<small>
+CONCLUÍDAS
+</small>
+
+<strong
+class="green"
+id="statDone"
+>
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<small>
+IDEIAS
+</small>
+
+<strong id="statIdeas">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<small>
+METAS
+</small>
+
+<strong
+class="green"
+id="statGoals"
+>
+0
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="grid2">
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>
+EVOLUÇÃO
+</h3>
+
+</div>
+
+<div
+class="panel-body"
+id="statsDetails"
+></div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>
+HISTÓRICO
+</h3>
+
+</div>
+
+<div
+class="panel-body"
+id="timeline"
+></div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ACHIEVEMENTS
+     ===================================================== -->
+
+<section
+class="page"
+id="achievementsPage"
+>
+
+<div class="section-title">
+
+<h2>
+Conquistas
+</h2>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-body">
+
+<div
+class="achievement-grid"
+id="achievementList"
+></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PROFILE
+     ===================================================== -->
+
+<section
+class="page"
+id="profilePage"
+>
+
+<div class="section-title">
+
+<h2>
+Perfil
+</h2>
+
+</div>
+
+
+<div class="profile-card">
+
+<div class="avatar">
+R
+</div>
+
+<h2 id="profileName">
+Rios
+</h2>
+
+<p>
+Criador do Project X
+</p>
+
+
+<br>
+
+
+<div class="info-row">
+
+<span>
+Projetos
+</span>
+
+<strong id="profileProjects">
+0
+</strong>
+
+</div>
+
+
+<div class="info-row">
+
+<span>
+Ideias
+</span>
+
+<strong id="profileIdeas">
+0
+</strong>
+
+</div>
+
+
+<div class="info-row">
+
+<span>
+Conquistas
+</span>
+
+<strong id="profileAchievements">
+0
+</strong>
+
+</div>
+
+
+<div class="info-row">
+
+<span>
+Nível
+</span>
+
+<strong id="profileLevel">
+1
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+     ===================================================== -->
+
+<section
+class="page"
+id="settingsPage"
+>
+
+<div class="section-title">
+
+<h2>
+Configurações
+</h2>
+
+</div>
+
+
+<div class="profile-card">
+
+
+<div class="setting">
+
+<div class="setting-info">
+
+<strong>
+Modo escuro
+</strong>
+
+<small>
+Alternar aparência do Project X
+</small>
+
+</div>
+
+<button
+class="switch on"
+id="themeSwitch"
+onclick="toggleTheme()"
+></button>
+
+</div>
+
+
+<div class="setting">
+
+<div class="setting-info">
+
+<strong>
+Animações
+</strong>
+
+<small>
+Efeitos visuais da interface
+</small>
+
+</div>
+
+<button
+class="switch on"
+id="animationSwitch"
+onclick="toggleAnimations()"
+></button>
+
+</div>
+
+
+<div class="setting">
+
+<div class="setting-info">
+
+<strong>
+Exportar dados
+</strong>
+
+<small>
+Salvar uma cópia dos seus projetos
+</small>
+
+</div>
+
+<button
+class="btn"
+onclick="exportData()"
+>
+Exportar
+</button>
+
+</div>
+
+
+<div class="setting">
+
+<div class="setting-info">
+
+<strong>
+Apagar dados
+</strong>
+
+<small>
+Remove todos os dados salvos localmente
+</small>
+
+</div>
+
+<button
+class="btn btn-danger"
+onclick="clearAll()"
+>
+Resetar
+</button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT LAB
+     ===================================================== -->
+
+<section
+class="page"
+id="labPage"
+>
+
+<div class="lab-head">
+
+<button
+class="back"
+onclick="showPage('projectsPage')"
+>
 ← Voltar para projetos
 </button>
 
-<div class="project-head-row">
+
+<div class="lab-row">
+
 
 <div>
 
-<div class="project-code" id="projectCode">
+<div
+class="code"
+id="projectCode"
+>
 PROJECT_001
 </div>
 
-<h2 id="projectName">
-PROJETO
+<h2
+id="projectName"
+>
+Projeto
 </h2>
 
-<p id="projectDescription">
+<p
+id="projectDescription"
+>
 Descrição
 </p>
 
 </div>
 
-<div class="project-buttons">
+
+<div class="lab-actions">
 
 <button
 class="btn"
@@ -1069,6 +2820,7 @@ Excluir
 
 </div>
 
+
 </div>
 
 </div>
@@ -1076,64 +2828,89 @@ Excluir
 
 <div class="lab-stats">
 
+
 <div class="lab-stat">
 
-<small>STATUS</small>
+<small>
+STATUS
+</small>
 
-<strong id="detailStatus">
+<strong
+id="detailStatus"
+>
 —
 </strong>
 
 </div>
 
+
 <div class="lab-stat">
 
-<small>PROGRESSO</small>
+<small>
+PROGRESSO
+</small>
 
-<strong id="detailProgress">
+<strong
+id="detailProgress"
+>
 0%
 </strong>
 
 </div>
 
+
 <div class="lab-stat">
 
-<small>TAREFAS</small>
+<small>
+TAREFAS
+</small>
 
-<strong id="detailTasks">
+<strong
+id="detailTasks"
+>
 0/0
 </strong>
 
 </div>
 
+
 <div class="lab-stat">
 
-<small>PRAZO</small>
+<small>
+PRAZO
+</small>
 
-<strong id="detailDeadline">
+<strong
+id="detailDeadline"
+>
 —
 </strong>
 
 </div>
 
+
 </div>
 
 
-<div class="workspace">
+<div class="grid2">
+
 
 <div>
+
 
 <div class="panel">
 
 <div class="panel-head">
 
-<h3>OBJETIVO</h3>
+<h3>
+OBJETIVO PRINCIPAL
+</h3>
 
 <button
 class="btn"
 onclick="addObjective()"
 >
-+ Definir
+Definir
 </button>
 
 </div>
@@ -1143,10 +2920,12 @@ onclick="addObjective()"
 <div class="objective">
 
 <small>
-OBJETIVO PRINCIPAL
+OBJECTIVE
 </small>
 
-<p id="objectiveText">
+<p
+id="objectiveText"
+>
 Nenhum objetivo definido.
 </p>
 
@@ -1156,6 +2935,7 @@ Nenhum objetivo definido.
 
 </div>
 
+
 <br>
 
 
@@ -1163,13 +2943,15 @@ Nenhum objetivo definido.
 
 <div class="panel-head">
 
-<h3>TAREFAS</h3>
+<h3>
+TAREFAS
+</h3>
 
 <button
 class="btn"
 onclick="addTask()"
 >
-+ Nova tarefa
++ Tarefa
 </button>
 
 </div>
@@ -1177,21 +2959,24 @@ onclick="addTask()"
 <div
 class="panel-body"
 id="taskList"
->
-</div>
+></div>
 
 </div>
+
 
 </div>
 
 
 <div>
 
+
 <div class="panel">
 
 <div class="panel-head">
 
-<h3>NOTAS</h3>
+<h3>
+NOTAS
+</h3>
 
 <button
 class="btn"
@@ -1205,10 +2990,10 @@ onclick="addNote()"
 <div
 class="panel-body"
 id="noteList"
->
-</div>
+></div>
 
 </div>
+
 
 <br>
 
@@ -1217,79 +3002,145 @@ id="noteList"
 
 <div class="panel-head">
 
-<h3>DETALHES</h3>
+<h3>
+INFORMAÇÕES
+</h3>
 
 </div>
 
 <div
 class="panel-body"
 id="infoPanel"
->
-</div>
+></div>
 
 </div>
 
+
 </div>
+
 
 </div>
 
 </section>
 
+
 </main>
 
 
-<!-- MODAL -->
+<!-- =====================================================
+     MODAL
+     ===================================================== -->
 
-<div class="modal" id="projectModal">
+<div
+class="modal"
+id="projectModal"
+>
 
 <div class="modal-box">
 
-<h2 id="modalTitle">
+<h2
+id="modalTitle"
+>
 Novo projeto
 </h2>
 
+
 <div class="form-grid">
+
 
 <input
 id="name"
 placeholder="Nome do projeto"
 >
 
-<select id="category">
 
-<option>Tecnologia</option>
-<option>IA</option>
-<option>Site</option>
-<option>Jogo</option>
-<option>Robótica</option>
-<option>Estudo</option>
-<option>Pessoal</option>
-<option>Outro</option>
+<select
+id="category"
+>
+
+<option>
+Tecnologia
+</option>
+
+<option>
+IA
+</option>
+
+<option>
+Site
+</option>
+
+<option>
+Jogo
+</option>
+
+<option>
+Robótica
+</option>
+
+<option>
+Estudo
+</option>
+
+<option>
+Pessoal
+</option>
+
+<option>
+Outro
+</option>
 
 </select>
+
 
 <textarea
 class="full"
 id="description"
-placeholder="Descrição do projeto..."
+placeholder="Descrição..."
 ></textarea>
 
-<select id="status">
 
-<option>Ideia</option>
-<option>Em desenvolvimento</option>
-<option>Pausado</option>
-<option>Concluído</option>
+<select
+id="status"
+>
+
+<option>
+Ideia
+</option>
+
+<option>
+Em desenvolvimento
+</option>
+
+<option>
+Pausado
+</option>
+
+<option>
+Concluído
+</option>
 
 </select>
 
-<select id="priority">
 
-<option>Baixa</option>
-<option>Média</option>
-<option>Alta</option>
+<select
+id="priority"
+>
+
+<option>
+Baixa
+</option>
+
+<option>
+Média
+</option>
+
+<option>
+Alta
+</option>
 
 </select>
+
 
 <input
 id="deadline"
@@ -1297,6 +3148,7 @@ type="date"
 >
 
 </div>
+
 
 <div class="modal-buttons">
 
@@ -1323,973 +3175,2845 @@ Salvar projeto
 
 <script>
 
-/* =========================
-DADOS
-========================= */
+/* =====================================================
+   DATA
+   ===================================================== */
 
-let projects=
+let projects =
 JSON.parse(
 localStorage.getItem("projectX")
-)||[];
+) || [];
 
-let currentProject=null;
-let editingProject=null;
+let ideas =
+JSON.parse(
+localStorage.getItem("projectXIdeas")
+) || [];
+
+let goals =
+JSON.parse(
+localStorage.getItem("projectXGoals")
+) || [];
+
+let timeline =
+JSON.parse(
+localStorage.getItem("projectXTimeline")
+) || [];
 
 
-/* Compatibilidade */
+let currentProject = null;
 
-projects=projects.map(p=>({
+let editingProject = null;
 
-name:p.name||"Projeto",
 
-description:p.description||"",
+/* =====================================================
+   NORMALIZAÇÃO
+   ===================================================== */
 
-status:p.status||"Ideia",
+projects =
+projects.map(p => ({
 
-progress:Number(p.progress)||0,
+    name:
+        p.name ||
+        "Projeto",
 
-objective:p.objective||"",
+    description:
+        p.description ||
+        "",
 
-tasks:Array.isArray(p.tasks)?p.tasks:[],
+    status:
+        p.status ||
+        "Ideia",
 
-notes:Array.isArray(p.notes)?p.notes:[],
+    progress:
+        Number(p.progress) ||
+        0,
 
-category:p.category||"Outro",
+    objective:
+        p.objective ||
+        "",
 
-priority:p.priority||"Média",
+    tasks:
+        Array.isArray(p.tasks)
+        ? p.tasks
+        : [],
 
-deadline:p.deadline||""
+    notes:
+        Array.isArray(p.notes)
+        ? p.notes
+        : [],
+
+    category:
+        p.category ||
+        "Outro",
+
+    priority:
+        p.priority ||
+        "Média",
+
+    deadline:
+        p.deadline ||
+        ""
 
 }));
 
 
-function save(){
+/* =====================================================
+   SAVE
+   ===================================================== */
 
-localStorage.setItem(
-"projectX",
-JSON.stringify(projects)
-);
+function saveAll(){
+
+    localStorage.setItem(
+        "projectX",
+        JSON.stringify(projects)
+    );
+
+    localStorage.setItem(
+        "projectXIdeas",
+        JSON.stringify(ideas)
+    );
+
+    localStorage.setItem(
+        "projectXGoals",
+        JSON.stringify(goals)
+    );
+
+    localStorage.setItem(
+        "projectXTimeline",
+        JSON.stringify(timeline)
+    );
 
 }
 
 
-/* =========================
-MODAL
-========================= */
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+function showPage(id,button=null){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page =>
+            page.classList.remove("active")
+        );
+
+    const page =
+        document.getElementById(id);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+    if(button){
+        button.classList.add("active");
+    }
+
+
+    if(id==="dashboard"){
+        renderDashboard();
+    }
+
+    if(id==="projectsPage"){
+        renderProjects();
+    }
+
+    if(id==="ideasPage"){
+        renderIdeas();
+    }
+
+    if(id==="goalsPage"){
+        renderGoals();
+    }
+
+    if(id==="statsPage"){
+        renderStatistics();
+    }
+
+    if(id==="achievementsPage"){
+        renderAchievements();
+    }
+
+    if(id==="profilePage"){
+        renderProfile();
+    }
+
+}
+
+
+/* =====================================================
+   MODAL
+   ===================================================== */
 
 function openModal(index=null){
 
-editingProject=index;
+    editingProject=index;
 
-const modal=
-document.getElementById(
-"projectModal"
-);
+    document
+        .getElementById("projectModal")
+        .style.display="flex";
 
-modal.style.display="flex";
 
-if(index===null){
+    if(index===null){
 
-document.getElementById(
-"modalTitle"
-).textContent="Novo projeto";
+        document
+            .getElementById("modalTitle")
+            .textContent=
+            "Novo projeto";
 
-document.getElementById("name").value="";
-document.getElementById("description").value="";
-document.getElementById("status").value="Ideia";
-document.getElementById("priority").value="Média";
-document.getElementById("category").value="Tecnologia";
-document.getElementById("deadline").value="";
+        name.value="";
+        description.value="";
+        status.value=
+            "Ideia";
 
-}else{
+        priority.value=
+            "Média";
 
-const p=projects[index];
+        category.value=
+            "Tecnologia";
 
-document.getElementById(
-"modalTitle"
-).textContent="Editar projeto";
+        deadline.value="";
 
-document.getElementById("name").value=p.name;
-document.getElementById("description").value=p.description;
-document.getElementById("status").value=p.status;
-document.getElementById("priority").value=p.priority;
-document.getElementById("category").value=p.category;
-document.getElementById("deadline").value=p.deadline;
+    }else{
 
-}
+        const p =
+            projects[index];
+
+        document
+            .getElementById("modalTitle")
+            .textContent=
+            "Editar projeto";
+
+        name.value=p.name;
+
+        description.value=
+            p.description;
+
+        status.value=
+            p.status;
+
+        priority.value=
+            p.priority;
+
+        category.value=
+            p.category;
+
+        deadline.value=
+            p.deadline;
+
+    }
 
 }
 
 
 function closeModal(){
 
-document.getElementById(
-"projectModal"
-).style.display="none";
+    document
+        .getElementById("projectModal")
+        .style.display="none";
 
-editingProject=null;
+    editingProject=null;
 
 }
 
 
-/* =========================
-SALVAR
-========================= */
+/* =====================================================
+   PROJECTS
+   ===================================================== */
 
 function saveProject(){
 
-const name=
-document.getElementById("name")
-.value.trim();
+    const projectName =
+        document
+            .getElementById("name")
+            .value
+            .trim();
 
-if(!name){
 
-alert("Digite o nome do projeto.");
+    if(!projectName){
 
-return;
+        alert(
+            "Digite o nome do projeto."
+        );
+
+        return;
+    }
+
+
+    const data={
+
+        name:
+            projectName,
+
+        description:
+            document
+            .getElementById("description")
+            .value
+            .trim(),
+
+        status:
+            document
+            .getElementById("status")
+            .value,
+
+        priority:
+            document
+            .getElementById("priority")
+            .value,
+
+        category:
+            document
+            .getElementById("category")
+            .value,
+
+        deadline:
+            document
+            .getElementById("deadline")
+            .value,
+
+        objective:
+            "",
+
+        tasks:
+            [],
+
+        notes:
+            []
+
+    };
+
+
+    if(editingProject===null){
+
+        projects.push(data);
+
+        addTimeline(
+            "Projeto criado: "+
+            projectName
+        );
+
+    }else{
+
+        const old =
+            projects[editingProject];
+
+        projects[editingProject]={
+
+            ...data,
+
+            objective:
+                old.objective,
+
+            tasks:
+                old.tasks,
+
+            notes:
+                old.notes
+
+        };
+
+        addTimeline(
+            "Projeto atualizado: "+
+            projectName
+        );
+
+    }
+
+
+    saveAll();
+
+    closeModal();
+
+    renderDashboard();
+
+    showPage(
+        "projectsPage"
+    );
 
 }
 
-const data={
 
-name:name,
-
-description:
-document.getElementById("description")
-.value.trim(),
-
-status:
-document.getElementById("status")
-.value,
-
-priority:
-document.getElementById("priority")
-.value,
-
-category:
-document.getElementById("category")
-.value,
-
-deadline:
-document.getElementById("deadline")
-.value,
-
-objective:"",
-
-tasks:[],
-
-notes:[]
-
-};
-
-
-if(editingProject===null){
-
-projects.push(data);
-
-}else{
-
-const old=
-projects[editingProject];
-
-projects[editingProject]={
-
-...data,
-
-objective:old.objective,
-
-tasks:old.tasks,
-
-notes:old.notes
-
-};
-
-}
-
-save();
-
-closeModal();
-
-render();
-
-}
-
-
-/* =========================
-PROGRESSO
-========================= */
+/* =====================================================
+   PROGRESS
+   ===================================================== */
 
 function calculateProgress(p){
 
-if(!p.tasks.length)
-return Number(p.progress)||0;
+    if(!p.tasks.length){
 
-const done=
-p.tasks.filter(t=>t.done).length;
+        return Number(
+            p.progress
+        ) || 0;
 
-return Math.round(
-(done/p.tasks.length)*100
-);
-
-}
+    }
 
 
-/* =========================
-DASHBOARD
-========================= */
+    return Math.round(
 
-function render(){
+        p.tasks.filter(
+            task=>task.done
+        ).length
+        /
+        p.tasks.length
+        *
+        100
 
-const container=
-document.getElementById("projects");
-
-container.innerHTML="";
-
-const search=
-document.getElementById("search")
-.value.toLowerCase();
-
-const filtered=
-projects
-.map((p,i)=>({p,i}))
-.filter(x=>
-x.p.name.toLowerCase().includes(search)||
-x.p.category.toLowerCase().includes(search)
-);
-
-
-if(!filtered.length){
-
-container.innerHTML=`
-<div class="empty">
-Nenhum projeto encontrado.
-</div>
-`;
-
-}else{
-
-filtered.forEach(({p,index})=>{
-
-const item=
-document.createElement("div");
-
-item.className="project";
-
-item.onclick=
-()=>openProject(index);
-
-const progress=
-calculateProgress(p);
-
-const priorityClass=
-p.priority==="Alta"
-?"high":
-p.priority==="Média"
-?"medium":"";
-
-
-item.innerHTML=`
-
-<div class="project-top">
-
-<div class="project-icon">
-◈
-</div>
-
-<div class="project-code">
-PROJECT_${String(index+1).padStart(3,"0")}
-</div>
-
-</div>
-
-<h3>
-${escapeHTML(p.name)}
-</h3>
-
-<div class="project-description">
-${escapeHTML(
-p.description||
-"Sem descrição."
-)}
-</div>
-
-<div class="tags">
-
-<span class="tag">
-${escapeHTML(p.category)}
-</span>
-
-<span class="tag ${priorityClass}">
-${escapeHTML(p.priority)}
-</span>
-
-<span class="tag">
-${escapeHTML(p.status)}
-</span>
-
-</div>
-
-<div class="project-progress">
-
-<span>Progresso</span>
-
-<strong>
-${progress}%
-</strong>
-
-</div>
-
-<div class="progress">
-
-<div style="width:${progress}%"></div>
-
-</div>
-
-`;
-
-container.appendChild(item);
-
-});
+    );
 
 }
 
 
-const newProject=
-document.createElement("button");
+/* =====================================================
+   PROJECT CARDS
+   ===================================================== */
 
-newProject.className="new-project";
+function createProjectCard(
+    p,
+    index
+){
 
-newProject.innerHTML=
-"+<br><br>Criar novo projeto";
+    const div =
+        document.createElement("div");
 
-newProject.onclick=
-()=>openModal();
-
-container.appendChild(newProject);
+    div.className=
+        "project";
 
 
-updateStats();
+    div.onclick=() =>
+        openProject(index);
+
+
+    const progress =
+        calculateProgress(p);
+
+
+    const priorityClass =
+        p.priority==="Alta"
+        ? "high"
+        :
+        p.priority==="Média"
+        ? "medium"
+        : "";
+
+
+    div.innerHTML=`
+
+        <div class="project-top">
+
+            <div class="project-icon">
+                ◈
+            </div>
+
+            <div class="code">
+                PROJECT_${String(index+1).padStart(3,"0")}
+            </div>
+
+        </div>
+
+
+        <h3>
+            ${escapeHTML(p.name)}
+        </h3>
+
+
+        <div class="desc">
+            ${escapeHTML(
+                p.description ||
+                "Sem descrição."
+            )}
+        </div>
+
+
+        <div class="tags">
+
+            <span class="tag">
+                ${escapeHTML(
+                    p.category
+                )}
+            </span>
+
+            <span
+                class="tag ${priorityClass}"
+            >
+                ${escapeHTML(
+                    p.priority
+                )}
+            </span>
+
+            <span class="tag">
+                ${escapeHTML(
+                    p.status
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="progress-info">
+
+            <span>
+                Progresso
+            </span>
+
+            <strong>
+                ${progress}%
+            </strong>
+
+        </div>
+
+
+        <div class="progress">
+
+            <div
+                style="width:${progress}%"
+            ></div>
+
+        </div>
+
+    `;
+
+
+    return div;
 
 }
 
 
-function updateStats(){
+/* =====================================================
+   RENDER PROJECTS
+   ===================================================== */
 
-const total=projects.length;
+function renderProjects(){
 
-const active=
-projects.filter(
-p=>p.status==="Em desenvolvimento"
-).length;
+    const container =
+        document.getElementById(
+            "projects"
+        );
 
-const completed=
-projects.filter(
-p=>p.status==="Concluído"
-).length;
+    container.innerHTML="";
 
-let average=0;
 
-if(total){
+    const search =
+        (
+            document.getElementById(
+                "search"
+            )?.value || ""
+        ).toLowerCase();
 
-average=Math.round(
 
-projects.reduce(
-(sum,p)=>sum+calculateProgress(p),
-0
-)/total
+    const category =
+        document.getElementById(
+            "filterCategory"
+        )?.value || "";
 
-);
+
+    const status =
+        document.getElementById(
+            "filterStatus"
+        )?.value || "";
+
+
+    const filtered =
+
+        projects
+        .map(
+            (p,index)=>({
+                p,
+                index
+            })
+        )
+
+        .filter(item =>
+
+            item.p.name
+            .toLowerCase()
+            .includes(search)
+
+            &&
+
+            (
+                !category ||
+                item.p.category===category
+            )
+
+            &&
+
+            (
+                !status ||
+                item.p.status===status
+            )
+
+        );
+
+
+    if(!filtered.length){
+
+        container.innerHTML=
+        `
+            <div class="empty">
+                Nenhum projeto encontrado.
+            </div>
+        `;
+
+    }else{
+
+        filtered.forEach(item=>{
+
+            container.appendChild(
+
+                createProjectCard(
+                    item.p,
+                    item.index
+                )
+
+            );
+
+        });
+
+    }
+
+
+    const newButton =
+        document.createElement("button");
+
+    newButton.className=
+        "new-project";
+
+    newButton.innerHTML=
+        "+<br><br>Criar novo projeto";
+
+    newButton.onclick=
+        () => openModal();
+
+    container.appendChild(
+        newButton
+    );
+
+
+    document
+        .getElementById(
+            "projectCount"
+        )
+        .textContent =
+        projects.length+
+        (
+            projects.length===1
+            ? " projeto"
+            : " projetos"
+        );
 
 }
 
-document.getElementById("total")
-.textContent=total;
 
-document.getElementById("active")
-.textContent=active;
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
 
-document.getElementById("completed")
-.textContent=completed;
+function renderDashboard(){
 
-document.getElementById("average")
-.textContent=average+"%";
+    const total =
+        projects.length;
 
-document.getElementById("projectCount")
-.textContent=
-total+" projeto"+
-(total===1?"":"s");
+
+    const active =
+        projects.filter(
+            p =>
+            p.status===
+            "Em desenvolvimento"
+        ).length;
+
+
+    const completed =
+        projects.filter(
+            p =>
+            p.status===
+            "Concluído"
+        ).length;
+
+
+    const average =
+        total
+        ?
+        Math.round(
+
+            projects.reduce(
+                (sum,p)=>
+                sum+
+                calculateProgress(p),
+                0
+            )
+            /
+            total
+
+        )
+        :
+        0;
+
+
+    document.getElementById(
+        "total"
+    ).textContent=total;
+
+
+    document.getElementById(
+        "active"
+    ).textContent=active;
+
+
+    document.getElementById(
+        "completed"
+    ).textContent=completed;
+
+
+    document.getElementById(
+        "average"
+    ).textContent=
+        average+"%";
+
+
+    const recent =
+        document.getElementById(
+            "recentProjects"
+        );
+
+    recent.innerHTML="";
+
+
+    if(!projects.length){
+
+        recent.innerHTML=
+        `
+            <div class="empty">
+                Nenhum projeto ainda.
+            </div>
+        `;
+
+    }else{
+
+        projects
+        .slice(-3)
+        .reverse()
+        .forEach(p=>{
+
+            const index =
+                projects.indexOf(p);
+
+            recent.appendChild(
+
+                createProjectCard(
+                    p,
+                    index
+                )
+
+            );
+
+        });
+
+    }
+
+
+    renderDashboardTimeline();
+
+    renderDashboardGoals();
+
+    renderAlerts();
+
+    renderSystemLevel();
 
 }
 
 
-/* =========================
-ABRIR PROJETO
-========================= */
+/* =====================================================
+   DASHBOARD TIMELINE
+   ===================================================== */
+
+function renderDashboardTimeline(){
+
+    const box =
+        document.getElementById(
+            "dashboardTimeline"
+        );
+
+    box.innerHTML="";
+
+
+    if(!timeline.length){
+
+        box.innerHTML=
+        `
+            <p style="
+                color:var(--muted);
+                font-size:10px;
+            ">
+                Nenhuma atividade registrada.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    timeline
+    .slice(0,5)
+    .forEach(item=>{
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className=
+            "timeline-item";
+
+
+        div.innerHTML=`
+
+            <div class="timeline-dot"></div>
+
+            <div>
+
+                <p>
+                    ${escapeHTML(
+                        item.text
+                    )}
+                </p>
+
+                <small>
+                    ${item.date}
+                </small>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   DASHBOARD GOALS
+   ===================================================== */
+
+function renderDashboardGoals(){
+
+    const box =
+        document.getElementById(
+            "dashboardGoals"
+        );
+
+    box.innerHTML="";
+
+
+    if(!goals.length){
+
+        box.innerHTML=
+        `
+            <p style="
+                color:var(--muted);
+                font-size:10px;
+            ">
+                Nenhuma meta criada.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    goals
+    .slice(0,3)
+    .forEach(goal=>{
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className="goal";
+
+
+        div.innerHTML=`
+
+            <div class="goal-title">
+
+                <strong>
+                    ${escapeHTML(
+                        goal.title
+                    )}
+                </strong>
+
+                <span>
+                    ${goal.progress}%
+                </span>
+
+            </div>
+
+            <div class="goal-bar">
+
+                <div
+                    style="
+                        width:${goal.progress}%
+                    "
+                ></div>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   ALERTS
+   ===================================================== */
+
+function renderAlerts(){
+
+    const box =
+        document.getElementById(
+            "alerts"
+        );
+
+    box.innerHTML="";
+
+
+    const upcoming =
+        projects.filter(
+            p =>
+            p.deadline &&
+            p.status!=="Concluído"
+        );
+
+
+    if(!upcoming.length){
+
+        box.innerHTML=
+        `
+            <p style="
+                color:var(--muted);
+                font-size:10px;
+            ">
+                Nenhum prazo próximo.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    upcoming
+    .slice(0,4)
+    .forEach(p=>{
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className=
+            "timeline-item";
+
+
+        div.innerHTML=`
+
+            <div class="timeline-dot"></div>
+
+            <div>
+
+                <p>
+                    ${escapeHTML(
+                        p.name
+                    )}
+                </p>
+
+                <small>
+                    ${formatDate(
+                        p.deadline
+                    )}
+                </small>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   SYSTEM LEVEL
+   ===================================================== */
+
+function getSystemLevel(){
+
+    let points=0;
+
+
+    points +=
+        projects.length*10;
+
+    points +=
+        ideas.length*3;
+
+    points +=
+        goals.length*5;
+
+
+    projects.forEach(p=>{
+
+        points +=
+            p.tasks.filter(
+                t=>t.done
+            ).length*4;
+
+    });
+
+
+    const level =
+        Math.floor(
+            points/50
+        )+1;
+
+
+    return {
+        level,
+        points
+    };
+
+}
+
+
+function renderSystemLevel(){
+
+    const data =
+        getSystemLevel();
+
+
+    const next =
+        data.level*50;
+
+
+    const progress =
+        Math.min(
+            100,
+            Math.round(
+                (
+                    data.points -
+                    (data.level-1)*50
+                )
+                /
+                50*100
+            )
+        );
+
+
+    document.getElementById(
+        "systemLevel"
+    ).innerHTML=`
+
+        <div
+            style="
+                text-align:center;
+                padding:8px;
+            "
+        >
+
+            <div
+                style="
+                    font-size:35px;
+                    font-weight:900;
+                    color:var(--green);
+                "
+            >
+                LV.${data.level}
+            </div>
+
+            <p
+                style="
+                    color:var(--muted);
+                    font-size:9px;
+                    margin:5px;
+                "
+            >
+                ${data.points} XP
+            </p>
+
+            <div class="progress">
+
+                <div
+                    style="
+                        width:${progress}%
+                    "
+                ></div>
+
+            </div>
+
+            <small
+                style="
+                    display:block;
+                    color:var(--muted);
+                    font-size:7px;
+                    margin-top:7px;
+                "
+            >
+                Próximo nível: ${next} XP
+            </small>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   LAB
+   ===================================================== */
 
 function openProject(index){
 
-currentProject=index;
+    currentProject=index;
 
-const p=projects[index];
 
-document.getElementById("dashboard")
-.style.display="none";
+    showPage(
+        "labPage"
+    );
 
-document.getElementById("projectView")
-.style.display="block";
 
-document.getElementById("projectCode")
-.textContent=
-"PROJECT_"+String(index+1).padStart(3,"0");
+    const p =
+        projects[index];
 
-document.getElementById("projectName")
-.textContent=
-p.name;
 
-document.getElementById("projectDescription")
-.textContent=
-p.description||
-"Sem descrição registrada.";
+    document.getElementById(
+        "projectCode"
+    ).textContent=
+        "PROJECT_"+
+        String(index+1)
+        .padStart(3,"0");
 
-document.getElementById("detailStatus")
-.textContent=p.status;
 
-document.getElementById("detailProgress")
-.textContent=
-calculateProgress(p)+"%";
+    document.getElementById(
+        "projectName"
+    ).textContent=
+        p.name;
 
-document.getElementById("detailTasks")
-.textContent=
-p.tasks.filter(t=>t.done).length+
-"/"+
-p.tasks.length;
 
-document.getElementById("detailDeadline")
-.textContent=
-p.deadline
-?formatDate(p.deadline)
-:"—";
+    document.getElementById(
+        "projectDescription"
+    ).textContent=
+        p.description ||
+        "Sem descrição.";
 
-document.getElementById("objectiveText")
-.textContent=
-p.objective||
-"Nenhum objetivo definido.";
 
-renderTasks();
+    document.getElementById(
+        "detailStatus"
+    ).textContent=
+        p.status;
 
-renderNotes();
 
-renderInfo();
+    document.getElementById(
+        "detailProgress"
+    ).textContent=
+        calculateProgress(p)+"%";
+
+
+    document.getElementById(
+        "detailTasks"
+    ).textContent=
+
+        p.tasks.filter(
+            t=>t.done
+        ).length
+        +
+        "/"+
+        p.tasks.length;
+
+
+    document.getElementById(
+        "detailDeadline"
+    ).textContent=
+
+        p.deadline
+        ?
+        formatDate(
+            p.deadline
+        )
+        :
+        "—";
+
+
+    document.getElementById(
+        "objectiveText"
+    ).textContent=
+
+        p.objective ||
+        "Nenhum objetivo definido.";
+
+
+    renderTasks();
+
+    renderNotes();
+
+    renderInfo();
 
 }
 
 
-/* =========================
-VOLTAR
-========================= */
-
-function showDashboard(){
-
-document.getElementById("projectView")
-.style.display="none";
-
-document.getElementById("dashboard")
-.style.display="block";
-
-render();
-
-}
-
-
-/* =========================
-OBJETIVO
-========================= */
+/* =====================================================
+   OBJECTIVE
+   ===================================================== */
 
 function addObjective(){
 
-const text=
-prompt(
-"Qual é o objetivo principal deste projeto?"
-);
+    const text =
+        prompt(
+            "Qual é o objetivo principal?"
+        );
 
-if(text===null)return;
 
-projects[currentProject].objective=
-text.trim();
+    if(text===null)
+        return;
 
-save();
 
-openProject(currentProject);
+    projects[
+        currentProject
+    ].objective =
+        text.trim();
+
+
+    addTimeline(
+        "Objetivo atualizado em "+
+        projects[
+            currentProject
+        ].name
+    );
+
+
+    saveAll();
+
+    openProject(
+        currentProject
+    );
 
 }
 
 
-/* =========================
-TAREFAS
-========================= */
+/* =====================================================
+   TASKS
+   ===================================================== */
 
 function addTask(){
 
-const text=
-prompt("Digite a nova tarefa:");
+    const text =
+        prompt(
+            "Nova tarefa:"
+        );
 
-if(!text)return;
 
-projects[currentProject]
-.tasks.push({
+    if(!text)
+        return;
 
-text:text.trim(),
 
-done:false
+    projects[
+        currentProject
+    ].tasks.push({
 
-});
+        text:
+            text.trim(),
 
-save();
+        done:
+            false
 
-openProject(currentProject);
+    });
+
+
+    addTimeline(
+        "Tarefa criada em "+
+        projects[
+            currentProject
+        ].name
+    );
+
+
+    saveAll();
+
+    openProject(
+        currentProject
+    );
 
 }
 
 
 function toggleTask(index){
 
-projects[currentProject]
-.tasks[index]
-.done=
-!projects[currentProject]
-.tasks[index]
-.done;
+    const task =
+        projects[
+            currentProject
+        ].tasks[index];
 
-save();
 
-openProject(currentProject);
+    task.done =
+        !task.done;
+
+
+    if(task.done){
+
+        addTimeline(
+            "Tarefa concluída em "+
+            projects[
+                currentProject
+            ].name
+        );
+
+    }
+
+
+    saveAll();
+
+    openProject(
+        currentProject
+    );
+
+    renderDashboard();
 
 }
 
 
 function deleteTask(index){
 
-if(!confirm("Excluir esta tarefa?"))
-return;
+    if(
+        !confirm(
+            "Excluir esta tarefa?"
+        )
+    )
+        return;
 
-projects[currentProject]
-.tasks.splice(index,1);
 
-save();
+    projects[
+        currentProject
+    ].tasks.splice(
+        index,
+        1
+    );
 
-openProject(currentProject);
+
+    saveAll();
+
+    openProject(
+        currentProject
+    );
 
 }
 
 
 function renderTasks(){
 
-const list=
-document.getElementById("taskList");
+    const list =
+        document.getElementById(
+            "taskList"
+        );
 
-const tasks=
-projects[currentProject].tasks;
 
-list.innerHTML="";
+    list.innerHTML="";
 
-if(!tasks.length){
 
-list.innerHTML=
-`
-<p style="color:#718078;font-size:12px">
-Nenhuma tarefa criada ainda.
-</p>
-`;
+    const tasks =
+        projects[
+            currentProject
+        ].tasks;
 
-return;
+
+    if(!tasks.length){
+
+        list.innerHTML=
+        `
+            <p style="
+                color:var(--muted);
+                font-size:10px;
+            ">
+                Nenhuma tarefa ainda.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    tasks.forEach(
+        (task,index)=>{
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+            row.className=
+                "task"+
+                (
+                    task.done
+                    ?
+                    " done"
+                    :
+                    ""
+                );
+
+
+            row.innerHTML=`
+
+                <input
+                    type="checkbox"
+                    ${task.done
+                        ? "checked"
+                        : ""
+                    }
+                >
+
+                <span>
+                    ${escapeHTML(
+                        task.text
+                    )}
+                </span>
+
+                <button
+                    class="delete-task"
+                >
+                    ×
+                </button>
+
+            `;
+
+
+            row
+            .querySelector(
+                "input"
+            )
+            .onchange =
+                () =>
+                toggleTask(index);
+
+
+            row
+            .querySelector(
+                ".delete-task"
+            )
+            .onclick =
+                () =>
+                deleteTask(index);
+
+
+            list.appendChild(row);
+
+        }
+    );
 
 }
 
-tasks.forEach((task,index)=>{
 
-const row=
-document.createElement("div");
-
-row.className=
-"task"+
-(task.done?" done":"");
-
-row.innerHTML=`
-
-<input
-type="checkbox"
-${task.done?"checked":""}
->
-
-<span>
-${escapeHTML(task.text)}
-</span>
-
-<button
-class="delete-task"
->
-×
-</button>
-
-`;
-
-row.querySelector("input")
-.onchange=
-()=>toggleTask(index);
-
-row.querySelector(".delete-task")
-.onclick=e=>{
-
-e.stopPropagation();
-
-deleteTask(index);
-
-};
-
-list.appendChild(row);
-
-});
-
-}
-
-
-/* =========================
-NOTAS
-========================= */
+/* =====================================================
+   NOTES
+   ===================================================== */
 
 function addNote(){
 
-const text=
-prompt("Digite sua anotação:");
+    const text =
+        prompt(
+            "Nova nota:"
+        );
 
-if(!text)return;
 
-projects[currentProject]
-.notes.push({
+    if(!text)
+        return;
 
-text:text.trim(),
 
-date:new Date()
-.toLocaleString("pt-BR")
+    projects[
+        currentProject
+    ].notes.push({
 
-});
+        text:
+            text.trim(),
 
-save();
+        date:
+            new Date()
+            .toLocaleString(
+                "pt-BR"
+            )
 
-openProject(currentProject);
+    });
+
+
+    saveAll();
+
+    openProject(
+        currentProject
+    );
 
 }
 
 
 function renderNotes(){
 
-const list=
-document.getElementById("noteList");
+    const list =
+        document.getElementById(
+            "noteList"
+        );
 
-const notes=
-projects[currentProject].notes;
 
-list.innerHTML="";
+    list.innerHTML="";
 
-if(!notes.length){
 
-list.innerHTML=
-`
-<p style="color:#718078;font-size:12px">
-Nenhuma anotação ainda.
-</p>
-`;
+    const notes =
+        projects[
+            currentProject
+        ].notes;
 
-return;
+
+    if(!notes.length){
+
+        list.innerHTML=
+        `
+            <p style="
+                color:var(--muted);
+                font-size:10px;
+            ">
+                Nenhuma nota ainda.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    notes.forEach(note=>{
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+        item.className="note";
+
+
+        item.innerHTML=`
+
+            <p>
+                ${escapeHTML(
+                    note.text
+                )}
+            </p>
+
+            <small>
+                ${note.date}
+            </small>
+
+        `;
+
+
+        list.appendChild(item);
+
+    });
 
 }
 
-notes.forEach(note=>{
 
-const item=
-document.createElement("div");
-
-item.className="note";
-
-item.innerHTML=`
-
-<p>
-${escapeHTML(note.text)}
-</p>
-
-<small>
-${note.date}
-</small>
-
-`;
-
-list.appendChild(item);
-
-});
-
-}
-
-
-/* =========================
-INFO
-========================= */
+/* =====================================================
+   INFO
+   ===================================================== */
 
 function renderInfo(){
 
-const p=
-projects[currentProject];
+    const p =
+        projects[
+            currentProject
+        ];
 
-document.getElementById(
-"infoPanel"
-).innerHTML=`
 
-<div class="info-row">
+    document.getElementById(
+        "infoPanel"
+    ).innerHTML=`
 
-<span>Categoria</span>
+        <div class="info-row">
 
-<strong>
-${escapeHTML(p.category)}
-</strong>
+            <span>
+                Categoria
+            </span>
 
-</div>
+            <strong>
+                ${escapeHTML(
+                    p.category
+                )}
+            </strong>
 
-<div class="info-row">
+        </div>
 
-<span>Prioridade</span>
 
-<strong>
-${escapeHTML(p.priority)}
-</strong>
+        <div class="info-row">
 
-</div>
+            <span>
+                Prioridade
+            </span>
 
-<div class="info-row">
+            <strong>
+                ${escapeHTML(
+                    p.priority
+                )}
+            </strong>
 
-<span>Status</span>
+        </div>
 
-<strong>
-${escapeHTML(p.status)}
-</strong>
 
-</div>
+        <div class="info-row">
 
-<div class="info-row">
+            <span>
+                Status
+            </span>
 
-<span>Prazo</span>
+            <strong>
+                ${escapeHTML(
+                    p.status
+                )}
+            </strong>
 
-<strong>
-${p.deadline
-?formatDate(p.deadline)
-:"Não definido"}
-</strong>
+        </div>
 
-</div>
 
-`;
+        <div class="info-row">
+
+            <span>
+                Prazo
+            </span>
+
+            <strong>
+                ${
+                    p.deadline
+                    ?
+                    formatDate(
+                        p.deadline
+                    )
+                    :
+                    "Não definido"
+                }
+            </strong>
+
+        </div>
+
+    `;
 
 }
 
 
-/* =========================
-EDITAR
-========================= */
+/* =====================================================
+   EDIT / DELETE
+   ===================================================== */
 
 function editProject(){
 
-openModal(currentProject);
+    openModal(
+        currentProject
+    );
 
 }
 
-
-/* =========================
-EXCLUIR
-========================= */
 
 function deleteProject(){
 
-const p=
-projects[currentProject];
+    const p =
+        projects[
+            currentProject
+        ];
 
-if(!confirm(
-'Excluir "'+
-p.name+
-'"?'
-))
-return;
 
-projects.splice(
-currentProject,
-1
-);
+    if(
+        !confirm(
+            'Excluir "'+
+            p.name+
+            '"?'
+        )
+    )
+        return;
 
-save();
 
-currentProject=null;
+    addTimeline(
+        "Projeto excluído: "+
+        p.name
+    );
 
-showDashboard();
+
+    projects.splice(
+        currentProject,
+        1
+    );
+
+
+    currentProject=null;
+
+
+    saveAll();
+
+    showPage(
+        "projectsPage"
+    );
+
+    renderProjects();
 
 }
 
 
-/* =========================
-BACKUP
-========================= */
+/* =====================================================
+   IDEAS
+   ===================================================== */
+
+function addIdea(){
+
+    const input =
+        document.getElementById(
+            "ideaInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if(!text)
+        return;
+
+
+    ideas.unshift({
+
+        text,
+
+        date:
+            new Date()
+            .toLocaleString(
+                "pt-BR"
+            )
+
+    });
+
+
+    input.value="";
+
+
+    addTimeline(
+        "Nova ideia registrada"
+    );
+
+
+    saveAll();
+
+    renderIdeas();
+
+    renderDashboard();
+
+}
+
+
+function renderIdeas(){
+
+    const list =
+        document.getElementById(
+            "ideasList"
+        );
+
+
+    list.innerHTML="";
+
+
+    document.getElementById(
+        "ideaCount"
+    ).textContent =
+
+        ideas.length+
+        (
+            ideas.length===1
+            ?
+            " ideia"
+            :
+            " ideias"
+        );
+
+
+    if(!ideas.length){
+
+        list.innerHTML=
+        `
+            <div class="empty">
+                Seu banco de ideias está vazio.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    ideas.forEach(idea=>{
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+        item.className=
+            "idea-item";
+
+
+        item.innerHTML=`
+
+            <span>
+                ${escapeHTML(
+                    idea.text
+                )}
+            </span>
+
+            <span
+                class="idea-date"
+            >
+                ${idea.date}
+            </span>
+
+        `;
+
+
+        list.appendChild(item);
+
+    });
+
+}
+
+
+/* =====================================================
+   GOALS
+   ===================================================== */
+
+function addGoal(){
+
+    const title =
+        prompt(
+            "Nome da meta:"
+        );
+
+
+    if(!title)
+        return;
+
+
+    const value =
+        Number(
+            prompt(
+                "Progresso inicial (0-100):",
+                "0"
+            )
+        );
+
+
+    const progress =
+        isNaN(value)
+        ?
+        0
+        :
+        Math.min(
+            100,
+            Math.max(
+                0,
+                value
+            )
+        );
+
+
+    goals.push({
+
+        title:
+            title.trim(),
+
+        progress
+
+    });
+
+
+    addTimeline(
+        "Nova meta criada: "+
+        title
+    );
+
+
+    saveAll();
+
+    renderGoals();
+
+    renderDashboard();
+
+}
+
+
+function renderGoals(){
+
+    const list =
+        document.getElementById(
+            "goalsList"
+        );
+
+
+    list.innerHTML="";
+
+
+    if(!goals.length){
+
+        list.innerHTML=
+        `
+            <div class="empty">
+                Nenhuma meta criada.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    goals.forEach(
+        (goal,index)=>{
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className="goal";
+
+
+            div.innerHTML=`
+
+                <div class="goal-title">
+
+                    <strong>
+                        ${escapeHTML(
+                            goal.title
+                        )}
+                    </strong>
+
+                    <span>
+                        ${goal.progress}%
+                    </span>
+
+                </div>
+
+
+                <div class="goal-bar">
+
+                    <div
+                        style="
+                            width:${goal.progress}%
+                        "
+                    ></div>
+
+                </div>
+
+
+                <br>
+
+
+                <button
+                    class="btn"
+                    onclick="
+                        updateGoal(${index})
+                    "
+                >
+                    Atualizar
+                </button>
+
+            `;
+
+
+            list.appendChild(div);
+
+        }
+    );
+
+}
+
+
+function updateGoal(index){
+
+    const value =
+        Number(
+            prompt(
+                "Novo progresso (0-100):",
+                goals[index].progress
+            )
+        );
+
+
+    if(isNaN(value))
+        return;
+
+
+    goals[index].progress =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                value
+            )
+        );
+
+
+    if(
+        goals[index].progress===
+        100
+    ){
+
+        addTimeline(
+            "Meta concluída: "+
+            goals[index].title
+        );
+
+    }
+
+
+    saveAll();
+
+    renderGoals();
+
+    renderDashboard();
+
+}
+
+
+/* =====================================================
+   STATISTICS
+   ===================================================== */
+
+function renderStatistics(){
+
+    let tasks=0;
+
+    let done=0;
+
+
+    projects.forEach(p=>{
+
+        tasks +=
+            p.tasks.length;
+
+        done +=
+            p.tasks.filter(
+                t=>t.done
+            ).length;
+
+    });
+
+
+    document.getElementById(
+        "statTasks"
+    ).textContent=tasks;
+
+
+    document.getElementById(
+        "statDone"
+    ).textContent=done;
+
+
+    document.getElementById(
+        "statIdeas"
+    ).textContent=
+        ideas.length;
+
+
+    document.getElementById(
+        "statGoals"
+    ).textContent=
+        goals.length;
+
+
+    const average =
+        projects.length
+        ?
+        Math.round(
+
+            projects.reduce(
+                (a,p)=>
+                a+
+                calculateProgress(p),
+                0
+            )
+            /
+            projects.length
+
+        )
+        :
+        0;
+
+
+    document.getElementById(
+        "statsDetails"
+    ).innerHTML=`
+
+        <div class="info-row">
+
+            <span>
+                Projetos
+            </span>
+
+            <strong>
+                ${projects.length}
+            </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span>
+                Progresso médio
+            </span>
+
+            <strong>
+                ${average}%
+            </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span>
+                Tarefas concluídas
+            </span>
+
+            <strong>
+                ${done}/${tasks}
+            </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span>
+                Metas concluídas
+            </span>
+
+            <strong>
+                ${
+                    goals.filter(
+                        g=>g.progress===100
+                    ).length
+                }
+            </strong>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="progress">
+
+            <div
+                style="
+                    width:${average}%
+                "
+            ></div>
+
+        </div>
+
+    `;
+
+
+    renderTimeline();
+
+}
+
+
+/* =====================================================
+   TIMELINE
+   ===================================================== */
+
+function addTimeline(text){
+
+    timeline.unshift({
+
+        text,
+
+        date:
+            new Date()
+            .toLocaleString(
+                "pt-BR"
+            )
+
+    });
+
+
+    timeline =
+        timeline.slice(
+            0,
+            50
+        );
+
+
+    saveAll();
+
+}
+
+
+function renderTimeline(){
+
+    const box =
+        document.getElementById(
+            "timeline"
+        );
+
+
+    box.innerHTML="";
+
+
+    if(!timeline.length){
+
+        box.innerHTML=
+        `
+            <p style="
+                color:var(--muted);
+                font-size:10px;
+            ">
+                Nenhuma atividade.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    timeline
+    .slice(0,10)
+    .forEach(item=>{
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className=
+            "timeline-item";
+
+
+        div.innerHTML=`
+
+            <div class="timeline-dot"></div>
+
+            <div>
+
+                <p>
+                    ${escapeHTML(
+                        item.text
+                    )}
+                </p>
+
+                <small>
+                    ${item.date}
+                </small>
+
+            </div>
+
+        `;
+
+
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   ACHIEVEMENTS
+   ===================================================== */
+
+function renderAchievements(){
+
+    const total =
+        projects.length;
+
+
+    const completed =
+        projects.filter(
+            p =>
+            p.status===
+            "Concluído"
+        ).length;
+
+
+    let tasks=0;
+
+
+    projects.forEach(p=>{
+
+        tasks +=
+            p.tasks.filter(
+                t=>t.done
+            ).length;
+
+    });
+
+
+    const achievements=[
+
+        {
+            icon:"🚀",
+            name:"Primeiro projeto",
+            desc:"Criou seu primeiro projeto",
+            ok:total>=1
+        },
+
+        {
+            icon:"🧪",
+            name:"Laboratório",
+            desc:"Criou 3 projetos",
+            ok:total>=3
+        },
+
+        {
+            icon:"✓",
+            name:"Executor",
+            desc:"Concluiu 5 tarefas",
+            ok:tasks>=5
+        },
+
+        {
+            icon:"🏁",
+            name:"Finalizador",
+            desc:"Concluiu um projeto",
+            ok:completed>=1
+        },
+
+        {
+            icon:"💡",
+            name:"Inventor",
+            desc:"Registrou 5 ideias",
+            ok:ideas.length>=5
+        },
+
+        {
+            icon:"🎯",
+            name:"Meta alcançada",
+            desc:"Concluiu uma meta",
+            ok:
+                goals.some(
+                    g =>
+                    g.progress===100
+                )
+        },
+
+        {
+            icon:"⚡",
+            name:"Alta velocidade",
+            desc:"10 tarefas concluídas",
+            ok:tasks>=10
+        },
+
+        {
+            icon:"👑",
+            name:"Arquiteto",
+            desc:"5 projetos criados",
+            ok:total>=5
+        },
+
+        {
+            icon:"🔥",
+            name:"Imparável",
+            desc:"3 projetos concluídos",
+            ok:completed>=3
+        }
+
+    ];
+
+
+    const list =
+        document.getElementById(
+            "achievementList"
+        );
+
+
+    list.innerHTML="";
+
+
+    achievements.forEach(a=>{
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className=
+            "achievement"+
+            (
+                a.ok
+                ?
+                ""
+                :
+                " locked"
+            );
+
+
+        div.innerHTML=`
+
+            <div
+                class="achievement-icon"
+            >
+                ${a.icon}
+            </div>
+
+            <strong>
+                ${a.name}
+            </strong>
+
+            <small>
+                ${a.desc}
+            </small>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   PROFILE
+   ===================================================== */
+
+function renderProfile(){
+
+    const completed =
+        projects.filter(
+            p =>
+            p.status===
+            "Concluído"
+        ).length;
+
+
+    const achievements =
+        [
+            projects.length>=1,
+            projects.length>=3,
+            completed>=1,
+            ideas.length>=5,
+            goals.some(
+                g=>g.progress===100
+            )
+        ]
+        .filter(Boolean)
+        .length;
+
+
+    const level =
+        getSystemLevel()
+        .level;
+
+
+    document.getElementById(
+        "profileProjects"
+    ).textContent=
+        projects.length;
+
+
+    document.getElementById(
+        "profileIdeas"
+    ).textContent=
+        ideas.length;
+
+
+    document.getElementById(
+        "profileAchievements"
+    ).textContent=
+        achievements;
+
+
+    document.getElementById(
+        "profileLevel"
+    ).textContent=
+        level;
+
+}
+
+
+/* =====================================================
+   THEME
+   ===================================================== */
+
+function toggleTheme(){
+
+    document.body
+        .classList
+        .toggle("light");
+
+
+    const light =
+        document.body
+        .classList
+        .contains("light");
+
+
+    const button =
+        document.getElementById(
+            "themeSwitch"
+        );
+
+
+    button.classList.toggle(
+        "on",
+        !light
+    );
+
+
+    localStorage.setItem(
+        "projectXTheme",
+        light
+        ?
+        "light"
+        :
+        "dark"
+    );
+
+}
+
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+function toggleAnimations(){
+
+    const button =
+        document.getElementById(
+            "animationSwitch"
+        );
+
+
+    const enabled =
+        button.classList.toggle(
+            "on"
+        );
+
+
+    document.body.style.setProperty(
+        "--transition",
+        enabled
+        ?
+        ".25s"
+        :
+        "0s"
+    );
+
+
+    localStorage.setItem(
+        "projectXAnimations",
+        enabled
+        ?
+        "on"
+        :
+        "off"
+    );
+
+}
+
+
+/* =====================================================
+   BACKUP
+   ===================================================== */
 
 function exportData(){
 
-const blob=
-new Blob(
-[
-JSON.stringify(
-projects,
-null,
-2
-)
-],
-{
-type:"application/json"
+    const backup={
+
+        version:"3.0",
+
+        exportedAt:
+            new Date()
+            .toISOString(),
+
+        projects,
+
+        ideas,
+
+        goals,
+
+        timeline
+
+    };
+
+
+    const blob =
+        new Blob(
+
+            [
+                JSON.stringify(
+                    backup,
+                    null,
+                    2
+                )
+            ],
+
+            {
+                type:
+                    "application/json"
+            }
+
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const a =
+        document.createElement(
+            "a"
+        );
+
+
+    a.href=url;
+
+    a.download=
+        "project-x-backup.json";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
 }
-);
-
-const url=
-URL.createObjectURL(blob);
-
-const a=
-document.createElement("a");
-
-a.href=url;
-
-a.download=
-"project-x-backup.json";
-
-a.click();
-
-URL.revokeObjectURL(url);
-
-}
 
 
-/* =========================
-LIMPAR
-========================= */
+/* =====================================================
+   RESET
+   ===================================================== */
 
 function clearAll(){
 
-if(!confirm(
-"Isso apagará todos os projetos. Continuar?"
-))
-return;
-
-localStorage.removeItem(
-"projectX"
-);
-
-projects=[];
-
-showDashboard();
-
-}
+    if(
+        !confirm(
+            "Isso apagará todos os projetos, ideias, metas e histórico. Continuar?"
+        )
+    )
+        return;
 
 
-/* =========================
-FOCO TAREFAS
-========================= */
+    localStorage.removeItem(
+        "projectX"
+    );
 
-function focusTasks(){
+    localStorage.removeItem(
+        "projectXIdeas"
+    );
 
-if(!projects.length){
+    localStorage.removeItem(
+        "projectXGoals"
+    );
 
-alert(
-"Você ainda não possui projetos."
-);
+    localStorage.removeItem(
+        "projectXTimeline"
+    );
 
-return;
 
-}
+    projects=[];
+    ideas=[];
+    goals=[];
+    timeline=[];
 
-showDashboard();
 
-document
-.getElementById("projects")
-.scrollIntoView({
-behavior:"smooth"
-});
+    renderAll();
+
+    showPage(
+        "dashboard"
+    );
 
 }
 
 
-/* =========================
-DATA
-========================= */
+/* =====================================================
+   UTILITIES
+   ===================================================== */
 
 function formatDate(date){
 
-const parts=
-date.split("-");
+    const p =
+        date.split("-");
 
-if(parts.length!==3)
-return date;
 
-return parts[2]+"/"+
-parts[1]+"/"+
-parts[0];
+    if(p.length===3){
+
+        return (
+            p[2]+
+            "/"+
+            p[1]+
+            "/"+
+            p[0]
+        );
+
+    }
+
+
+    return date;
 
 }
 
 
-/* =========================
-RELÓGIO
-========================= */
+function escapeHTML(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   CLOCK
+   ===================================================== */
 
 function updateClock(){
 
-const now=new Date();
+    const now =
+        new Date();
 
-document.getElementById("clock")
-.textContent=
-now.toLocaleDateString("pt-BR")
-+" • "+
-now.toLocaleTimeString(
-"pt-BR",
-{
-hour:"2-digit",
-minute:"2-digit"
-}
-);
+
+    document.getElementById(
+        "clock"
+    ).textContent=
+
+        now.toLocaleDateString(
+            "pt-BR"
+        )
+        +
+        " • "
+        +
+        now.toLocaleTimeString(
+            "pt-BR",
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        );
 
 }
+
 
 setInterval(
-updateClock,
-1000
+    updateClock,
+    1000
 );
 
 updateClock();
 
 
-/* =========================
-SEGURANÇA
-========================= */
+/* =====================================================
+   LOAD SETTINGS
+   ===================================================== */
 
-function escapeHTML(text){
+function loadSettings(){
 
-const div=
-document.createElement("div");
+    const theme =
+        localStorage.getItem(
+            "projectXTheme"
+        );
 
-div.textContent=text;
 
-return div.innerHTML;
+    if(theme==="light"){
+
+        document.body
+            .classList
+            .add("light");
+
+        document.getElementById(
+            "themeSwitch"
+        )
+        .classList
+        .remove("on");
+
+    }
+
+
+    const animations =
+        localStorage.getItem(
+            "projectXAnimations"
+        );
+
+
+    if(animations==="off"){
+
+        document.getElementById(
+            "animationSwitch"
+        )
+        .classList
+        .remove("on");
+
+    }
 
 }
 
 
-/* =========================
-INICIALIZAÇÃO
-========================= */
+/* =====================================================
+   RENDER ALL
+   ===================================================== */
 
-render();
+function renderAll(){
+
+    renderDashboard();
+
+    renderProjects();
+
+    renderIdeas();
+
+    renderGoals();
+
+    renderStatistics();
+
+    renderAchievements();
+
+    renderProfile();
+
+}
+
+
+loadSettings();
+
+renderAll();
 
 </script>
 
 </body>
-   </html>
+                 </html>
