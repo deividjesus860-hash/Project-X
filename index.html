@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PROJECT X</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#050706;
+--panel:#080d09;
+--panel2:#0b120d;
+--line:#18321f;
+--green:#39ff88;
+--green2:#1bd965;
+--text:#e8f5eb;
+--muted:#718077;
+--red:#ff5570;
+--yellow:#ffd75a;
+}
+
+body{
+background:
+linear-gradient(rgba(57,255,136,.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(57,255,136,.025) 1px,transparent 1px),
+var(--bg);
+background-size:35px 35px;
+color:var(--text);
+font-family:Arial,Helvetica,sans-serif;
+min-height:100vh;
+}
+
+button,input,textarea,select{font:inherit}
+
+button{cursor:pointer}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:220px;
+height:100vh;
+background:rgba(5,7,6,.97);
+border-right:1px solid var(--line);
+padding:25px 18px;
+z-index:20;
+}
+
+.logo{
+font-size:34px;
+font-weight:900;
+letter-spacing:6px;
+color:var(--green);
+}
+
+.logo-sub{
+font-size:9px;
+letter-spacing:3px;
+color:var(--muted);
+margin-top:4px;
+margin-bottom:45px;
+}
+
+.nav-title{
+font-size:9px;
+letter-spacing:2px;
+color:#506057;
+margin:20px 10px 8px;
+}
+
+.nav button{
+width:100%;
+background:transparent;
+border:0;
+color:#89968e;
+text-align:left;
+padding:13px 10px;
+font-size:13px;
+transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+color:var(--green);
+background:#0b170e;
+border-left:2px solid var(--green);
+}
+
+.system{
+position:absolute;
+bottom:25px;
+left:18px;
+right:18px;
+border-top:1px solid var(--line);
+padding-top:18px;
+font-size:9px;
+color:#56645b;
+}
+
+.online{color:var(--green)}
+
+.main{
+margin-left:220px;
+padding:28px 35px;
+max-width:1500px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid var(--line);
+padding-bottom:20px;
+}
+
+.topbar h1{
+font-size:18px;
+letter-spacing:3px;
+font-weight:500;
+}
+
+.topbar h1 span{color:var(--green)}
+
+.clock{
+font-family:monospace;
+color:var(--muted);
+font-size:12px;
+}
+
+.command{
+margin-top:28px;
+border:1px solid var(--line);
+background:rgba(8,14,10,.75);
+padding:25px;
+position:relative;
+}
+
+.command:before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:2px;
+background:var(--green);
+box-shadow:0 0 15px var(--green);
+}
+
+.command-label{
+color:var(--muted);
+font-size:9px;
+letter-spacing:3px;
+margin-bottom:8px;
+}
+
+.command h2{
+font-size:28px;
+letter-spacing:2px;
+}
+
+.command p{
+color:#77837b;
+margin-top:8px;
+font-size:13px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:1px;
+margin:25px 0;
+border:1px solid var(--line);
+background:var(--line);
+}
+
+.stat{
+background:var(--panel);
+padding:20px;
+}
+
+.stat small{
+color:#59675f;
+font-size:9px;
+letter-spacing:2px;
+}
+
+.stat strong{
+display:block;
+font-family:monospace;
+font-size:28px;
+color:var(--green);
+margin-top:8px;
+}
+
+.toolbar{
+display:flex;
+gap:10px;
+margin:25px 0 15px;
+}
+
+.search{
+flex:1;
+background:#080d0a;
+border:1px solid var(--line);
+color:white;
+padding:13px;
+outline:none;
+}
+
+.search:focus{border-color:var(--green)}
+
+.action{
+background:#0b160e;
+border:1px solid #285335;
+color:var(--green);
+padding:12px 16px;
+}
+
+.action:hover{
+background:#102016;
+}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:25px 0 14px;
+}
+
+.section-head h2{
+font-size:12px;
+letter-spacing:3px;
+font-weight:500;
+}
+
+.section-head span{
+color:#4d5b52;
+font-size:10px;
+}
+
+.projects{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.project{
+min-height:225px;
+border:1px solid var(--line);
+background:#080d0a;
+padding:20px;
+position:relative;
+cursor:pointer;
+transition:.2s;
+}
+
+.project:hover{
+border-color:#2d7042;
+transform:translateY(-2px);
+box-shadow:0 0 25px rgba(57,255,136,.07);
+}
+
+.project-number{
+color:#405047;
+font-family:monospace;
+font-size:10px;
+}
+
+.project-icon{
+font-size:24px;
+margin:15px 0 9px;
+}
+
+.project h3{
+font-size:17px;
+letter-spacing:1px;
+}
+
+.project p{
+color:#69766e;
+font-size:12px;
+margin-top:7px;
+min-height:30px;
+}
+
+.badges{
+display:flex;
+gap:7px;
+flex-wrap:wrap;
+margin-top:13px;
+}
+
+.badge{
+font-size:8px;
+letter-spacing:1px;
+padding:5px 7px;
+border:1px solid #284b32;
+color:#7d9584;
+}
+
+.priority-high{
+color:var(--red);
+border-color:#66303a;
+}
+
+.priority-medium{
+color:var(--yellow);
+border-color:#63552c;
+}
+
+.priority-low{
+color:var(--green);
+}
+
+.project-status{
+margin-top:15px;
+font-size:9px;
+letter-spacing:2px;
+color:var(--green);
+}
+
+.bar{
+height:3px;
+background:#18221b;
+margin-top:8px;
+}
+
+.bar div{
+height:100%;
+background:var(--green);
+box-shadow:0 0 8px rgba(57,255,136,.5);
+}
+
+.new-project{
+border:1px dashed #285335;
+background:transparent;
+color:#65736a;
+min-height:225px;
+cursor:pointer;
+font-size:12px;
+letter-spacing:2px;
+}
+
+.new-project:hover{
+color:var(--green);
+border-color:var(--green);
+background:#081109;
+}
+
+/* PROJECT VIEW */
+
+.project-view{display:none}
+
+.project-header{
+margin-top:28px;
+border-bottom:1px solid var(--line);
+padding-bottom:25px;
+}
+
+.back{
+background:transparent;
+border:0;
+color:#65736a;
+font-size:11px;
+letter-spacing:2px;
+margin-bottom:25px;
+}
+
+.back:hover{color:var(--green)}
+
+.project-title{
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+gap:20px;
+}
+
+.project-title h2{
+font-size:36px;
+letter-spacing:3px;
+}
+
+.project-title p{
+color:var(--muted);
+margin-top:8px;
+max-width:700px;
+}
+
+.project-code{
+color:#405047;
+font-family:monospace;
+font-size:12px;
+}
+
+.project-actions{
+display:flex;
+gap:8px;
+}
+
+.danger{
+background:#18090c;
+border:1px solid #542530;
+color:var(--red);
+padding:10px 13px;
+}
+
+.project-stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:1px;
+background:var(--line);
+border:1px solid var(--line);
+margin:20px 0;
+}
+
+.project-stat{
+background:var(--panel);
+padding:18px;
+}
+
+.project-stat small{
+display:block;
+color:#59675f;
+font-size:9px;
+letter-spacing:2px;
+}
+
+.project-stat strong{
+display:block;
+color:var(--green);
+font-family:monospace;
+font-size:20px;
+margin-top:8px;
+}
+
+.workspace{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:15px;
+}
+
+.panel{
+border:1px solid var(--line);
+background:#080d0a;
+}
+
+.panel-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 18px;
+border-bottom:1px solid var(--line);
+}
+
+.panel-head h3{
+font-size:11px;
+letter-spacing:2px;
+font-weight:500;
+}
+
+.panel-head button{
+background:transparent;
+border:1px solid #23472d;
+color:var(--green);
+padding:7px 10px;
+font-size:10px;
+}
+
+.panel-body{padding:18px}
+
+.objective{
+border-left:2px solid var(--green);
+padding:15px;
+background:#09120c;
+}
+
+.objective small{
+color:#59675f;
+font-size:9px;
+letter-spacing:2px;
+}
+
+.objective p{
+margin-top:8px;
+color:#d7e4da;
+}
+
+.task{
+display:flex;
+align-items:center;
+gap:12px;
+padding:13px 0;
+border-bottom:1px solid #122018;
+}
+
+.task:last-child{border-bottom:0}
+
+.task input{
+accent-color:var(--green);
+width:17px;
+height:17px;
+}
+
+.task span{
+font-size:13px;
+flex:1;
+}
+
+.task.done span{
+color:#536159;
+text-decoration:line-through;
+}
+
+.delete-task{
+background:transparent;
+border:0;
+color:#536159;
+}
+
+.delete-task:hover{color:var(--red)}
+
+.note{
+border-bottom:1px solid #122018;
+padding:13px 0;
+}
+
+.note:last-child{border:0}
+
+.note p{
+color:#a6b2aa;
+font-size:12px;
+line-height:1.5;
+}
+
+.note small{
+display:block;
+color:#4d5b52;
+margin-top:7px;
+font-size:9px;
+}
+
+.edit-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.edit-grid input,
+.edit-grid select,
+.edit-grid textarea{
+margin-bottom:10px;
+}
+
+.full{grid-column:1/-1}
+
+input,textarea,select{
+width:100%;
+background:#050806;
+color:white;
+border:1px solid #1b3221;
+padding:13px;
+outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+border-color:var(--green);
+}
+
+textarea{
+min-height:85px;
+resize:vertical;
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.84);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:50;
+overflow:auto;
+}
+
+.modal-box{
+width:100%;
+max-width:550px;
+background:#080d09;
+border:1px solid #285335;
+padding:28px;
+box-shadow:0 0 40px rgba(57,255,136,.08);
+}
+
+.modal-box h2{
+color:var(--green);
+letter-spacing:3px;
+margin-bottom:25px;
+}
+
+.modal-buttons{
+display:flex;
+gap:10px;
+margin-top:5px;
+}
+
+.modal-buttons button{
+flex:1;
+padding:13px;
+border:1px solid var(--line);
+}
+
+.cancel{
+background:#101510;
+color:#77847b;
+}
+
+.create{
+background:var(--green);
+color:#041007;
+}
+
+.empty{
+border:1px dashed var(--line);
+padding:35px;
+text-align:center;
+color:#536159;
+grid-column:1/-1;
+}
+
+@media(max-width:1000px){
+
+.sidebar{
+width:70px;
+padding:20px 10px;
+}
+
+.logo{
+font-size:22px;
+text-align:center;
+}
+
+.logo-sub,
+.nav-title,
+.nav button span,
+.system{
+display:none;
+}
+
+.nav button{
+text-align:center;
+font-size:18px;
+}
+
+.main{
+margin-left:70px;
+padding:20px;
+}
+
+.projects{
+grid-template-columns:repeat(2,1fr);
+}
+
+.workspace{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:650px){
+
+.main{padding:15px}
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.projects{
+grid-template-columns:1fr;
+}
+
+.project-stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.project-title{
+display:block;
+}
+
+.project-title h2{
+font-size:27px;
+}
+
+.project-actions{
+margin-top:15px;
+}
+
+.toolbar{
+flex-direction:column;
+}
+
+.edit-grid{
+grid-template-columns:1fr;
+}
+
+.full{
+grid-column:auto;
+}
+
+.clock{
+font-size:9px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">X</div>
+<div class="logo-sub">PROJECT LABORATORY</div>
+
+<div class="nav">
+
+<div class="nav-title">NAVEGAÇÃO</div>
+
+<button class="active" onclick="showDashboard()">
+◈ <span>Dashboard</span>
+</button>
+
+<button onclick="showDashboard()">
+◇ <span>Projetos</span>
+</button>
+
+<button onclick="focusTasks()">
+✓ <span>Tarefas</span>
+</button>
+
+<button onclick="exportData()">
+▣ <span>Exportar</span>
+</button>
+
+<div class="nav-title">SISTEMA</div>
+
+<button onclick="clearAll()">
+⚙ <span>Resetar dados</span>
+</button>
+
+</div>
+
+<div class="system">
+SYSTEM STATUS<br><br>
+<span class="online">● ONLINE</span>
+</div>
+
+</aside>
+
+
+<main class="main">
+
+<div class="topbar">
+
+<h1>PROJECT <span>X</span></h1>
+
+<div class="clock" id="clock"></div>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard">
+
+<section class="command">
+
+<div class="command-label">
+CENTRAL DE CONTROLE
+</div>
+
+<h2>LABORATÓRIO ATIVO</h2>
+
+<p>
+Gerencie, acompanhe e evolua todos os seus projetos.
+</p>
+
+</section>
+
+
+<section class="stats">
+
+<div class="stat">
+<small>PROJETOS</small>
+<strong id="total">0</strong>
+</div>
+
+<div class="stat">
+<small>ATIVOS</small>
+<strong id="active">0</strong>
+</div>
+
+<div class="stat">
+<small>CONCLUÍDOS</small>
+<strong id="completed">0</strong>
+</div>
+
+<div class="stat">
+<small>PROGRESSO MÉDIO</small>
+<strong id="average">0%</strong>
+</div>
+
+</section>
+
+
+<div class="toolbar">
+
+<input
+class="search"
+id="search"
+placeholder="Pesquisar projeto..."
+oninput="render()"
+>
+
+<button class="action" onclick="openModal()">
++ NOVO PROJETO
+</button>
+
+<button class="action" onclick="exportData()">
+↓ BACKUP
+</button>
+
+</div>
+
+
+<div class="section-head">
+
+<h2>PROJETOS REGISTRADOS</h2>
+
+<span id="projectCount">
+0 UNIDADES
+</span>
+
+</div>
+
+
+<section class="projects" id="projects"></section>
+
+</section>
+
+
+<!-- LABORATÓRIO INDIVIDUAL -->
+
+<section class="project-view" id="projectView">
+
+<div class="project-header">
+
+<button class="back" onclick="showDashboard()">
+← VOLTAR AO DASHBOARD
+</button>
+
+<div class="project-title">
+
+<div>
+
+<div class="project-code" id="projectCode">
+PROJECT_001
+</div>
+
+<h2 id="projectName">
+PROJETO
+</h2>
+
+<p id="projectDescription">
+Descrição
+</p>
+
+</div>
+
+<div class="project-actions">
+
+<button class="action" onclick="editProject()">
+EDITAR
+</button>
+
+<button class="danger" onclick="deleteProject()">
+EXCLUIR
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<section class="project-stats">
+
+<div class="project-stat">
+<small>STATUS</small>
+<strong id="detailStatus">—</strong>
+</div>
+
+<div class="project-stat">
+<small>PROGRESSO</small>
+<strong id="detailProgress">0%</strong>
+</div>
+
+<div class="project-stat">
+<small>TAREFAS</small>
+<strong id="detailTasks">0/0</strong>
+</div>
+
+<div class="project-stat">
+<small>PRAZO</small>
+<strong id="detailDeadline">—</strong>
+</div>
+
+</section>
+
+
+<section class="workspace">
+
+<div>
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>OBJETIVO ATUAL</h3>
+
+<button onclick="addObjective()">
++ DEFINIR
+</button>
+
+</div>
+
+<div class="panel-body">
+
+<div class="objective">
+
+<small>PRIMARY OBJECTIVE</small>
+
+<p id="objectiveText">
+Nenhum objetivo definido.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>TAREFAS</h3>
+
+<button onclick="addTask()">
++ NOVA TAREFA
+</button>
+
+</div>
+
+<div class="panel-body" id="taskList"></div>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>NOTAS</h3>
+
+<button onclick="addNote()">
++ NOTA
+</button>
+
+</div>
+
+<div class="panel-body" id="noteList"></div>
+
+</div>
+
+<br>
+
+
+<div class="panel">
+
+<div class="panel-head">
+
+<h3>INFORMAÇÕES</h3>
+
+</div>
+
+<div class="panel-body" id="infoPanel"></div>
+
+</div>
+
+</div>
+
+</section>
+
+</section>
+
+</main>
+
+
+<!-- MODAL NOVO / EDITAR -->
+
+<div class="modal" id="projectModal">
+
+<div class="modal-box">
+
+<h2 id="modalTitle">
+NOVO PROJETO
+</h2>
+
+<div class="edit-grid">
+
+<input
+id="name"
+placeholder="Nome do projeto"
+>
+
+<select id="category">
+
+<option value="Tecnologia">Tecnologia</option>
+<option value="IA">IA</option>
+<option value="Site">Site</option>
+<option value="Jogo">Jogo</option>
+<option value="Robótica">Robótica</option>
+<option value="Estudo">Estudo</option>
+<option value="Pessoal">Pessoal</option>
+<option value="Outro">Outro</option>
+
+</select>
+
+<textarea
+class="full"
+id="description"
+placeholder="Descrição do projeto"
+></textarea>
+
+<select id="status">
+
+<option value="Ideia">Ideia</option>
+<option value="Em desenvolvimento">Em desenvolvimento</option>
+<option value="Pausado">Pausado</option>
+<option value="Concluído">Concluído</option>
+
+</select>
+
+<select id="priority">
+
+<option value="Baixa">Prioridade baixa</option>
+<option value="Média">Prioridade média</option>
+<option value="Alta">Prioridade alta</option>
+
+</select>
+
+<input
+id="deadline"
+type="date"
+>
+
+</div>
+
+
+<div class="modal-buttons">
+
+<button
+class="cancel"
+onclick="closeModal()"
+>
+CANCELAR
+</button>
+
+<button
+class="create"
+onclick="saveProject()"
+>
+SALVAR
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DADOS
+========================= */
+
+let projects =
+JSON.parse(localStorage.getItem("projectX")) || [];
+
+let currentProject=null;
+let editingProject=null;
+
+
+/* =========================
+   COMPATIBILIDADE
+========================= */
+
+projects=projects.map(p=>({
+
+name:p.name || "Projeto",
+description:p.description || "",
+status:p.status || "Ideia",
+progress:Number(p.progress)||0,
+objective:p.objective || "",
+tasks:Array.isArray(p.tasks)?p.tasks:[],
+notes:Array.isArray(p.notes)?p.notes:[],
+category:p.category || "Outro",
+priority:p.priority || "Média",
+deadline:p.deadline || ""
+
+}));
+
+
+function save(){
+
+localStorage.setItem(
+"projectX",
+JSON.stringify(projects)
+);
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(index=null){
+
+editingProject=index;
+
+const modal=
+document.getElementById("projectModal");
+
+modal.style.display="flex";
+
+if(index===null){
+
+document.getElementById("modalTitle").textContent=
+"NOVO PROJETO";
+
+document.getElementById("name").value="";
+document.getElementById("description").value="";
+document.getElementById("status").value="Ideia";
+document.getElementById("priority").value="Média";
+document.getElementById("category").value="Tecnologia";
+document.getElementById("deadline").value="";
+
+}else{
+
+const p=projects[index];
+
+document.getElementById("modalTitle").textContent=
+"EDITAR PROJETO";
+
+document.getElementById("name").value=p.name;
+document.getElementById("description").value=p.description;
+document.getElementById("status").value=p.status;
+document.getElementById("priority").value=p.priority;
+document.getElementById("category").value=p.category;
+document.getElementById("deadline").value=p.deadline;
+
+}
+
+}
+
+
+function closeModal(){
+
+document.getElementById(
+"projectModal"
+).style.display="none";
+
+editingProject=null;
+
+}
+
+
+/* =========================
+   SALVAR PROJETO
+========================= */
+
+function saveProject(){
+
+const name=
+document.getElementById("name").value.trim();
+
+if(!name){
+
+alert("Digite o nome do projeto.");
+
+return;
+
+}
+
+const data={
+
+name:name,
+
+description:
+document.getElementById("description").value.trim(),
+
+status:
+document.getElementById("status").value,
+
+priority:
+document.getElementById("priority").value,
+
+category:
+document.getElementById("category").value,
+
+deadline:
+document.getElementById("deadline").value,
+
+objective:"",
+tasks:[],
+notes:[]
+
+};
+
+
+if(editingProject===null){
+
+projects.push(data);
+
+}else{
+
+const old=projects[editingProject];
+
+projects[editingProject]={
+
+...data,
+
+objective:old.objective,
+tasks:old.tasks,
+notes:old.notes
+
+};
+
+}
+
+save();
+
+closeModal();
+
+render();
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function render(){
+
+const container=
+document.getElementById("projects");
+
+container.innerHTML="";
+
+const search=
+document.getElementById("search")
+.value
+.toLowerCase();
+
+
+const filtered=
+projects
+.map((p,i)=>({p,i}))
+.filter(x=>
+x.p.name.toLowerCase().includes(search) ||
+x.p.category.toLowerCase().includes(search)
+);
+
+
+if(filtered.length===0){
+
+container.innerHTML=
+`
+<div class="empty">
+NENHUM PROJETO ENCONTRADO
+</div>
+`;
+
+}else{
+
+filtered.forEach(({p,index})=>{
+
+const item=
+document.createElement("div");
+
+item.className="project";
+
+item.onclick=
+()=>openProject(index);
+
+
+const priorityClass=
+p.priority==="Alta"
+?"priority-high":
+p.priority==="Média"
+?"priority-medium":
+"priority-low";
+
+
+const taskTotal=p.tasks.length;
+
+const taskDone=
+p.tasks.filter(t=>t.done).length;
+
+
+const progress=
+taskTotal>0
+?Math.round(taskDone/taskTotal*100)
+:p.progress;
+
+
+item.innerHTML=`
+
+<div class="project-number">
+PROJECT_${String(index+1).padStart(3,"0")}
+</div>
+
+<div class="project-icon">
+◈
+</div>
+
+<h3>
+${escapeHTML(p.name)}
+</h3>
+
+<p>
+${escapeHTML(
+p.description ||
+"Sem descrição registrada."
+)}
+</p>
+
+<div class="badges">
+
+<span class="badge">
+${escapeHTML(p.category)}
+</span>
+
+<span class="badge ${priorityClass}">
+${escapeHTML(p.priority)}
+</span>
+
+</div>
+
+<div class="project-status">
+● ${p.status.toUpperCase()}
+</div>
+
+<div class="bar">
+<div style="width:${progress}%"></div>
+</div>
+
+`;
+
+container.appendChild(item);
+
+});
+
+}
+
+
+const newButton=
+document.createElement("button");
+
+newButton.className="new-project";
+
+newButton.innerHTML=
+"+<br><br>INICIAR NOVO PROJETO";
+
+newButton.onclick=
+()=>openModal();
+
+container.appendChild(newButton);
+
+
+updateStats();
+
+}
+
+
+function updateStats(){
+
+const total=projects.length;
+
+const active=
+projects.filter(
+p=>p.status==="Em desenvolvimento"
+).length;
+
+const completed=
+projects.filter(
+p=>p.status==="Concluído"
+).length;
+
+
+let average=0;
+
+if(total){
+
+average=Math.round(
+
+projects.reduce(
+(sum,p)=>sum+calculateProgress(p),
+0
+)/total
+
+);
+
+}
+
+
+document.getElementById("total")
+.textContent=total;
+
+document.getElementById("active")
+.textContent=active;
+
+document.getElementById("completed")
+.textContent=completed;
+
+document.getElementById("average")
+.textContent=average+"%";
+
+document.getElementById("projectCount")
+.textContent=total+" UNIDADES";
+
+}
+
+
+/* =========================
+   PROGRESSO AUTOMÁTICO
+========================= */
+
+function calculateProgress(p){
+
+if(p.tasks.length===0)
+return Number(p.progress)||0;
+
+const done=
+p.tasks.filter(t=>t.done).length;
+
+return Math.round(
+(done/p.tasks.length)*100
+);
+
+}
+
+
+/* =========================
+   ABRIR PROJETO
+========================= */
+
+function openProject(index){
+
+currentProject=index;
+
+const p=projects[index];
+
+document.getElementById("dashboard")
+.style.display="none";
+
+document.getElementById("projectView")
+.style.display="block";
+
+
+document.getElementById("projectCode")
+.textContent=
+"PROJECT_"+String(index+1).padStart(3,"0");
+
+
+document.getElementById("projectName")
+.textContent=
+p.name.toUpperCase();
+
+
+document.getElementById("projectDescription")
+.textContent=
+p.description ||
+"Sem descrição registrada.";
+
+
+document.getElementById("detailStatus")
+.textContent=p.status;
+
+
+document.getElementById("detailProgress")
+.textContent=
+calculateProgress(p)+"%";
+
+
+document.getElementById("detailDeadline")
+.textContent=
+p.deadline
+?formatDate(p.deadline)
+:"—";
+
+
+document.getElementById("objectiveText")
+.textContent=
+p.objective ||
+"Nenhum objetivo definido.";
+
+
+renderTasks();
+
+renderNotes();
+
+updateTaskCount();
+
+renderInfo();
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function showDashboard(){
+
+document.getElementById("projectView")
+.style.display="none";
+
+document.getElementById("dashboard")
+.style.display="block";
+
+render();
+
+}
+
+
+function focusTasks(){
+
+if(projects.length===0){
+
+alert("Você ainda não possui projetos.");
+
+return;
+
+}
+
+showDashboard();
+
+}
+
+
+/* =========================
+   OBJETIVO
+========================= */
+
+function addObjective(){
+
+const text=
+prompt(
+"Digite o objetivo atual deste projeto:"
+);
+
+if(text===null)
+return;
+
+projects[currentProject].objective=
+text.trim();
+
+save();
+
+openProject(currentProject);
+
+}
+
+
+/* =========================
+   TAREFAS
+========================= */
+
+function addTask(){
+
+const text=
+prompt("Digite a nova tarefa:");
+
+if(!text)
+return;
+
+projects[currentProject].tasks.push({
+
+text:text.trim(),
+
+done:false
+
+});
+
+save();
+
+openProject(currentProject);
+
+}
+
+
+function toggleTask(index){
+
+projects[currentProject]
+.tasks[index]
+.done=
+!projects[currentProject]
+.tasks[index]
+.done;
+
+save();
+
+openProject(currentProject);
+
+}
+
+
+function deleteTask(index){
+
+if(!confirm("Excluir esta tarefa?"))
+return;
+
+projects[currentProject]
+.tasks.splice(index,1);
+
+save();
+
+openProject(currentProject);
+
+}
+
+
+function renderTasks(){
+
+const list=
+document.getElementById("taskList");
+
+const tasks=
+projects[currentProject].tasks;
+
+list.innerHTML="";
+
+
+if(tasks.length===0){
+
+list.innerHTML=
+`
+<p style="color:#536159;font-size:12px">
+Nenhuma tarefa registrada.
+</p>
+`;
+
+return;
+
+}
+
+
+tasks.forEach((task,index)=>{
+
+const row=
+document.createElement("div");
+
+row.className=
+"task"+
+(task.done?" done":"");
+
+
+row.innerHTML=`
+
+<input
+type="checkbox"
+${task.done?"checked":""}
+>
+
+<span>
+${escapeHTML(task.text)}
+</span>
+
+<button
+class="delete-task"
+>
+×
+</button>
+
+`;
+
+row.querySelector("input")
+.onchange=
+()=>toggleTask(index);
+
+row.querySelector(".delete-task")
+.onclick=
+(e)=>{
+
+e.stopPropagation();
+
+deleteTask(index);
+
+};
+
+
+list.appendChild(row);
+
+});
+
+}
+
+
+/* =========================
+   NOTAS
+========================= */
+
+function addNote(){
+
+const text=
+prompt("Digite sua anotação:");
+
+if(!text)
+return;
+
+projects[currentProject].notes.push({
+
+text:text.trim(),
+
+date:new Date()
+.toLocaleString("pt-BR")
+
+});
+
+save();
+
+openProject(currentProject);
+
+}
+
+
+function renderNotes(){
+
+const list=
+document.getElementById("noteList");
+
+const notes=
+projects[currentProject].notes;
+
+list.innerHTML="";
+
+
+if(notes.length===0){
+
+list.innerHTML=
+`
+<p style="color:#536159;font-size:12px">
+Nenhuma anotação registrada.
+</p>
+`;
+
+return;
+
+}
+
+
+notes.forEach(note=>{
+
+const item=
+document.createElement("div");
+
+item.className="note";
+
+item.innerHTML=`
+
+<p>
+${escapeHTML(note.text)}
+</p>
+
+<small>
+${note.date}
+</small>
+
+`;
+
+list.appendChild(item);
+
+});
+
+}
+
+
+/* =========================
+   TAREFAS CONTAGEM
+========================= */
+
+function updateTaskCount(){
+
+const tasks=
+projects[currentProject].tasks;
+
+const done=
+tasks.filter(t=>t.done).length;
+
+document.getElementById("detailTasks")
+.textContent=
+done+"/"+tasks.length;
+
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+function renderInfo(){
+
+const p=
+projects[currentProject];
+
+document.getElementById("infoPanel")
+.innerHTML=`
+
+<p style="font-size:11px;color:#68766d;margin-bottom:12px">
+CATEGORIA
+</p>
+
+<p style="margin-bottom:18px">
+${escapeHTML(p.category)}
+</p>
+
+<p style="font-size:11px;color:#68766d;margin-bottom:12px">
+PRIORIDADE
+</p>
+
+<p style="margin-bottom:18px">
+${escapeHTML(p.priority)}
+</p>
+
+<p style="font-size:11px;color:#68766d;margin-bottom:12px">
+PRAZO
+</p>
+
+<p>
+${p.deadline?formatDate(p.deadline):"Nenhum prazo definido."}
+</p>
+
+`;
+
+}
+
+
+/* =========================
+   EDITAR
+========================= */
+
+function editProject(){
+
+openModal(currentProject);
+
+}
+
+
+/* =========================
+   EXCLUIR
+========================= */
+
+function deleteProject(){
+
+const p=
+projects[currentProject];
+
+if(!confirm(
+'Excluir o projeto "'+
+p.name+
+'"?'
+))
+return;
+
+projects.splice(currentProject,1);
+
+save();
+
+currentProject=null;
+
+showDashboard();
+
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function exportData(){
+
+const data=
+JSON.stringify(
+projects,
+null,
+2
+);
+
+const blob=
+new Blob(
+[data],
+{type:"application/json"}
+);
+
+const url=
+URL.createObjectURL(blob);
+
+const a=
+document.createElement("a");
+
+a.href=url;
+
+a.download=
+"project-x-backup.json";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function clearAll(){
+
+if(!confirm(
+"Isso apagará TODOS os projetos. Continuar?"
+))
+return;
+
+localStorage.removeItem("projectX");
+
+projects=[];
+
+showDashboard();
+
+}
+
+
+/* =========================
+   DATA
+========================= */
+
+function formatDate(date){
+
+const parts=
+date.split("-");
+
+if(parts.length!==3)
+return date;
+
+return parts[2]+"/"+
+parts[1]+"/"+
+parts[0];
+
+}
+
+
+/* =========================
+   RELÓGIO
+========================= */
+
+function updateClock(){
+
+const now=new Date();
+
+document.getElementById("clock")
+.textContent=
+now.toLocaleDateString("pt-BR")
++" // "+
+now.toLocaleTimeString("pt-BR");
+
+}
+
+setInterval(
+updateClock,
+1000
+);
+
+updateClock();
+
+
+/* =========================
+   SEGURANÇA HTML
+========================= */
+
+function escapeHTML(text){
+
+const div=
+document.createElement("div");
+
+div.textContent=text;
+
+return div.innerHTML;
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+render();
+
+</script>
+
+</body>
+  </html>
